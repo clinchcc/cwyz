@@ -138,10 +138,13 @@ export default async function CategoryPage({
           <div key={app.appid} className="border rounded-lg p-4 shadow hover:shadow-md transition-shadow">
             <Link href={`/app/${app.appid}`}>
               <h3 className="text-xl font-semibold mb-2">{app.title}</h3>
-              <div className="text-gray-600 mb-4" 
-                   dangerouslySetInnerHTML={{ 
-                     __html: app.content.split('</p>')[0].replace(/<\/?[^>]+(>|$)/g, '') 
-                   }}>
+              <div className="text-gray-600 mb-4" >
+              {`${app.content
+                  .split('</p>')[0]
+                  .replace(/<\/?[^>]+(>|$)/g, '')
+                  .replace(/^\s+|\s+$/g, '')  // 移除首尾空白
+                  .substring(0, 100)
+                  .replace(/[\u4e00-\u9fa5]$/, '')}...`}  
               </div>
             </Link>
             <div className="flex justify-between items-center">

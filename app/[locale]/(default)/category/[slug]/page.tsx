@@ -135,7 +135,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             <Link href={`/app/${apps.appid}`}>
               <h3 className="text-xl font-semibold mb-2">{apps.title}</h3>
               <div className="text-gray-600 mb-4">
-                {apps.content.split('</p>')[0].replace(/<\/?[^>]+(>|$)/g, '')}
+                {`${apps.content
+                  .split('</p>')[0]
+                  .replace(/<\/?[^>]+(>|$)/g, '')
+                  .replace(/^\s+|\s+$/g, '')  // 移除首尾空白
+                  .substring(0, 100)
+                  .replace(/[\u4e00-\u9fa5]$/, '')}...`}  
               </div>
             </Link>
             <div className="flex justify-between items-center">

@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   let canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}/posts/${params.slug}`;
 
-  if (params.locale !== "en") {
+  if (params.locale !== "zh") {
     canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}/${params.locale}/posts/${params.slug}`;
   }
 
