@@ -8,19 +8,24 @@
         "src": "/logo.png",
         "alt": "LvRuan"
       },
-      "url": "/"
+      "url": "/en"
     },
     "nav": {
       "items": [
         {
           "title": "Home",
-          "url": "/",
+          "url": "/en",
           "icon": "MdHome"
         },
         {
           "title": "Category",
-          "url": "/category",
+          "url": "/en/category",
           "icon": "RiAppsLine"
+        },
+        {
+          "title": "Blog",
+          "url": "/en/posts",
+          "icon": "RiArticleLine"
         }
       ]
     },
@@ -30,9 +35,9 @@
     "show_locale": true
   },
   "hero": {
-    "title": "Ship Any AI Startups in hours, not days",
-    "highlight_text": "Ship Any",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups.<br/>Ship Fast with a variety of templates and components.",
+    "title": "Software Download in hours, not days",
+    "highlight_text": "Software Download",
+    "description": "LvRuan provides various types of software downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.",
     "announcement": {
       "label": "2025",
       "title": "🎉 Happy New Year",
@@ -414,13 +419,13 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "standard",
-        "product_name": "ShipAny Boilerplate Standard",
+        "product_name": "LvRuan Software Download",
         "credits": 200,
         "valid_months": 3
       },
       {
         "title": "Premium",
-        "description": "Ship Any AI SaaS Startups.",
+        "description": "Software Download.",
         "features_title": "Everything in Standard, plus",
         "features": [
           "300 credits, valid for 1 year",
@@ -446,7 +451,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "premium",
-        "product_name": "ShipAny Boilerplate Premium",
+        "product_name": "LvRuan Software Download",
         "credits": 300,
         "valid_months": 12
       }
@@ -455,21 +460,21 @@
   "testimonial": {
     "name": "testimonial",
     "label": "Testimonial",
-    "title": "What Users Say About ShipAny",
-    "description": "Hear from developers and founders who launched their AI startups with ShipAny.",
+    "title": "What Users Say About LvRuan",
+    "description": "Hear from developers and founders who launched their AI startups with LvRuan.",
     "icon": "GoThumbsup",
     "items": [
       {
         "title": "David Chen",
         "label": "Founder of AIWallpaper.shop",
-        "description": "ShipAny saved us months of development time. We launched our AI wallpaper business in just 2 days and got our first paying customer within a week!",
+        "description": "LvRuan saved us months of development time. We launched our AI wallpaper business in just 2 days and got our first paying customer within a week!",
         "image": {
           "src": "/imgs/users/1.png"
         }
       },
       {
         "title": "Rachel Kim",
-        "label": "CTO at HeyBeauty.ai",
+        "label": "CTO at HeyBeauty",
         "description": "The pre-built AI infrastructure is a game-changer. We didn't have to worry about architecture - just focused on our AI beauty tech and went live fast.",
         "image": {
           "src": "/imgs/users/2.png"
@@ -478,7 +483,7 @@
       {
         "title": "Marcus Thompson",
         "label": "Solo Developer",
-        "description": "As a solo developer, ShipAny gave me everything I needed - auth, payments, AI integration, and beautiful UI. Launched my SaaS in a weekend!",
+        "description": "As a solo developer, LvRuan gave me everything I needed - auth, payments, AI integration, and beautiful UI. Launched my SaaS in a weekend!",
         "image": {
           "src": "/imgs/users/3.png"
         }
@@ -494,7 +499,7 @@
       {
         "title": "James Wilson",
         "label": "Tech Lead at GPTs.works",
-        "description": "ShipAny's infrastructure is rock-solid. We scaled from 0 to 10k users without touching the backend. Best investment for our AI startup.",
+        "description": "LvRuan's infrastructure is rock-solid. We scaled from 0 to 10k users without touching the backend. Best investment for our AI startup.",
         "image": {
           "src": "/imgs/users/5.png"
         }
@@ -502,7 +507,7 @@
       {
         "title": "Anna Zhang",
         "label": "Startup Founder",
-        "description": "From idea to launch in 3 days! ShipAny's templates and deployment tools made it possible to test our AI business concept incredibly fast.",
+        "description": "From idea to launch in 3 days! LvRuan's templates and deployment tools made it possible to test our AI business concept incredibly fast.",
         "image": {
           "src": "/imgs/users/6.png"
         }
@@ -512,32 +517,48 @@
   "faq": {
     "name": "faq",
     "label": "FAQ",
-    "title": "Frequently Asked Questions About ShipAny",
-    "description": "Have another question? Contact us on Discord or by email.",
+    "title": "Frequently Asked Questions About Green & Portable Software",
+    "description": "Have questions about green or portable software? Find answers below or contact us.",
     "items": [
       {
-        "title": "What exactly is ShipAny and how does it work?",
-        "description": "ShipAny is a comprehensive NextJS boilerplate designed specifically for building AI SaaS startups. It provides ready-to-use templates, infrastructure setup, and deployment tools that help you launch your AI business in hours instead of days."
+        "title": "What is Green Software?",
+        "description": "Green software refers to portable applications that don't require traditional installation. They can run directly after extraction, don't modify system registry, and don't leave residual files after deletion, making them clean and efficient to use."
       },
       {
-        "title": "Do I need advanced technical skills to use ShipAny?",
-        "description": "While basic programming knowledge is helpful, ShipAny is designed to be developer-friendly. Our templates and documentation make it easy to get started, even if you're not an expert in AI or cloud infrastructure."
+        "title": "What's the difference between Green and Portable Software?",
+        "description": "Green software and portable software are essentially the same thing. Both terms refer to applications that can run without installation. The term 'green' emphasizes its environmental friendliness (leaving no system traces), while 'portable' emphasizes its mobility between computers."
       },
       {
-        "title": "What types of AI SaaS can I build with ShipAny?",
-        "description": "ShipAny supports a wide range of AI applications, from content generation to data analysis tools. Our templates cover popular use cases like AI chatbots, content generators, image processing apps, and more."
+        "title": "Do I need to install Green Software?",
+        "description": "No, that's the beauty of green software! Simply download, extract the files, and run the executable (.exe) file directly. No installation process is needed, making it perfect for portable use on any computer."
       },
       {
-        "title": "How long does it typically take to launch with ShipAny?",
-        "description": "With ShipAny, you can have a working prototype in hours and a production-ready application in hours. Our one-click deployment and pre-configured infrastructure significantly reduce the traditional months-long development cycle."
+        "title": "Is Green Software safe to use?",
+        "description": "Yes, our green software is safe to use. We carefully verify all software before publishing, scan for viruses, and only provide software from reliable sources. Additionally, green software's portable nature means it won't affect your system files."
       },
       {
-        "title": "What's included in the ShipAny infrastructure?",
-        "description": "ShipAny provides a complete infrastructure stack including authentication, database setup, API integration, payment processing, and scalable cloud deployment. Everything is pre-configured following industry best practices."
+        "title": "How do I use Green Software?",
+        "description": "Using green software is simple: 1) Download the zip file 2) Extract it to your preferred location 3) Run the main program file (.exe) directly. You can even carry it on a USB drive and use it on different computers."
       },
       {
-        "title": "Can I customize the templates to match my brand?",
-        "description": "Absolutely! All ShipAny templates are fully customizable. You can modify the design, features, and functionality to match your brand identity and specific business requirements while maintaining the robust underlying infrastructure."
+        "title": "Can I run portable software from a USB drive?",
+        "description": "Yes! That's one of the main advantages of portable software. You can store it on a USB drive and run it on any compatible computer without installation. This makes it perfect for carrying your favorite tools wherever you go."
+      },
+      {
+        "title": "What are the advantages of Portable Software?",
+        "description": "Portable software offers numerous benefits: runs without installation, works from any storage device (USB, external drive), doesn't modify system files, easy to backup, perfect for work environments with software installation restrictions, and ideal for testing software without commitment."
+      },
+      {
+        "title": "Will portable software save my settings?",
+        "description": "Yes, portable software typically saves its settings in its own folder rather than in system locations. This means your preferences and settings travel with the software, making it truly portable between different computers."
+      },
+      {
+        "title": "Can I remove Green Software completely?",
+        "description": "Yes! Since green software doesn't install anything into your system, removal is as simple as deleting the folder containing the program. No uninstallation process is needed, and no residual files will be left behind."
+      },
+      {
+        "title": "Do portable applications work on all Windows versions?",
+        "description": "Most portable applications work across different Windows versions, but it's always good to check the compatibility requirements. We clearly list the supported Windows versions for each software in its description."
       }
     ]
   },

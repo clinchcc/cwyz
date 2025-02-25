@@ -1,5 +1,5 @@
 import { getDb } from "@/drizzle/db";
-import { apps } from "@/drizzle/schema";
+import { apps, appsen } from "@/drizzle/schema";
 import { eq, or, like, and,  sql } from "drizzle-orm";
 import type { SQL } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
@@ -22,6 +22,7 @@ export async function GET(request: Request) {
 		const { searchParams } = new URL(request.url);
 		const search = searchParams.get("search") || "";
 		const category = searchParams.get("category");
+		const locale = searchParams.get("locale");
 		const page = Number.parseInt(searchParams.get("page") || "1", 10);
 		const pageSize = Number.parseInt(
 			searchParams.get("pagesize") || "20",
@@ -29,26 +30,28 @@ export async function GET(request: Request) {
 		);
 		const skip = (page - 1) * pageSize;
 
+		const targetTable = locale === 'en' ? appsen : apps;
+
 		const conditions: SQL[] = [];
 		
 		if (search) {
 			conditions.push(
-				sql`${apps.title} LIKE ${`%${search}%`} OR ${apps.content} LIKE ${`%${search}%`}`
+				sql`${targetTable.title} LIKE ${`%${search}%`} OR ${targetTable.content} LIKE ${`%${search}%`}`
 			);
 		}
 		
 		if (category) {
-			conditions.push(like(apps.category, category));
+			conditions.push(like(targetTable.category, category));
 		}
 
 		const appsList = await db
 			.select()
-			.from(apps)
+			.from(targetTable)
 			.where(conditions.length > 0 ? and(...conditions) : undefined)
 			.limit(pageSize)
 			.offset(skip);
 
-		const totalResult = await db.select().from(apps);
+		const totalResult = await db.select().from(targetTable);
 		const total = totalResult.length;
 		const totalPages = Math.ceil(total / pageSize);
 
@@ -70,6 +73,7 @@ export async function POST(request: Request) {
 	try {
 		const db = await getDb();
 		const data = await request.json();
+		const locale = data.locale;
 		
 		// Convert category to number if it's coming as string
 		const parsedData = {
@@ -80,7 +84,9 @@ export async function POST(request: Request) {
 		// Validate the data
 		const validatedData = appSchema.parse(parsedData);
 
-		const newApp = await db.insert(apps).values({
+		const targetTable = locale === 'en' ? appsen : apps;
+
+		const newApp = await db.insert(targetTable).values({
 			title: validatedData.title,
 			content: validatedData.content,
 			category: validatedData.category,
@@ -103,7 +109,7 @@ export async function PUT(request: Request) {
 	try {
 		const db = await getDb();
 		const data = await request.json();
-		const { id, ...updateData } = data;
+		const { id, locale, ...updateData } = data;
 
 		if (!id) {
 			return NextResponse.json({ error: "App ID is required" }, { status: 400 });
@@ -117,16 +123,18 @@ export async function PUT(request: Request) {
 			...(validatedData.date && { date: new Date(validatedData.date) })
 		};
 
+		const targetTable = locale === 'en' ? appsen : apps;
+
 		await db
-			.update(apps)
+			.update(targetTable)
 			.set(processedData)
-			.where(eq(apps.appid, id));
+			.where(eq(targetTable.appid, id));
 
 		// 获取更新后的数据
 		const updatedApp = await db
 			.select()
-			.from(apps)
-			.where(eq(apps.appid, id))
+			.from(targetTable)
+			.where(eq(targetTable.appid, id))
 			.limit(1);
 
 		return NextResponse.json({ data: updatedApp[0] });

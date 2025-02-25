@@ -1,5 +1,5 @@
 import { getDb } from "@/drizzle/db";
-import { apps } from "@/drizzle/schema";
+import { apps, appsen } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -20,11 +20,11 @@ export async function GET(
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		// 获取 URL 查询参数，检查是否需要强制刷新
 		const { searchParams } = new URL(request.url);
 		const forceRefresh = searchParams.get("refresh") === "true";
+		const locale = searchParams.get("locale");
 
-		const cacheKey = `app-${params.id}`;
+		const cacheKey = `app-${params.id}-${locale || 'default'}`;
 
 		// 检查缓存
 		if (!forceRefresh) {
@@ -49,10 +49,11 @@ export async function GET(
 		}
 
 		const db = await getDb();
+		const targetTable = locale === 'en' ? appsen : apps;
 		const data = await db
 			.select()
-			.from(apps)
-			.where(eq(apps.appid, Number.parseInt(params.id)))
+			.from(targetTable)
+			.where(eq(targetTable.appid, Number.parseInt(params.id)))
 			.limit(1);
 
 		const app = data[0];

@@ -115,3 +115,12 @@ export const apps = mysqlTable("apps", {
   download_url: varchar({ length: 255 }),
   category: int().notNull().default(1),
 });
+
+export const appsen = mysqlTable("appsen", {
+  appid: int().primaryKey(),
+  title: varchar({ length: 255 }).notNull(),
+  content: text().notNull(),
+  date: datetime().notNull().default(sql`CURRENT_TIMESTAMP`),
+  download_url: varchar({ length: 255 }),
+  category: int().notNull().default(1),
+});

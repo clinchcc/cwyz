@@ -24,8 +24,8 @@ interface apps {
   // 根据实际的应用数据结构添加其他必要的字段
 }
 
-// 添加分类映射关系
-const CATEGORY_MAP = {
+// 中文分类映射
+const ZH_CATEGORY_MAP = {
   1: { name: "默认", slug: "uncategorized" },
   2: { name: "装机", slug: "software" },
   3: { name: "网络软件", slug: "net" },
@@ -40,21 +40,41 @@ const CATEGORY_MAP = {
   52: { name: "AI", slug: "ai" }
 } as const;
 
+// 英文分类映射
+const EN_CATEGORY_MAP = {
+  1: { name: "Uncategorized", slug: "uncategorized" },
+  2: { name: "Essential Software", slug: "software" },
+  3: { name: "Network Tools", slug: "net" },
+  4: { name: "Media", slug: "video" },
+  5: { name: "Programming", slug: "code" },
+  6: { name: "Graphics", slug: "pic" },
+  7: { name: "System Tools", slug: "sys" },
+  8: { name: "Applications", slug: "tools" },
+  9: { name: "Mobile Apps", slug: "mobile" },
+  13: { name: "News", slug: "info" },
+  31: { name: "Games", slug: "game" },
+  52: { name: "AI", slug: "ai" }
+} as const;
+
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const { slug } = params
+  const { slug, locale } = params;
   const headersList = headers();
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
   
-  const canonicalUrl = `${protocol}://${host}/category/${slug}`
+  const canonicalUrl = `${protocol}://${host}${locale === 'en' ? '/en' : ''}/category/${slug}`
 
   // 从映射表中找到对应的分类名称
-  const category = Object.values(CATEGORY_MAP).find(cat => cat.slug === slug);
+  const category = Object.values(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).find(cat => cat.slug === slug);
   const categoryName = category?.name || slug.charAt(0).toUpperCase() + slug.slice(1);
   
   return {
-    title: `${categoryName}列表`,
-    description: `绿盟提供${categoryName}分类下载`,
+    title: locale === 'en' 
+      ? `${categoryName} List` 
+      : `${categoryName}列表`,
+    description: locale === 'en'
+      ? `Download ${categoryName} software from LvMeng`
+      : `绿盟提供${categoryName}分类下载`,
     alternates: {
       canonical: canonicalUrl,
     }
@@ -62,21 +82,34 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const currentPage = Number(searchParams.page) || 1
-  const { slug } = params
+  const { slug, locale } = params;
+  const currentPage = Number(searchParams.page) || 1;
   const headersList = headers();
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
 
-  const response = await fetch(
-    `${protocol}://${host}/api/app/category/${slug}?page=${currentPage}&limit=${ITEMS_PER_PAGE}`
-  )
+  // 构建 API URL，确保添加 locale 参数
+  const url = new URL(`${protocol}://${host}/api/app/category/${slug}`);
+  url.searchParams.set('page', currentPage.toString());
+  url.searchParams.set('limit', ITEMS_PER_PAGE.toString());
+  // 关键是这里：确保在英文版时添加 locale 参数
+  if (locale === 'en') {
+    url.searchParams.set('locale', 'en');
+  }
+
+  const response = await fetch(url, {
+    next: { revalidate: 3600 }
+  });
   
   if (!response.ok) {
     throw new Error('Failed to fetch category apps')
   }
 
-  const { apps, total, term } = await response.json() as { apps: apps[], total: number, term: { name: string } }
+  const { apps, total, term } = await response.json() as { 
+    apps: apps[], 
+    total: number, 
+    term: { name: string, slug: string } 
+  };
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
 
   // 生成分页按钮数组，带省略号
@@ -105,18 +138,20 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       <div className="mb-8 overflow-x-auto scrollbar-hide">
         <div className="flex gap-3 min-w-max bg-card p-4 rounded-lg shadow-sm">
           <Link
-            href="/category"
+            href={locale === 'zh' ? "/category" : `/${locale}/category`}
             className={`px-4 py-2 rounded-full transition-colors
               ${!params.slug 
                 ? 'bg-primary text-primary-foreground' 
                 : 'bg-muted hover:bg-muted/80'}`}
           >
-            全部
+            {locale === 'en' ? 'All' : '全部'}
           </Link>
-          {Object.entries(CATEGORY_MAP).map(([id, category]) => (
+          {Object.entries(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).map(([id, category]) => (
             <Link
               key={id}
-              href={`/category/${category.slug}`}
+              href={locale === 'zh' 
+                ? `/category/${category.slug}`
+                : `/${locale}/category/${category.slug}`}
               className={`px-4 py-2 rounded-full transition-colors
                 ${params.slug === category.slug 
                   ? 'bg-primary text-primary-foreground' 
@@ -128,11 +163,13 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         </div>
       </div>
 
-      <h1 className="text-3xl font-bold mb-8 text-center">{term.name}列表</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        {term.name}{locale === 'en' ? ' List' : '列表'}
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {apps.map((apps) => (
           <div key={apps.appid} className="border rounded-lg p-4 shadow hover:shadow-md transition-shadow">
-            <Link href={`/app/${apps.appid}`}>
+            <Link href={locale === 'zh' ? `/app/${apps.appid}` : `/${locale}/app/${apps.appid}`}>
               <h3 className="text-xl font-semibold mb-2">{apps.title}</h3>
               <div className="text-gray-600 mb-4">
                 {`${apps.content
@@ -148,10 +185,10 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                 {new Date(apps.date).toLocaleDateString()}
               </span>
               <Link
-                href={`/app/${apps.appid}`}
+                href={locale === 'zh' ? `/app/${apps.appid}` : `/${locale}/app/${apps.appid}`}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
-                下载
+                {locale === 'en' ? 'Download' : '下载'}
               </Link>
             </div>
           </div>
@@ -160,23 +197,28 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
       {totalPages > 1 && (
         <nav className="flex justify-center space-x-2 mt-4">
-          {getPageNumbers(currentPage, totalPages).map((page, index) => (
-            page === '...' ? (
-              <span key={`ellipsis-${page}`} className="px-4 py-2">
+          {getPageNumbers(currentPage, totalPages).map((page, index) => {
+            // 构建分页链接
+            const pageLink = locale === 'zh' 
+              ? `/category/${slug}?page=${page}`
+              : `/${locale}/category/${slug}?page=${page}`;
+
+            return page === '...' ? (
+              <span key={`ellipsis-${index}`} className="px-4 py-2">
                 {page}
               </span>
             ) : (
-              <a
+              <Link
                 key={page}
-                href={`/category/${slug}?page=${page}`}
+                href={pageLink}
                 className={`px-4 py-2 border rounded hover:bg-gray-100 ${
                   currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
                 }`}
               >
                 {page}
-              </a>
+              </Link>
             )
-          ))}
+          })}
         </nav>
       )}
     </div>

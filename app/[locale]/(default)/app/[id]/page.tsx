@@ -19,13 +19,19 @@ function processContent(html: string) {
 }
 
 // 使用 React 的 cache 函数来缓存数据获取
-const getApp = cache(async (id: string) => {
+const getApp = cache(async (id: string, locale: string) => {
   try {
     const headersList = headers();
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
     const host = headersList.get('host');
     
-    const response = await fetch(`${protocol}://${host}/api/app/${id}`, {
+    // 构建 URL，如果是英文则添加 locale 参数
+    const url = new URL(`${protocol}://${host}/api/app/${id}`);
+    if (locale === 'en') {
+      url.searchParams.set('locale', 'en');
+    }
+    
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -50,8 +56,8 @@ const getApp = cache(async (id: string) => {
   }
 });
 
-// 添加分类映射关系
-const CATEGORY_MAP = {
+// 中文分类映射
+const ZH_CATEGORY_MAP = {
   1: { name: "未分类", slug: "uncategorized" },
   2: { name: "装机必备", slug: "software" },
   3: { name: "网络软件", slug: "net" },
@@ -66,9 +72,26 @@ const CATEGORY_MAP = {
   52: { name: "AI软件", slug: "ai" }
 } as const;
 
+// 英文分类映射
+const EN_CATEGORY_MAP = {
+  1: { name: "Uncategorized", slug: "uncategorized" },
+  2: { name: "Essential Software", slug: "software" },
+  3: { name: "Network Tools", slug: "net" },
+  4: { name: "Audio & Video", slug: "video" },
+  5: { name: "Programming", slug: "code" },
+  6: { name: "Graphics & Design", slug: "pic" },
+  7: { name: "System Tools", slug: "sys" },
+  8: { name: "Applications", slug: "tools" },
+  9: { name: "Mobile Apps", slug: "mobile" },
+  13: { name: "News", slug: "info" },
+  31: { name: "Gaming", slug: "game" },
+  52: { name: "AI Software", slug: "ai" }
+} as const;
+
 // 修改获取分类信息的函数
-const getCategory = cache(async (categoryId: number) => {
-  // 直接从映射表获取分类信息
+const getCategory = cache(async (categoryId: number, locale: string) => {
+  // 根据语言选择对应的映射表
+  const CATEGORY_MAP = locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP;
   return CATEGORY_MAP[categoryId as keyof typeof CATEGORY_MAP] || null;
 });
 
@@ -84,9 +107,9 @@ interface App {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { id: string; locale: string };
 }): Promise<Metadata> {
-  const app = await getApp(params.id);
+  const app = await getApp(params.id, params.locale);
 
   if (!app) {
     return {
@@ -95,15 +118,24 @@ export async function generateMetadata({
     };
   }
 
+  // 构建 canonical URL
+  const headersList = headers();
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+  const host = headersList.get('host');
+  const canonicalUrl = `${protocol}://${host}${params.locale === 'en' ? '/en' : ''}/app/${params.id}`;
+
   return {
     title: app.title,
     description: app.content.slice(0, 200),
+    alternates: {
+      canonical: canonicalUrl,
+    },
   };
 }
 
-export default async function AppPage({ params }: { params: { id: string } }) {
-  const app = await getApp(params.id);
-  const category = app?.category ? await getCategory(app.category) : null;
+export default async function AppPage({ params }: { params: { id: string; locale: string } }) {
+  const app = await getApp(params.id, params.locale);
+  const category = app?.category ? await getCategory(app.category, params.locale) : null;
 
   if (!app) {
     notFound();
@@ -115,24 +147,28 @@ export default async function AppPage({ params }: { params: { id: string } }) {
       <div className="mb-8 text-center">
         <h1 className="mb-4 text-4xl font-bold tracking-tight">{app.title}</h1>
         <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-
           <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
           <time dateTime={app.date}>
             {new Date(app.date).toLocaleDateString()}
           </time>
-          {app.download_url && (
-            <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
-          )}
-          {app.download_url && (
-            <span className="flex items-center gap-1">
+          
+          {/* 分类显示，独立判断 */}
+          {category && (
+            <>
+              <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
               <Link 
-                href={`/category/${category?.slug}`}
+                href={`${params.locale === 'en' ? '/en' : ''}/category/${category.slug}`}
                 className="flex items-center gap-1 hover:text-primary transition-colors"
               >
                 <span className="h-2 w-2 rounded-full bg-green-500" />
-                {category?.name}
+                {category.name}
               </Link>
-            </span>
+            </>
+          )}
+
+          {/* 下载链接相关的分隔点 */}
+          {app.download_url && (
+            <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
           )}
         </div>
       </div>

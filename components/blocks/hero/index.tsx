@@ -27,12 +27,21 @@ export default async function Hero({ hero }: { hero: HeroType }) {
   const headersList = headers();
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
+
+  // 从 URL 中获取当前语言
+  const pathname = headersList.get('x-invoke-path') || '';
+  const locale = pathname.startsWith('/en/') ? 'en' : 'zh';
+
   try {
-    // 获取最新软件列表
-    const response = await fetch(
-      `${protocol}://${host}/api/app/category/0`,
-      { next: { revalidate: 3600 } }
-    );
+    // 构建 URL，如果是英文则添加 locale 参数
+    const url = new URL(`${protocol}://${host}/api/app/category/0`);
+    if (locale === 'en') {
+      url.searchParams.set('locale', 'en');
+    }
+
+    const response = await fetch(url, {
+      next: { revalidate: 3600 }
+    });
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
