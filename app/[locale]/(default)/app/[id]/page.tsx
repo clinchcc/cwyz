@@ -193,7 +193,7 @@ export default async function AppPage({ params }: { params: { id: string; locale
             target="_blank"
             rel="noopener noreferrer"
           >
-            下载软件
+            {params.locale === 'en' ? 'Download Software' : '下载软件'}
           </a>
         </div>
       )}
