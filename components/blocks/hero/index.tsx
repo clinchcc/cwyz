@@ -18,8 +18,23 @@ interface App {
 }
 
 // 由于是服务端组件，使用 async 组件
-export default async function Hero({ hero }: { hero: HeroType }) {
+export default async function Hero({ 
+  hero, 
+  locale 
+}: { 
+  hero: HeroType;
+  locale: string;
+}) {
+  // 组件初始化日志
+  console.log('\x1b[35m%s\x1b[0m', '=== Hero Component Initialized ===');
+  console.log('\x1b[36m%s\x1b[0m', 'Hero Props:', {
+    disabled: hero.disabled,
+    locale: locale,
+    title: hero.title
+  });
+
   if (hero.disabled) {
+    console.log('\x1b[33m%s\x1b[0m', 'Hero Component Disabled');
     return null;
   }
 
@@ -28,37 +43,67 @@ export default async function Hero({ hero }: { hero: HeroType }) {
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
 
-  // 从 URL 中获取当前语言
-  const pathname = headersList.get('x-invoke-path') || '';
-  const locale = pathname.startsWith('/en/') ? 'en' : 'zh';
-
   try {
-    // 构建 URL，如果是英文则添加 locale 参数
     const url = new URL(`${protocol}://${host}/api/app/category/0`);
     if (locale === 'en') {
       url.searchParams.set('locale', 'en');
     }
 
+    // 调试日志：请求前
+    console.log('Debug Fetch - Request Info:', {
+      fullUrl: url.toString(),
+      locale: locale,
+      protocol: protocol,
+      host: host,
+      searchParams: Object.fromEntries(url.searchParams)
+    });
+
     const response = await fetch(url, {
-      next: { revalidate: 3600 }
+      next: { revalidate: 0 },
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
     });
     
+    // 调试日志：响应状态
+    console.log('Debug Fetch - Response Status:', {
+      status: response.status,
+      ok: response.ok,
+      headers: Object.fromEntries(response.headers),
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const data = await response.json();
-    console.log('API Response:', data); // 调试日志
+    
+    // 调试日志：响应数据
+    console.log('Debug Fetch - Response Data:', {
+      dataStructure: Object.keys(data),
+      appsLength: data.apps?.length,
+      firstApp: data.apps?.[0],
+      locale: locale
+    });
+
     apps = data.apps || [];
-    console.log('Processed apps:', apps); // 调试日志
   } catch (error) {
-    console.error('Failed to fetch apps:', error);
+    // 调试日志：错误信息
+    console.error('Debug Fetch - Error:', {
+      error: error,
+      message: error.message,
+      stack: error.stack
+    });
     apps = [];
   }
 
-  // 调试日志
-  console.log('Apps length:', apps.length);
-  console.log('First app:', apps[0]);
+  // 调试日志：最终结果
+  console.log('Debug Fetch - Final Apps:', {
+    appsLength: apps.length,
+    firstApp: apps[0],
+    locale: locale
+  });
 
   const highlightText = hero.highlight_text;
   let texts = null;
@@ -139,19 +184,19 @@ export default async function Hero({ hero }: { hero: HeroType }) {
             
        
 
-            {/* 修改条件渲染逻辑 */}
+            {/* App grid with proper language path handling */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {apps.map((app) => (
                 <Link 
                   key={app.appid}
-                  href={`/app/${app.appid}`}
+                  href={locale === 'en' ? `/en/app/${app.appid}` : `/app/${app.appid}`}
                   className="group p-4 border rounded-lg hover:border-primary transition-colors"
                 >
                   <h3 className="text-lg font-semibold mb-2 group-hover:text-primary">
                     {app.title}
                   </h3>
                   <div className="mt-2 text-xs text-muted-foreground">
-                    {new Date(app.date).toLocaleDateString()}
+                    {new Date(app.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'zh-CN')}
                   </div>
                 </Link>
               ))}
@@ -159,9 +204,9 @@ export default async function Hero({ hero }: { hero: HeroType }) {
 
             {apps.length > 0 && (
               <div className="mt-8">
-                <Link href="/category">
+                <Link href={locale === 'en' ? '/en/category' : '/category'}>
                   <Button variant="outline" size="lg">
-                    查看更多
+                    {locale === 'en' ? 'View More' : '查看更多'}
                     <Icon name="RiArrowRightLine" className="ml-2" />
                   </Button>
                 </Link>

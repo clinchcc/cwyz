@@ -44,7 +44,7 @@ const EN_CATEGORY_MAP = {
   52: { term_id: 52, name: "AI", slug: "ai" }
 } as const;
 
-// 只保留 appsCache
+// 修改 appsCache 的 key 生成方式,加入 locale 参数
 const appsCache = new Map<string, CacheItem<{
   apps: FormattedApp[];
   total: number;
@@ -83,10 +83,11 @@ export async function GET(
     const targetTable = locale === 'en' ? appsen : apps;
     const CATEGORY_MAP = locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP;
 
-    // 修改缓存 key，确保包含 locale 信息
-    const cacheKey = `category-${params.slug}-${page}-${locale || 'zh'}`;
+    // 修改缓存 key,加入 locale 参数
+    const cacheKey = `apps-${params.slug}-${page}-${locale || 'zh'}`;
+    
+    // 检查缓存
     const cachedData = appsCache.get(cacheKey);
-
     if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
       return NextResponse.json(cachedData.data);
     }
