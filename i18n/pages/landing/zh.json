@@ -12,16 +12,22 @@
     },
     "nav": {
       "items": [
+
+        {
+          "title": "首页",
+          "url": "/",
+          "icon": "MdHome"
+        },
   
         {
           "title": "软件分类",
           "url": "/category",
-          "icon": "MdPayment"
+          "icon": "RiAppsLine"
         },
         {
           "title": "博客",
           "url": "/posts",
-          "icon": "MdOutlineWallpaper"
+          "icon": "RiArticleLine"
         }
         
       ]

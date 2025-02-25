@@ -13,14 +13,19 @@
     "nav": {
       "items": [
         {
+          "title": "Home",
+          "url": "/",
+          "icon": "MdHome"
+        },
+        {
           "title": "Category",
           "url": "/category",
-          "icon": "MdPayment"
+          "icon": "RiAppsLine"
         },
         {
           "title": "Blog",
           "url": "/posts",
-          "icon": "MdOutlineWallpaper"
+          "icon": "RiArticleLine"
         }
       ]
     },
