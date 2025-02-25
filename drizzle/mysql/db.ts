@@ -14,10 +14,9 @@ export async function getDb() {
       connectionLimit: 10,
       enableKeepAlive: true,
       keepAliveInitialDelay: 10000,
-      ssl:
-        process.env.NODE_ENV === "production"
-          ? { rejectUnauthorized: true }
-          : undefined,
+      ssl: {
+        rejectUnauthorized: false  // 允许自签名证书
+      },
       waitForConnections: true,
       queueLimit: 0,
     });
