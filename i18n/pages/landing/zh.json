@@ -23,11 +23,6 @@
           "title": "软件分类",
           "url": "/category",
           "icon": "RiAppsLine"
-        },
-        {
-          "title": "博客",
-          "url": "/posts",
-          "icon": "RiArticleLine"
         }
         
       ]

@@ -21,11 +21,6 @@
           "title": "Category",
           "url": "/category",
           "icon": "RiAppsLine"
-        },
-        {
-          "title": "Blog",
-          "url": "/posts",
-          "icon": "RiArticleLine"
         }
       ]
     },
