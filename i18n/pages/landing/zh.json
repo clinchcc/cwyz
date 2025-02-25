@@ -8,7 +8,7 @@
         "src": "/logo.png",
         "alt": "LvRuan"
       },
-      "url": "/zh"
+      "url": "/"
     },
     "nav": {
       "items": [
@@ -563,7 +563,7 @@
         "src": "/logo.png",
         "alt": "LvRuan.com"
       },
-      "url": "/"
+      "url": "/en"
     },
     "copyright": "© 2025 • LvRuan.com 保留所有权利。",
     "nav": {
