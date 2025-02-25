@@ -39,9 +39,8 @@ export default async function LandingPage({
 
   return (
     <>
-      {page.hero && <Hero hero={page.hero} />}
+      {page.hero && <Hero hero={page.hero} locale={locale} />}
       {/* {page.pricing && <Pricing pricing={page.pricing} />} */}
-  
     </>
   );
 }
