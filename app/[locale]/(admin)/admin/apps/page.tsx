@@ -7,6 +7,7 @@ import { getApps } from "@/models/apps";
 import moment from "moment";
 import Empty from "@/components/blocks/empty";
 
+
 export default async function () {
   try {
     const { data: apps, total } = await getApps('zh', 1, 20); // 获取第一页，每页20条
@@ -81,11 +82,6 @@ export default async function () {
         },
       ],
       data: apps,
-      pagination: {
-        total,
-        pageSize: 20,
-        current: 1
-      },
       empty_message: "No apps found",
     };
 

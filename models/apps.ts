@@ -1,7 +1,7 @@
+import { cache } from "react";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { getDb } from "@/drizzle/mysql/db";
 import { apps, appsen } from "@/drizzle/mysql/schema";
-import { cache } from "react";
 
 export interface App {
   appid: number;
@@ -47,22 +47,16 @@ export const getApps = cache(async (
       .from(table);
     const total = Number(totalResult[0].count);
 
-    let query = db
+    // 构建基础查询
+    const baseQuery = db
       .select()
       .from(table)
       .orderBy(desc(table.date));
 
-    // 如果指定了页码，则使用分页
-    if (page) {
-      query = query
-        .limit(pageSize)
-        .offset((page - 1) * pageSize);
-    } else {
-      // 如果没有指定页码，默认只返回前20条
-      query = query.limit(pageSize);
-    }
-
-    const result = await query;
+    // 执行查询
+    const result = await (page 
+      ? baseQuery.limit(pageSize).offset((page - 1) * pageSize)
+      : baseQuery.limit(pageSize));
 
     return {
       data: result.map(app => ({
