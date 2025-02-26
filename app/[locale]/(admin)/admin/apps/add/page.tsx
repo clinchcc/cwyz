@@ -41,14 +41,10 @@ export default async function () {
       {
         name: "content",
         title: "Content",
-        type: "markdown_editor",
+        type: "textarea",
         placeholder: "App Description",
         validation: {
           required: true,
-        },
-        attributes: {
-          rows: 10,
-          uploadImage: true,
         },
       },
       {
