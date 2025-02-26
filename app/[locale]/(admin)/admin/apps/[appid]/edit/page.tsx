@@ -1,10 +1,8 @@
 import {
   getApp,
   updateApp,
-  categoryMap,
 } from "@/models/apps";
 import { localeNames, locales } from "@/i18n/locale";
-
 
 import Empty from "@/components/blocks/empty";
 import FormSlot from "@/components/dashboard/slots/form";
@@ -27,8 +25,6 @@ import { getUserInfo } from "@/services/user";
 //   31: { name: "游戏", slug: "game" },
 //   52: { name: "AI", slug: "ai" }
 // } as const;
-
-
 
 export default async function ({ params }: { params: { appid: string } }) {
   const user = await getUserInfo();
@@ -71,7 +67,7 @@ export default async function ({ params }: { params: { appid: string } }) {
         type: "textarea",
         placeholder: "App Description",
         attributes: {
-          rows: 8, // Set the number of rows to control the height of the textarea
+          rows: 8,
         },
         validation: {
           required: true,
@@ -81,12 +77,22 @@ export default async function ({ params }: { params: { appid: string } }) {
         name: "category",
         title: "Category",
         type: "select",
-        options: Object.entries(categoryMap).map(([id,category]) => ({
-          title: `${id} - ${category}`,
-          value: id,
-        })),
-        value: String(app.category || 1),
-        validation: { 
+        options: [
+          { title: "1 - Default", value: "1" },
+          { title: "2 - Install", value: "2" },
+          { title: "3 - Network", value: "3" },
+          { title: "4 - Media", value: "4" },
+          { title: "5 - Programming", value: "5" },
+          { title: "6 - Graphics", value: "6" },
+          { title: "7 - System", value: "7" },
+          { title: "8 - Application", value: "8" },
+          { title: "9 - Mobile", value: "9" },
+          { title: "13 - News", value: "13" },
+          { title: "31 - Game", value: "31" },
+          { title: "52 - AI", value: "52" },
+        ],
+        value: String(app.category),
+        validation: {
           required: true,
         },
       },
