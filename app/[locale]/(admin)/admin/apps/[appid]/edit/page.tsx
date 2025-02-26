@@ -12,20 +12,35 @@ import type { Apps } from "@/types/apps";
 import { getIsoTimestr } from "@/lib/time";
 import { getUserInfo } from "@/services/user";
 
-const CATEGORY_MAP = {
-  1: { name: "默认", slug: "uncategorized" },
-  2: { name: "装机", slug: "software" },
-  3: { name: "网络软件", slug: "net" },
-  4: { name: "媒体", slug: "video" },
-  5: { name: "编程软件", slug: "code" },
-  6: { name: "图像", slug: "pic" },
-  7: { name: "系统软件", slug: "sys" },
-  8: { name: "应用软件", slug: "tools" },
-  9: { name: "手机软件", slug: "mobile" },
-  13: { name: "资讯", slug: "info" },
-  31: { name: "游戏", slug: "game" },
-  52: { name: "AI", slug: "ai" }
-} as const;
+// const CATEGORY_MAP = {
+//   1: { name: "默认", slug: "uncategorized" },
+//   2: { name: "装机", slug: "software" },
+//   3: { name: "网络软件", slug: "net" },
+//   4: { name: "媒体", slug: "video" },
+//   5: { name: "编程软件", slug: "code" },
+//   6: { name: "图像", slug: "pic" },
+//   7: { name: "系统软件", slug: "sys" },
+//   8: { name: "应用软件", slug: "tools" },
+//   9: { name: "手机软件", slug: "mobile" },
+//   13: { name: "资讯", slug: "info" },
+//   31: { name: "游戏", slug: "game" },
+//   52: { name: "AI", slug: "ai" }
+// } as const;
+
+export enum CATEGORY_MAP {
+  Default = 1, 
+  Install = 2,
+  Network = 3,
+  Media = 4,
+  Programming = 5,
+  Graphics = 6,
+  System = 7,
+  Application = 8,
+  Mobile = 9,
+  News = 13,
+  Game = 31,
+  AI = 52,
+}
 
 export default async function ({ params }: { params: { appid: string } }) {
   const user = await getUserInfo();
@@ -78,12 +93,12 @@ export default async function ({ params }: { params: { appid: string } }) {
         name: "category",
         title: "Category",
         type: "select",
-        options: Object.entries(CATEGORY_MAP).map(([id, category]) => ({
-          title: `${id} - ${category.name}`,
+        options: Object.entries(CATEGORY_MAP).map(([id,category]) => ({
+          title: `${id} - ${category}`,
           value: id,
         })),
         value: String(app.category || 1),
-        validation: {
+        validation: { 
           required: true,
         },
       },
