@@ -7,7 +7,7 @@ import { getApps } from "@/models/apps";
 import moment from "moment";  
 
 export default async function () {
-  const apps = await getApps();
+  const apps = await getApps('zh');
 
   const table: TableSlotType = {
     title: "Apps",
@@ -26,24 +26,24 @@ export default async function () {
         title: "Title",
       },
       {
-        name: "description",
-        title: "Description",
+        name: "content",
+        title: "Content",
       },
       {
-        name: "slug",
-        title: "Slug",
+        name: "category",
+        title: "Category",
       },
       {
-        name: "locale",
-        title: "Locale",
+        name: "download_url",
+        title: "Download URL",
       },
       {
         name: "status",
         title: "Status",
       },
       {
-        name: "created_at",
-        title: "Created At",
+        name: "date",
+        title: "Date",
         callback: (item: Apps) => {
           return moment(item.date).format("YYYY-MM-DD HH:mm:ss");
         },
