@@ -1,4 +1,4 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { getDb } from "@/drizzle/mysql/db";
 import { apps, appsen } from "@/drizzle/mysql/schema";
 import { cache } from "react";
@@ -32,22 +32,48 @@ export const getApp = cache(async (id: number, locale = 'zh'): Promise<App | nul
   }
 });
 
-export const getApps = cache(async (locale = 'zh'): Promise<App[]> => {
+export const getApps = cache(async (
+  locale = 'zh',
+  page?: number,
+  pageSize = 20
+): Promise<{ data: App[], total: number }> => {
   try {
     const db = await getDb();
     const table = locale === 'en' ? appsen : apps;
-    const result = await db
+    
+    // 获取总记录数
+    const totalResult = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(table);
+    const total = Number(totalResult[0].count);
+
+    let query = db
       .select()
       .from(table)
       .orderBy(desc(table.date));
 
-    return result.map(app => ({
-      ...app,
-      date: new Date(app.date),
-    }));
+    // 如果指定了页码，则使用分页
+    if (page) {
+      query = query
+        .limit(pageSize)
+        .offset((page - 1) * pageSize);
+    } else {
+      // 如果没有指定页码，默认只返回前20条
+      query = query.limit(pageSize);
+    }
+
+    const result = await query;
+
+    return {
+      data: result.map(app => ({
+        ...app,
+        date: new Date(app.date),
+      })),
+      total
+    };
   } catch (error) {
     console.error('Failed to fetch apps:', error);
-    return [];
+    return { data: [], total: 0 };
   }
 });
 
