@@ -31,10 +31,16 @@ export default async function () {
         {
           name: "title",
           title: "Title",
+          callback: (item: Apps) => {
+            return <a href={`/admin/apps/${item.appid}/edit`}>{item?.title || '-'}</a>;
+          },
         },
         {
           name: "content",
           title: "Content",
+          callback: (item: Apps) => { 
+            return item?.content?.substring(0, 100) || '-';
+          },
         },
         {
           name: "category",
