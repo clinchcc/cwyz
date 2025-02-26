@@ -24,6 +24,9 @@ export default async function () {
       {
         name: "title",
         title: "Title",
+        callback: (item: Post) => {
+          return <a href={`/admin/posts/${item.uuid}/edit`}>{item.title}</a>;
+        },
       },
       {
         name: "description",
@@ -32,6 +35,9 @@ export default async function () {
       {
         name: "slug",
         title: "Slug",
+        callback: (item: Post) => {
+          return <a href={`/${item.locale}/posts/${item.slug}`} target="_blank" rel="noreferrer">{item.slug}</a>;
+        },
       },
       {
         name: "locale",

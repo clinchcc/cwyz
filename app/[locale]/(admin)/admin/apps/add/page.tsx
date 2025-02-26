@@ -65,7 +65,7 @@ export default async function () {
           { title: "游戏", value: "31" },
           { title: "AI", value: "52" }
         ],
-        value: "1",
+        value: String(apps.category || 1),
         validation: {
           required: true,
         },
