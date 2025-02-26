@@ -4,12 +4,28 @@ import {
 } from "@/models/apps";
 import { localeNames, locales } from "@/i18n/locale";
 
+
 import Empty from "@/components/blocks/empty";
 import FormSlot from "@/components/dashboard/slots/form";
 import type { Form as FormSlotType } from "@/types/slots/form";
 import type { Apps } from "@/types/apps";
 import { getIsoTimestr } from "@/lib/time";
 import { getUserInfo } from "@/services/user";
+
+const CATEGORY_MAP = {
+  1: { name: "默认", slug: "uncategorized" },
+  2: { name: "装机", slug: "software" },
+  3: { name: "网络软件", slug: "net" },
+  4: { name: "媒体", slug: "video" },
+  5: { name: "编程软件", slug: "code" },
+  6: { name: "图像", slug: "pic" },
+  7: { name: "系统软件", slug: "sys" },
+  8: { name: "应用软件", slug: "tools" },
+  9: { name: "手机软件", slug: "mobile" },
+  13: { name: "资讯", slug: "info" },
+  31: { name: "游戏", slug: "game" },
+  52: { name: "AI", slug: "ai" }
+} as const;
 
 export default async function ({ params }: { params: { appid: string } }) {
   const user = await getUserInfo();
@@ -52,7 +68,7 @@ export default async function ({ params }: { params: { appid: string } }) {
         type: "textarea",
         placeholder: "App Description",
         attributes: {
-          rows: 5, // Set the number of rows to control the height of the textarea
+          rows: 8, // Set the number of rows to control the height of the textarea
         },
         validation: {
           required: true,
@@ -62,20 +78,10 @@ export default async function ({ params }: { params: { appid: string } }) {
         name: "category",
         title: "Category",
         type: "select",
-        options: [
-          { title: "1 - Uncategorized", value: "1" },
-          { title: "2 - Essential Software", value: "2" },
-          { title: "3 - Network Tools", value: "3" },
-          { title: "4 - Media", value: "4" },
-          { title: "5 - Programming", value: "5" },
-          { title: "6 - Graphics", value: "6" },
-          { title: "7 - System Tools", value: "7" },
-          { title: "8 - Applications", value: "8" },
-          { title: "9 - Mobile Apps", value: "9" },
-          { title: "13 - News", value: "13" },
-          { title: "31 - Games", value: "31" },
-          { title: "52 - AI", value: "52" },
-        ],
+        options: Object.entries(CATEGORY_MAP).map(([id, category]) => ({
+          title: `${id} - ${category.name}`,
+          value: id,
+        })),
         value: String(app.category || 1),
         validation: {
           required: true,
