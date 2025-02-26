@@ -123,11 +123,11 @@ export default async function ({ params }: { params: { appid: string } }) {
 
         const title = data.get("title") as string;
         const content = data.get("content") as string;
-        const category = Number(data.get("category"));
+        const category = Number.parseInt(data.get("category") as string, 10);
         const download_url = data.get("download_url") as string;
         const locale = data.get("locale") as string;
 
-        if (!title || !content || !download_url || !locale) {
+        if (!title || !content || !download_url || !locale || Number.isNaN(category)) {
           throw new Error("invalid form data");
         }
 
