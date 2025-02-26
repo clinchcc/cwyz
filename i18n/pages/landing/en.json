@@ -585,7 +585,7 @@
     "name": "footer",
     "brand": {
       "title": "LvRuan.com",
-      "description": "LvRuan.com is a website for providing green software download.",
+      "description": "LvRuan.com is a website for Protable software.",
       "logo": {
         "src": "/logo.png",
         "alt": "LvRuan.com"
@@ -620,17 +620,17 @@
           "children": [
             {
               "title": "Documents",
-              "url": "/#",
+              "url": "#",
               "target": "_self"
             },
             {
               "title": "Components",
-              "url": "/#",
+              "url": "#",
               "target": "_self"
             },
             {
               "title": "Templates",
-              "url": "/#",
+              "url": "#",
               "target": "_self"
             }
           ]
@@ -640,18 +640,18 @@
           "children": [
             {
               "title": "VanHere",
-              "url": "https://www.vanhere.com",
-              "target": "_blank"
+              "url": "#",
+              "target": "_self"
             },
             {
               "title": "大温本地网",
-              "url": "https://www.vanhere.ca",
-              "target": "_blank"
+              "url": "#",
+              "target": "_self"
             },
             {
               "title": "Max649",
-              "url": "https://www.max649.com",
-              "target": "_blank"
+              "url": "#",
+              "target": "_self"
             }
           ]
         }
@@ -662,19 +662,19 @@
         {
           "title": "X",
           "icon": "RiTwitterXFill",
-          "url": "/#",
+          "url": "#",
           "target": "_self"
         },
         {
           "title": "Github",
           "icon": "RiGithubFill",
-          "url": "/#",
+          "url": "#",
           "target": "_self"
         },
         {
           "title": "Discord",
           "icon": "RiDiscordFill",
-          "url": "/#",
+          "url": "#",
           "target": "_self"
         },
         {
