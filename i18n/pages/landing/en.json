@@ -35,7 +35,7 @@
     "show_locale": true
   },
   "hero": {
-    "title": "Software Download in hours, not days",
+    "title": "Software Download in seconds, not hours",
     "highlight_text": "Software Download",
     "description": "LvRuan provides various types of software downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.",
     "announcement": {
@@ -105,16 +105,16 @@
   },
   "introduce": {
     "name": "introduce",
-    "title": "What is ShipAny",
+    "title": "What is LvRuan",
     "label": "Introduce",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Built in a variety of templates and components.",
+    "description": "LvRuan is a software download website. Built in a variety of templates and components.",
     "image": {
       "src": "/imgs/features/1.png"
     },
     "items": [
       {
         "title": "Ready-to-use Templates",
-        "description": "Choose from dozens of production-ready AI SaaS templates to quickly start your project.",
+        "description": "Choose from dozens of production-ready software download templates to quickly start your project.",
         "icon": "RiNextjsFill"
       },
       {
@@ -124,20 +124,20 @@
       },
       {
         "title": "Quick Deployment",
-        "description": "Deploy your AI SaaS application to production in hours, not days.",
+        "description": "Deploy your software download application to production in seconds, not hours.",
         "icon": "RiCloudyFill"
       }
     ]
   },
   "benefit": {
     "name": "benefit",
-    "title": "Why Choose ShipAny",
+    "title": "Why Choose LvRuan",
     "label": "Benefits",
-    "description": "Get everything you need to launch your AI startup - from ready-to-use templates to technical support.",
+    "description": "Get everything you need to launch your software download website - from ready-to-use templates to technical support.",
     "items": [
       {
         "title": "Complete Framework",
-        "description": "Built on Next.js with authentication, payments, and AI integration - everything works out of the box.",
+        "description": "Built on Next.js with authentication, payments, and software download - everything works out of the box.",
         "icon": "RiNextjsFill",
         "image": {
           "src": "/imgs/features/2.png"
@@ -145,7 +145,7 @@
       },
       {
         "title": "Rich Templates Library",
-        "description": "Choose from various AI SaaS templates to kickstart your project - chatbots, image generation, and more.",
+        "description": "Choose from various software download templates to kickstart your project - software download, image processing, and more.",
         "icon": "RiClapperboardAiLine",
         "image": {
           "src": "/imgs/features/3.png"
@@ -163,8 +163,8 @@
   },
   "usage": {
     "name": "usage",
-    "title": "How to Launch with ShipAny",
-    "description": "Get your AI SaaS startup running in three simple steps:",
+    "title": "How to Launch with LvRuan",
+    "description": "Get your software download website running in three simple steps:",
     "image": {
       "src": "/imgs/features/1.png"
     },
@@ -172,22 +172,22 @@
     "text_align": "center",
     "items": [
       {
-        "title": "Get ShipAny",
-        "description": "Buy ShipAny with a one-time payment. Check your email for the code and documentation.",
+        "title": "Get LvRuan",
+        "description": "Buy LvRuan with a one-time payment. Check your email for the code and documentation.",
         "image": {
           "src": "/imgs/features/5.png"
         }
       },
       {
         "title": "Start Your Project",
-        "description": "Read the documentation and clone the code of ShipAny. Start building your AI SaaS startup.",
+        "description": "Read the documentation and clone the code of LvRuan. Start building your software download website.",
         "image": {
           "src": "/imgs/features/6.png"
         }
       },
       {
         "title": "Customize Your Project",
-        "description": "Modify the template with your data and contents. Specific AI functionality needs.",
+        "description": "Modify the template with your data and contents. Specific software download functionality needs.",
         "image": {
           "src": "/imgs/features/7.png"
         }
