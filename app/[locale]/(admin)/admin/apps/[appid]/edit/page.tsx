@@ -1,6 +1,7 @@
 import {
   getApp,
   updateApp,
+  categoryMap,
 } from "@/models/apps";
 import { localeNames, locales } from "@/i18n/locale";
 
@@ -27,20 +28,7 @@ import { getUserInfo } from "@/services/user";
 //   52: { name: "AI", slug: "ai" }
 // } as const;
 
-export enum CATEGORY_MAP {
-  Default = 1, 
-  Install = 2,
-  Network = 3,
-  Media = 4,
-  Programming = 5,
-  Graphics = 6,
-  System = 7,
-  Application = 8,
-  Mobile = 9,
-  News = 13,
-  Game = 31,
-  AI = 52,
-}
+
 
 export default async function ({ params }: { params: { appid: string } }) {
   const user = await getUserInfo();
@@ -93,7 +81,7 @@ export default async function ({ params }: { params: { appid: string } }) {
         name: "category",
         title: "Category",
         type: "select",
-        options: Object.entries(CATEGORY_MAP).map(([id,category]) => ({
+        options: Object.entries(categoryMap).map(([id,category]) => ({
           title: `${id} - ${category}`,
           value: id,
         })),

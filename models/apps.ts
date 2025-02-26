@@ -12,6 +12,21 @@ export interface App {
   category: number;
 }
 
+export enum categoryMap {
+    Default = "1", 
+    Install = "2",
+    Network = "3",
+    Media = "4",
+    Programming = "5",
+    Graphics = "6",
+    System = "7",
+    Application = "8",
+    Mobile = "9",
+    News = "13",
+    Game = "31",
+    AI = "52",
+  }
+
 export const getApp = cache(async (id: number, locale = 'zh'): Promise<App | null> => {
   try {
     const db = await getDb();
