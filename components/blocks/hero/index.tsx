@@ -25,16 +25,7 @@ export default async function Hero({
   hero: HeroType;
   locale: string;
 }) {
-  // 组件初始化日志
-  console.log('\x1b[35m%s\x1b[0m', '=== Hero Component Initialized ===');
-  console.log('\x1b[36m%s\x1b[0m', 'Hero Props:', {
-    disabled: hero.disabled,
-    locale: locale,
-    title: hero.title
-  });
-
   if (hero.disabled) {
-    console.log('\x1b[33m%s\x1b[0m', 'Hero Component Disabled');
     return null;
   }
 
@@ -49,28 +40,8 @@ export default async function Hero({
       url.searchParams.set('locale', 'en');
     }
 
-    // 调试日志：请求前
-    console.log('Debug Fetch - Request Info:', {
-      fullUrl: url.toString(),
-      locale: locale,
-      protocol: protocol,
-      host: host,
-      searchParams: Object.fromEntries(url.searchParams)
-    });
-
     const response = await fetch(url, {
-      next: { revalidate: 0 },
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache'
-      }
-    });
-    
-    // 调试日志：响应状态
-    console.log('Debug Fetch - Response Status:', {
-      status: response.status,
-      ok: response.ok,
-      headers: Object.fromEntries(response.headers),
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
@@ -78,32 +49,10 @@ export default async function Hero({
     }
     
     const data = await response.json();
-    
-    // 调试日志：响应数据
-    console.log('Debug Fetch - Response Data:', {
-      dataStructure: Object.keys(data),
-      appsLength: data.apps?.length,
-      firstApp: data.apps?.[0],
-      locale: locale
-    });
-
     apps = data.apps || [];
   } catch (error) {
-    // 调试日志：错误信息
-    console.error('Debug Fetch - Error:', {
-      error: error,
-      message: error.message,
-      stack: error.stack
-    });
     apps = [];
   }
-
-  // 调试日志：最终结果
-  console.log('Debug Fetch - Final Apps:', {
-    appsLength: apps.length,
-    firstApp: apps[0],
-    locale: locale
-  });
 
   const highlightText = hero.highlight_text;
   let texts = null;
