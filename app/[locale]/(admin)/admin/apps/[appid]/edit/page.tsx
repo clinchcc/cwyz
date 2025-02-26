@@ -76,7 +76,7 @@ export default async function ({ params }: { params: { appid: string } }) {
           { title: "Games", value: "31" },
           { title: "AI", value: "52" },
         ],
-        value: app.category?.toString() || "1",
+        value: String(app.category || 1),
         validation: {
           required: true,
         },
