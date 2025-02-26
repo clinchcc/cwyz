@@ -92,9 +92,6 @@ export default async function ({ params }: { params: { appid: string } }) {
           { title: "52 - AI", value: "52" },
         ],
         value: String(app.category),
-        validation: {
-          required: true,
-        },
       },
       {
         name: "download_url",
