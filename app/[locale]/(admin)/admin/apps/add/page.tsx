@@ -3,8 +3,10 @@ import { apps } from "@/drizzle/schema";
 import { Apps } from "@/types/apps";
 import Empty from "@/components/blocks/empty";
 import FormSlot from "@/components/dashboard/slots/form";
-import { Form as FormSlotType } from "@/types/slots/form";
+import type { Form as FormSlotType } from "@/types/slots/form";
 import { getUserInfo } from "@/services/user";
+import { newStorage } from "@/lib/storage";
+import { getUuid } from "@/lib/hash";
 
 export default async function () {
   const user = await getUserInfo();
@@ -39,13 +41,14 @@ export default async function () {
       {
         name: "content",
         title: "Content",
-        type: "textarea",
+        type: "markdown_editor",
         placeholder: "App Description",
         validation: {
           required: true,
         },
         attributes: {
           rows: 10,
+          uploadImage: true,
         },
       },
       {

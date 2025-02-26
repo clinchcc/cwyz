@@ -176,7 +176,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                   .split('</p>')[0]
                   .replace(/<\/?[^>]+(>|$)/g, '')
                   .replace(/^\s+|\s+$/g, '')  // 移除首尾空白
-                  .substring(0, 100)
+                  .substring(0, 200)
                   .replace(/[\u4e00-\u9fa5]$/, '')}...`}  
               </div>
             </Link>
