@@ -51,6 +51,9 @@ export default async function ({ params }: { params: { appid: string } }) {
         title: "Content",
         type: "textarea",
         placeholder: "App Description",
+        attributes: {
+          rows: 5, // Set the number of rows to control the height of the textarea
+        },
         validation: {
           required: true,
         },
@@ -73,6 +76,7 @@ export default async function ({ params }: { params: { appid: string } }) {
           { title: "Games", value: "31" },
           { title: "AI", value: "52" },
         ],
+        value: app.category?.toString(),
         validation: {
           required: true,
         },
