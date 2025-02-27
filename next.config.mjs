@@ -31,6 +31,19 @@ const nextConfig = {
   async redirects() {
     return [];
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*.xml',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/xml',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 // Make sure experimental mdx flag is enabled
