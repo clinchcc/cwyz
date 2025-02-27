@@ -172,12 +172,26 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             <Link href={locale === 'zh' ? `/app/${apps.appid}` : `/${locale}/app/${apps.appid}`}>
               <h3 className="text-xl font-semibold mb-2">{apps.title}</h3>
               <div className="text-gray-600 mb-4">
-                {`${apps.content
-                  .split('</p>')[0]
-                  .replace(/<\/?[^>]+(>|$)/g, '')
-                  .replace(/^\s+|\s+$/g, '')  // 移除首尾空白
-                  .substring(0, 200)
-                  .replace(/[\u4e00-\u9fa5]$/, '')}...`}  
+                {(() => {
+                  // 处理可能的 HTML 内容
+                  const plainText = apps.content
+                    .replace(/<\/?[^>]+(>|$)/g, ' ') // 替换所有HTML标签为空格
+                    .replace(/\s+/g, ' ')           // 合并多个空格
+                    .trim();                        // 移除首尾空白
+                  
+                  // 确保有足够的文字
+                  if (plainText.length > 10) {
+                    // 截取适当长度，避免在中文字符中间截断
+                    let excerpt = plainText.substring(0, 100);
+                    if (/[\u4e00-\u9fa5]$/.test(excerpt)) {
+                      excerpt = excerpt.replace(/[\u4e00-\u9fa5]$/, '');
+                    }
+                    return `${excerpt}...`;
+                  }
+                  
+                  // 如果提取失败，显示默认文本
+                  return locale === 'en' ? 'Click to view details...' : '点击查看详情...';
+                })()}
               </div>
             </Link>
             <div className="flex justify-between items-center">

@@ -185,13 +185,27 @@ export default async function CategoryPage({
           <div key={app.appid} className="border rounded-lg p-4 shadow hover:shadow-md transition-shadow">
             <Link href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}>
               <h3 className="text-xl font-semibold mb-2">{app.title}</h3>
-              <div className="text-gray-600 mb-4" >
-              {`${app.content
-                  .split('</p>')[0]
-                  .replace(/<\/?[^>]+(>|$)/g, '')
-                  .replace(/^\s+|\s+$/g, '')  // 移除首尾空白
-                  .substring(0, 200)
-                  .replace(/[\u4e00-\u9fa5]$/, '')}...`}  
+              <div className="text-gray-600 mb-4">
+                {(() => {
+                  // Process HTML content
+                  const plainText = app.content
+                    .replace(/<\/?[^>]+(>|$)/g, ' ') // Replace HTML tags with spaces
+                    .replace(/\s+/g, ' ')           // Merge multiple spaces
+                    .trim();                        // Remove leading/trailing whitespace
+                  
+                  // Ensure there's enough text to display
+                  if (plainText.length > 10) {
+                    // Truncate to appropriate length, avoid cutting Chinese characters
+                    let excerpt = plainText.substring(0, 100);
+                    if (/[\u4e00-\u9fa5]$/.test(excerpt)) {
+                      excerpt = excerpt.replace(/[\u4e00-\u9fa5]$/, '');
+                    }
+                    return `${excerpt}...`;
+                  }
+                  
+                  // Fallback text if extraction fails
+                  return locale === 'en' ? 'Click to view details...' : '点击查看详情...';
+                })()}
               </div>
             </Link>
             <div className="flex justify-between items-center">
