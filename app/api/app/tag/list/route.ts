@@ -1,6 +1,6 @@
 import { getDb } from "@/drizzle/db";
 import { tags } from "@/drizzle/schema";
-import { sql } from "drizzle-orm";
+import { sql, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 const PAGE_SIZE = 20; // 默认每页显示数量
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
 
     const db = await getDb();
 
-    // Get tags with pagination
+    // Modified query to count and filter tags with more than one app
     const tagsList = await db
       .select({
         id: tags.id,
@@ -51,16 +51,22 @@ export async function GET(request: Request) {
         enname: tags.enname,
       })
       .from(tags)
+      .leftJoin(app_tags, eq(tags.id, app_tags.tag_id))
+      .groupBy(tags.id, tags.name, tags.enname)
+      .having(sql`COUNT(${app_tags.app_id}) > 1`)
       .orderBy(sql`${tags.id} DESC`)
       .limit(pageSize)
       .offset(skip);
 
-    // Get total count
+    // Modified count query to include only tags with more than one app
     const [totalCount] = await db
       .select({
-        count: sql<number>`count(*)`.mapWith(Number),
+        count: sql<number>`COUNT(DISTINCT ${tags.id})`.mapWith(Number),
       })
-      .from(tags);
+      .from(tags)
+      .leftJoin(app_tags, eq(tags.id, app_tags.tag_id))
+      .groupBy(tags.id)
+      .having(sql`COUNT(${app_tags.app_id}) > 1`);
 
     const total = totalCount.count;
     const totalPages = Math.ceil(total / pageSize);
