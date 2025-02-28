@@ -13,6 +13,9 @@ interface AppData {
   download_url?: string;
 }
 
+// 设置页面级别的 ISR 缓存为一周
+export const revalidate = 604800; // 7 days in seconds (7 * 24 * 60 * 60)
+
 // 获取标签相关的应用列表
 const getTagApps = cache(async (id: string, locale: string, page = 1) => {
   try {
@@ -26,11 +29,7 @@ const getTagApps = cache(async (id: string, locale: string, page = 1) => {
     }
     url.searchParams.set('page', page.toString());
     
-    const response = await fetch(url, {
-      next: {
-        revalidate: 60 // 缓存 60 秒
-      }
-    });
+    const response = await fetch(url); // 移除 revalidate 配置
 
     if (!response.ok) {
       return null;

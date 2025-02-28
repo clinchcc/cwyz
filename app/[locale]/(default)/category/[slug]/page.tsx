@@ -26,7 +26,8 @@ interface apps {
   category: number
   // 根据实际的应用数据结构添加其他必要的字段
 }
-
+// 设置页面级别的 ISR 缓存为2天
+export const revalidate = 172800; 
 // 中文分类映射
 const ZH_CATEGORY_MAP = {
   1: { name: "默认", slug: "uncategorized" },
@@ -100,9 +101,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     url.searchParams.set('locale', 'en');
   }
 
-  const response = await fetch(url, {
-    next: { revalidate: 3600 }
-  });
+  const response = await fetch(url);
   
   if (!response.ok) {
     throw new Error('Failed to fetch category apps')

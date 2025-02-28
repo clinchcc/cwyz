@@ -4,6 +4,9 @@ import BlogDetail from "@/components/blocks/blog-detail";
 import Empty from "@/components/blocks/empty";
 import { getTranslations } from "next-intl/server";
 
+// 设置页面级别的 ISR 缓存为一年
+export const revalidate = 31536000; 
+
 export async function generateMetadata({
   params,
 }: {

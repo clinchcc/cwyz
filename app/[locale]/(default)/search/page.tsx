@@ -21,6 +21,9 @@ interface SearchResults {
   currentPage: number;
 }
 
+// 设置页面级别的 ISR 缓存为半天
+export const revalidate = 43200; // 12 hours in seconds (12 * 60 * 60)
+
 // 动态生成元数据
 export async function generateMetadata({
   params,
@@ -107,9 +110,7 @@ export default async function SearchPage({
         searchUrl.searchParams.set('locale', locale);
       }
       
-      const response = await fetch(searchUrl.toString(), {
-        next: { revalidate: 60 } // 缓存60秒
-      });
+      const response = await fetch(searchUrl.toString()); // 移除 revalidate 配置
       
       if (!response.ok) {
         throw new Error(locale === 'en' ? 'Failed to search' : '搜索失败');

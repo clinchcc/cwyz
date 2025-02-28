@@ -7,6 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 
+
+// 设置页面级别的 ISR 缓存为1个月
+export const revalidate = 2592000; 
 // 处理 HTML 内容中的图片和注释
 function processContent(html: string) {
   // 移除 HTML 注释
@@ -39,10 +42,6 @@ const getApp = cache(async (id: string, locale: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      // 添加 next 配置
-      next: {
-        revalidate: 60 // 缓存 60 秒
-      }
     });
 
     if (!response.ok) {
@@ -108,11 +107,7 @@ const getAppTags = cache(async (appId: string, locale: string): Promise<Tag[] | 
     const url = new URL(`${protocol}://${host}/api/app/tag/show`);
     url.searchParams.set('appid', appId);
     
-    const response = await fetch(url, {
-      next: {
-        revalidate: 60 // 缓存 60 秒
-      }
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       return null;

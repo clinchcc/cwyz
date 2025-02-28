@@ -42,6 +42,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
+export const revalidate = 604800; // 7天
+
 async function getTagList(locale: string, page: number) {
   try {
     const headersList = headers();
@@ -51,9 +53,7 @@ async function getTagList(locale: string, page: number) {
     const url = new URL(`${protocol}://${host}/api/app/tag/list`);
     url.searchParams.set('page', page.toString());
     
-    const response = await fetch(url, {
-      next: { revalidate: 3600 } // 缓存1小时
-    });
+    const response = await fetch(url);  // 移除 revalidate 配置
 
     if (!response.ok) {
       throw new Error('Failed to fetch tags');

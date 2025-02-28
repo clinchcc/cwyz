@@ -1,6 +1,6 @@
 import Blog from "@/components/blocks/blog";
-import { Blog as BlogType } from "@/types/blocks/blog";
-import { Post } from "@/types/post";
+import type { Blog as BlogType } from "@/types/blocks/blog";
+import type { Post } from "@/types/post";
 import { getPostsByLocale } from "@/models/post";
 import { getTranslations } from "next-intl/server";
 
@@ -25,6 +25,8 @@ export async function generateMetadata({
     },
   };
 }
+// 设置页面级别的 ISR 缓存为2天
+export const revalidate = 172800; 
 
 export default async function ({ params }: { params: { locale: string } }) {
   const t = await getTranslations();
