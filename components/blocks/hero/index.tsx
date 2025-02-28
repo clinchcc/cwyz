@@ -1,5 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 import HappyUsers from "./happy-users";
 import HeroBg from "./bg";
 import type { Hero as HeroType } from "@/types/blocks/hero";
@@ -74,6 +76,26 @@ export default async function Hero({
               />
             </div>
           )}
+
+          {/* 搜索框 */}
+          <div className="mt-8 mb-8">
+              <form 
+                action={locale === 'zh' ? "/search" : `/${locale}/search`}
+                method="GET"
+                className="flex gap-2 max-w-xl mx-auto"
+              >
+                <Input 
+                  name="keyword" 
+                  placeholder={locale === 'en' ? "Search apps..." : "搜索应用..."}
+                  className="flex-1"
+                  required
+                />
+                <Button type="submit">
+                  <Search className="h-4 w-4 mr-2" />
+                  {locale === 'en' ? 'Search' : '搜索'}
+                </Button>
+              </form>
+            </div>
           <div className="text-center">
             {hero.announcement && (
               <a
@@ -105,6 +127,9 @@ export default async function Hero({
               className="m mx-auto max-w-3xl text-muted-foreground lg:text-xl"
               dangerouslySetInnerHTML={{ __html: hero.description || "" }}
             />
+            
+            
+            
             {hero.buttons && (
               <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
                 {hero.buttons.map((item, i) => {
@@ -131,8 +156,6 @@ export default async function Hero({
               </div>
             )}
             
-       
-
             {/* App grid with proper language path handling */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {apps.map((app) => (

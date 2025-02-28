@@ -1,5 +1,6 @@
 import {
   index,
+  bigint,
   int,
   mysqlTable,
   text,
@@ -116,11 +117,40 @@ export const apps = mysqlTable("apps", {
   category: int().notNull().default(1),
 });
 
-export const appsen = mysqlTable("appsen", {
-  appid: int().primaryKey(),
-  title: varchar({ length: 255 }).notNull(),
-  content: text().notNull(),
-  date: datetime().notNull().default(sql`CURRENT_TIMESTAMP`),
-  download_url: varchar({ length: 255 }),
-  category: int().notNull().default(1),
+export const tags = mysqlTable("tags", {
+  id: int().primaryKey().autoincrement(),
+  name: varchar({ length: 50 }).notNull().unique(),
+  enname: varchar({ length: 50 }).notNull().unique(),
 });
+
+export const appTags = mysqlTable("app_tags", 
+  {
+    id: int().primaryKey().autoincrement(),
+    app_id: bigint("app_id", { mode: "number" }).notNull(),
+    tag_id: int().notNull(),
+  },
+  (table) => ({
+    strict: false  // 告诉 Drizzle 不要尝试管理这个表
+  })
+);
+
+export const appsen = mysqlTable("appsen", 
+  {
+    appid: int().primaryKey().autoincrement(),
+    title: varchar({ length: 255 }).notNull(),
+    content: text().notNull(),
+    date: datetime().notNull().default(sql`CURRENT_TIMESTAMP`),
+    download_url: varchar({ length: 255 }),
+    category: int().notNull().default(1),
+  },
+  (table) => ({
+    strict: false  // Tell Drizzle not to manage this table
+  })
+);
+
+
+
+
+
+
+

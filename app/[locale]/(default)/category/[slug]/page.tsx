@@ -1,5 +1,8 @@
 import { headers } from 'next/headers';
 import Link from 'next/link';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
 
 interface CategoryPageProps {
   params: {
@@ -134,6 +137,26 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Search Box */}
+      <div className="mb-8">
+        <form 
+          action={locale === 'zh' ? "/search" : `/${locale}/search`}
+          method="GET"
+          className="flex gap-2 max-w-xl mx-auto"
+        >
+          <Input 
+            name="keyword" 
+            placeholder={locale === 'en' ? "Search apps..." : "搜索应用..."}
+            className="flex-1"
+            required
+          />
+          <Button type="submit">
+            <Search className="h-4 w-4 mr-2" />
+            {locale === 'en' ? 'Search' : '搜索'}
+          </Button>
+        </form>
+      </div>
+      
       {/* 分类导航 */}
       <div className="mb-8 overflow-x-auto scrollbar-hide">
         <div className="flex gap-3 min-w-max bg-card p-4 rounded-lg shadow-sm">

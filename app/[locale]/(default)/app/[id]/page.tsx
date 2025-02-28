@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { headers } from 'next/headers';
 import Link from "next/link";
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
 
 // 处理 HTML 内容中的图片和注释
 function processContent(html: string) {
@@ -95,13 +98,48 @@ const getCategory = cache(async (categoryId: number, locale: string) => {
   return CATEGORY_MAP[categoryId as keyof typeof CATEGORY_MAP] || null;
 });
 
+// 修改 getAppTags 函数的返回类型
+const getAppTags = cache(async (appId: string, locale: string): Promise<Tag[] | null> => {
+  try {
+    const headersList = headers();
+    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+    const host = headersList.get('host');
+    
+    const url = new URL(`${protocol}://${host}/api/app/tag/show`);
+    url.searchParams.set('appid', appId);
+    
+    const response = await fetch(url, {
+      next: {
+        revalidate: 60 // 缓存 60 秒
+      }
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Failed to fetch app tags:", error);
+    return null;
+  }
+});
+
 interface App {
   appid: string;
   title: string;
   content: string;
   date: string;
   download_url?: string;
-  category: number;  // 确保这里是 category 而不是 category_id
+  category: number;
+}
+
+// Add Tag interface
+interface Tag {
+  id: number;
+  name: string;
+  enname: string;
 }
 
 export async function generateMetadata({
@@ -136,6 +174,7 @@ export async function generateMetadata({
 export default async function AppPage({ params }: { params: { id: string; locale: string } }) {
   const app = await getApp(params.id, params.locale);
   const category = app?.category ? await getCategory(app.category, params.locale) : null;
+  const tags: Tag[] | null = await getAppTags(params.id, params.locale);
 
   if (!app) {
     notFound();
@@ -143,16 +182,36 @@ export default async function AppPage({ params }: { params: { id: string; locale
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {/* 搜索框 */}
+      <div className="mb-8">
+        <form 
+          action={params.locale === 'zh' ? "/search" : `/${params.locale}/search`}
+          method="GET"
+          className="flex gap-2 max-w-xl mx-auto"
+        >
+          <Input 
+            name="keyword" 
+            placeholder={params.locale === 'en' ? "Search apps..." : "搜索应用..."}
+            className="flex-1"
+            required
+          />
+          <Button type="submit">
+            <Search className="h-4 w-4 mr-2" />
+            {params.locale === 'en' ? 'Search' : '搜索'}
+          </Button>
+        </form>
+      </div>
+      
       {/* 标题部分 */}
       <div className="mb-8 text-center">
         <h1 className="mb-4 text-4xl font-bold tracking-tight">{app.title}</h1>
-        <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
+        <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground flex-wrap">
           <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
           <time dateTime={app.date}>
             {new Date(app.date).toLocaleDateString()}
           </time>
           
-          {/* 分类显示，独立判断 */}
+          {/* 分类显示 */}
           {category && (
             <>
               <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
@@ -163,6 +222,24 @@ export default async function AppPage({ params }: { params: { id: string; locale
                 <span className="h-2 w-2 rounded-full bg-green-500" />
                 {category.name}
               </Link>
+            </>
+          )}
+
+          {/* 标签显示 */}
+          {tags && tags.length > 0 && (
+            <>
+              <span className="flex h-1 w-1 rounded-full bg-muted-foreground" />
+              <div className="flex flex-wrap gap-2 items-center">
+                {tags.map((tag: Tag) => (
+                  <Link
+                    key={tag.id}
+                    href={`${params.locale === 'en' ? '/en' : ''}/tag/${tag.id}`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    #{params.locale === 'en' ? tag.enname : tag.name}
+                  </Link>
+                ))}
+              </div>
             </>
           )}
 

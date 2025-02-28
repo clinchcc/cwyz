@@ -30,6 +30,15 @@
           "value": "public, s-maxage=3600, stale-while-revalidate=1800"
         }
       ]
+    },
+    {
+      "source": "/(.*).xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ]
     }
   ],
   "regions": ["hkg1"],
