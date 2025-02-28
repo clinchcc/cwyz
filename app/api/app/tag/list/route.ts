@@ -1,12 +1,12 @@
 import { getDb } from "@/drizzle/db";
-import { tags } from "@/drizzle/schema";
+import { tags, appTags } from "@/drizzle/schema";
 import { sql, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 const PAGE_SIZE = 20; // 默认每页显示数量
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days cache
 
-interface TagItem {
+interface TagItem { 
   id: number;
   name: string;
   enname: string;
@@ -51,9 +51,9 @@ export async function GET(request: Request) {
         enname: tags.enname,
       })
       .from(tags)
-      .leftJoin(app_tags, eq(tags.id, app_tags.tag_id))
+      .leftJoin(appTags, eq(tags.id, appTags.tag_id))
       .groupBy(tags.id, tags.name, tags.enname)
-      .having(sql`COUNT(${app_tags.app_id}) > 1`)
+      .having(sql`COUNT(${appTags.app_id}) > 1`)
       .orderBy(sql`${tags.id} DESC`)
       .limit(pageSize)
       .offset(skip);
@@ -64,9 +64,9 @@ export async function GET(request: Request) {
         count: sql<number>`COUNT(DISTINCT ${tags.id})`.mapWith(Number),
       })
       .from(tags)
-      .leftJoin(app_tags, eq(tags.id, app_tags.tag_id))
+      .leftJoin(appTags, eq(tags.id, appTags.tag_id))
       .groupBy(tags.id)
-      .having(sql`COUNT(${app_tags.app_id}) > 1`);
+      .having(sql`COUNT(${appTags.app_id}) > 1`);
 
     const total = totalCount.count;
     const totalPages = Math.ceil(total / pageSize);
