@@ -102,7 +102,14 @@ export default async function TagPage({
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-center mb-2">
-          {params.locale === 'en' ? 'Tag:' : '标签：'} {data.tag.name}
+          <Link 
+            href={`${params.locale === 'en' ? '/en' : ''}/tag`}
+            className="hover:text-primary"
+          >
+            {params.locale === 'en' ? 'Tags' : '标签'}
+          </Link>
+          <span className="mx-2">›</span>
+          <span>{params.locale === 'en' ? data.tag.enname : data.tag.name}</span>
         </h1>
         <p className="text-center text-muted-foreground">
           {params.locale === 'en' 

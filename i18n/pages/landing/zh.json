@@ -28,6 +28,11 @@
           "title": "博客",
           "url": "/posts",
           "icon": "RiArticleLine"
+        },
+        {
+          "title": "标签",
+          "url": "/tag",
+          "icon": "RiTagsLine"
         }
         
       ]

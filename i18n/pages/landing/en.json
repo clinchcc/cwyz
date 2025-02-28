@@ -26,6 +26,11 @@
           "title": "Blog",
           "url": "/en/posts",
           "icon": "RiArticleLine"
+        },
+        {
+          "title": "Tag",
+          "url": "/en/tag", 
+          "icon": "RiTagsLine"
         }
       ]
     },
