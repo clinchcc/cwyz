@@ -58,15 +58,21 @@ export async function GET(request: Request) {
       .limit(pageSize)
       .offset(skip);
 
-    // Modified count query to include only tags with more than one app
+    // Modified count query to correctly count tags with more than one app
     const [totalCount] = await db
       .select({
-        count: sql<number>`COUNT(DISTINCT ${tags.id})`.mapWith(Number),
+        count: sql<number>`COUNT(*)`.mapWith(Number),
       })
-      .from(tags)
-      .leftJoin(appTags, eq(tags.id, appTags.tag_id))
-      .groupBy(tags.id)
-      .having(sql`COUNT(${appTags.app_id}) > 1`);
+      .from(
+        db
+          .select({
+            tag_id: appTags.tag_id,
+          })
+          .from(appTags)
+          .groupBy(appTags.tag_id)
+          .having(sql`COUNT(${appTags.app_id}) > 1`)
+          .as('filtered_tags')
+      );
 
     const total = totalCount.count;
     const totalPages = Math.ceil(total / pageSize);

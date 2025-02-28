@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Pagination } from "@/components/ui/Pagination";
 
 interface TagItem {
   id: number;
@@ -67,14 +68,14 @@ async function getTagList(locale: string, page: number) {
 
 // 生成分页按钮
 function getPageNumbers(current: number, total: number) {
-  const delta = 2; // 当前页前后显示的页数
+  const delta = 2;
   const pages: (number | string)[] = [];
 
   for (let i = 1; i <= total; i++) {
     if (
-      i === 1 || // 第一页
-      i === total || // 最后一页
-      (i >= current - delta && i <= current + delta) // 当前页前后的页数
+      i === 1 ||
+      i === total ||
+      (i >= current - delta && i <= current + delta)
     ) {
       pages.push(i);
     } else if (pages[pages.length - 1] !== '...') {
@@ -126,27 +127,14 @@ export default async function TagPage({
         ))}
       </div>
 
-      {/* 分页导航 */}
+      {/* 使用客户端分页组件 */}
       {tagData.pagination.totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-8">
-          {pageNumbers.map((pageNumber, index) => (
-            pageNumber === '...' ? (
-              <span key={`ellipsis-${index}`} className="px-4 py-2">...</span>
-            ) : (
-              <Link
-                key={pageNumber}
-                href={`${locale === 'en' ? '/en' : ''}/tag?page=${pageNumber}`}
-                className={`px-4 py-2 rounded ${
-                  currentPage === pageNumber
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-card hover:bg-accent'
-                }`}
-              >
-                {pageNumber}
-              </Link>
-            )
-          ))}
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={tagData.pagination.totalPages}
+          locale={locale}
+          pageNumbers={pageNumbers}
+        />
       )}
     </div>
   );
