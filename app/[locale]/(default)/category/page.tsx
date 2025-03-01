@@ -27,8 +27,7 @@ const ZH_CATEGORY_MAP = {
   31: { name: "游戏", slug: "game" },
   52: { name: "AI", slug: "ai" }
 } as const;
-// 设置页面级别的 ISR 缓存为半天
-export const revalidate = 43200; 
+
 // 英文分类映射
 const EN_CATEGORY_MAP = {
   1: { name: "Uncategorized", slug: "uncategorized" },
@@ -116,7 +115,11 @@ export default async function CategoryPage({
     url.searchParams.set('locale', 'en');
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    next: {
+      revalidate: 43200 // 缓存 半天
+    }
+  });
 
   if (!response.ok) {
     throw new Error('Failed to fetch apps');
