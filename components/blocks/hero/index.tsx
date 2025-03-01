@@ -43,7 +43,7 @@ export default async function Hero({
     }
 
     const response = await fetch(url, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 9600 },
     });
 
     if (!response.ok) {
