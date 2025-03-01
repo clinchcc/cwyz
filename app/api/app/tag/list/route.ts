@@ -71,6 +71,7 @@ export async function GET(request: Request) {
           .from(appTags)
           .groupBy(appTags.tag_id)
           .having(sql`COUNT(${appTags.app_id}) > 1`)
+          .orderBy(sql`${appTags.tag_id} DESC`)
           .as('filtered_tags')
       );
 

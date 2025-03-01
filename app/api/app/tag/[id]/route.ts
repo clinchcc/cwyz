@@ -1,6 +1,6 @@
 import { getDb } from "@/drizzle/db";
 import { apps, appsen, appTags, tags } from "@/drizzle/schema";
-import { eq, and, sql } from "drizzle-orm";
+import { eq, and, sql, desc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 
@@ -83,6 +83,7 @@ export async function GET(
       .innerJoin(targetTable, eq(appTags.app_id, targetTable.appid))
       .innerJoin(tags, eq(appTags.tag_id, tags.id))
       .where(eq(appTags.tag_id, Number.parseInt(params.id)))
+      .orderBy(desc(targetTable.appid))
       .limit(pageSize)
       .offset(skip);
 

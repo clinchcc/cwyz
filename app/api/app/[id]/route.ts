@@ -75,6 +75,7 @@ export async function GET(
 			data: formattedApp,
 			timestamp: Date.now(),
 		});
+		
 
 		return NextResponse.json({ data: formattedApp }, { headers });
 	} catch (error) {
