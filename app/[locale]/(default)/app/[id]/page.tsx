@@ -46,10 +46,8 @@ const getApp = cache(async (id: string, locale: string, refresh?: boolean) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      // 根据是否需要刷新决定缓存策略
-      ...(refresh 
-        ? { cache: 'no-store' } 
-        : { next: { revalidate: 2592000 } })
+      // 使用 revalidate API 而不是直接修改缓存策略
+      next: { revalidate: refresh ? 0 : 2592000 }
     });
 
     if (!response.ok) {
@@ -58,7 +56,6 @@ const getApp = cache(async (id: string, locale: string, refresh?: boolean) => {
     }
 
     const data = await response.json();
-    console.log('API response:', data); // 添加日志以便调试
     return data.data;
   } catch (error) {
     console.error("Failed to fetch app:", error);
@@ -121,10 +118,8 @@ const getAppTags = cache(async (appId: string, locale: string, refresh?: boolean
     }
     
     const response = await fetch(url, {
-      // 根据是否需要刷新决定缓存策略
-      ...(refresh 
-        ? { cache: 'no-store' } 
-        : { next: { revalidate: 2592000 } })
+      // 使用 revalidate API 而不是直接修改缓存策略
+      next: { revalidate: refresh ? 0 : 2592000 }
     });
 
     if (!response.ok) {
@@ -190,6 +185,23 @@ export default async function AppPage({ params, searchParams }: {
 }) {
   // 检查是否有刷新参数
   const shouldRefresh = searchParams.refresh === 'true';
+  
+  // 如果需要刷新，调用 revalidate API
+  if (shouldRefresh) {
+    try {
+      const headersList = headers();
+      const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+      const host = headersList.get('host');
+      
+      // 构建当前页面的路径用于重新验证
+      const path = `/${params.locale === 'en' ? 'en/' : ''}app/${params.id}`;
+      
+      // 调用 revalidate API
+      await fetch(`${protocol}://${host}/api/revalidate?path=${encodeURIComponent(path)}&secret=${process.env.REVALIDATE_SECRET}`);
+    } catch (error) {
+      console.error("Failed to revalidate:", error);
+    }
+  }
   
   const app = await getApp(params.id, params.locale, shouldRefresh);
   const category = app?.category ? await getCategory(app.category, params.locale) : null;
