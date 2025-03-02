@@ -186,8 +186,14 @@ export default async function AppPage({ params, searchParams }: {
   // 检查是否有刷新参数
   const shouldRefresh = searchParams.refresh === 'true';
   
-  // 如果需要刷新，调用 revalidate API
+  // 如果需要刷新，设置缓存控制头
   if (shouldRefresh) {
+    // 设置响应头，告诉 Cloudflare 不要缓存
+    headers().set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    headers().set('Pragma', 'no-cache');
+    headers().set('Expires', '0');
+    headers().set('Surrogate-Control', 'no-store');
+    
     try {
       const headersList = headers();
       const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
