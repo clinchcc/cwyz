@@ -24,7 +24,7 @@ function processContent(html: string) {
 }
 
 // 使用 React 的 cache 函数来缓存数据获取
-const getApp = cache(async (id: string, locale: string) => {
+const getApp = cache(async (id: string, locale: string, refresh?: boolean) => {
   try {
     const headersList = headers();
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
@@ -36,14 +36,20 @@ const getApp = cache(async (id: string, locale: string) => {
       url.searchParams.set('locale', 'en');
     }
     
+    // 如果需要刷新，添加刷新参数
+    if (refresh) {
+      url.searchParams.set('refresh', 'true');
+    }
+    
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      next: {
-        revalidate: 2592000 // 缓存 一个月
-      }
+      // 根据是否需要刷新决定缓存策略
+      ...(refresh 
+        ? { cache: 'no-store' } 
+        : { next: { revalidate: 2592000 } })
     });
 
     if (!response.ok) {
@@ -100,7 +106,7 @@ const getCategory = cache(async (categoryId: number, locale: string) => {
 });
 
 // 修改 getAppTags 函数的返回类型
-const getAppTags = cache(async (appId: string, locale: string): Promise<Tag[] | null> => {
+const getAppTags = cache(async (appId: string, locale: string, refresh?: boolean): Promise<Tag[] | null> => {
   try {
     const headersList = headers();
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
@@ -109,10 +115,16 @@ const getAppTags = cache(async (appId: string, locale: string): Promise<Tag[] | 
     const url = new URL(`${protocol}://${host}/api/app/tag/show`);
     url.searchParams.set('appid', appId);
     
+    // 如果需要刷新，添加刷新参数
+    if (refresh) {
+      url.searchParams.set('refresh', 'true');
+    }
+    
     const response = await fetch(url, {
-      next: {
-        revalidate: 2592000 // 缓存 一个月
-      }
+      // 根据是否需要刷新决定缓存策略
+      ...(refresh 
+        ? { cache: 'no-store' } 
+        : { next: { revalidate: 2592000 } })
     });
 
     if (!response.ok) {
@@ -172,10 +184,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function AppPage({ params }: { params: { id: string; locale: string } }) {
-  const app = await getApp(params.id, params.locale);
+export default async function AppPage({ params, searchParams }: { 
+  params: { id: string; locale: string },
+  searchParams: { refresh?: string }
+}) {
+  // 检查是否有刷新参数
+  const shouldRefresh = searchParams.refresh === 'true';
+  
+  const app = await getApp(params.id, params.locale, shouldRefresh);
   const category = app?.category ? await getCategory(app.category, params.locale) : null;
-  const tags: Tag[] | null = await getAppTags(params.id, params.locale);
+  const tags: Tag[] | null = await getAppTags(params.id, params.locale, shouldRefresh);
 
   if (!app) {
     notFound();
