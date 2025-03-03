@@ -23,7 +23,12 @@ function processContent(html: string) {
   return withProcessedImages;
 }
 
-// 直接定义函数，不使用 cache 包装
+// 定义分类映射的接口
+interface CategoryMap {
+  [key: string]: { name: string; slug: string };
+}
+
+// 不使用 cache 包装的 getApp 函数
 async function getApp(id: string, locale: string) {
   try {
     const headersList = headers();
@@ -83,11 +88,15 @@ const EN_CATEGORY_MAP = {
   52: { name: "AI Software", slug: "ai" }
 } as const;
 
-// 保留 cache 包装的 getCategory 函数
+// 保留 cache 包装的 getCategory 函数，修复类型问题
 const getCategory = cache(async (categoryId: number, locale: string) => {
   // 根据语言选择对应的映射表
-  const CATEGORY_MAP = locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP;
-  return CATEGORY_MAP[categoryId] || null;
+  const CATEGORY_MAP: CategoryMap = locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP;
+  
+  // 将 number 转换为 string 作为键
+  const categoryKey = categoryId.toString();
+  
+  return CATEGORY_MAP[categoryKey] || null;
 });
 
 // 修改 getAppTags 函数的返回类型
