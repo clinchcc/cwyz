@@ -317,33 +317,27 @@ export default async function AppPage({ params }: {
               <div className="mt-6">
                 <a
                   href={app.download_url}
-                  className="relative group flex-none w-[300px] h-[200px] flex items-center justify-center rounded-lg bg-card border shadow-lg hover:opacity-95 transition-opacity"
+                  className="relative group inline-flex items-center gap-3 px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl shadow-lg transition-all duration-200"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="flex flex-col items-center gap-3">
-                    <svg 
-                      className="w-12 h-12" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      />
-                    </svg>
-                    <span className="text-xl font-medium">
-                      {params.locale === 'en' ? 'Download Software' : '下载软件'}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center pointer-events-none">
-                    <span className="text-white text-sm">
-                      {params.locale === 'en' ? 'Click to download' : '点击下载'}
-                    </span>
-                  </div>
+                  <svg 
+                    className="w-6 h-6" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  <span className="text-lg font-medium">
+                    {params.locale === 'en' ? 'Download Software' : '下载软件'}
+                  </span>
+                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
                 </a>
               </div>
             )}

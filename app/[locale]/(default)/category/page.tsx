@@ -150,7 +150,7 @@ export default async function CategoryPage({
 
   const response = await fetch(url, {
     next: {
-      revalidate: 43200 // Cache for 12 hours
+      revalidate: 120 // Cache for 6 hours
     }
   });
 

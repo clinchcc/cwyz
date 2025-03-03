@@ -46,7 +46,7 @@ export default async function Hero({
     }
 
     const response = await fetch(url, {
-      next: { revalidate: 43200 }, // 缓存12小时
+      next: { revalidate: 120 }, // 2min
     });
 
     if (!response.ok) {
@@ -159,19 +159,46 @@ export default async function Hero({
               </div>
             )}
             
-            {/* App grid with proper language path handling */}
+            {/* App grid with improved styling */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {apps.map((app) => (
                 <Link 
                   key={app.appid}
                   href={locale === 'en' ? `/en/app/${app.appid}` : `/app/${app.appid}`}
-                  className="group p-4 border rounded-lg hover:border-primary transition-colors"
+                  className="group p-4 border rounded-lg hover:border-primary hover:shadow-lg transition-all"
                 >
-                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary">
-                    {app.title}
-                  </h3>
-                  <div className="mt-2 text-xs text-muted-foreground">
-                    {new Date(app.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'zh-CN')}
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0">
+                      <img 
+                        src={app.logo} 
+                        alt={app.title}
+                        className="w-12 h-12 rounded-lg object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-semibold truncate group-hover:text-primary">
+                        {app.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground truncate">
+                        {app.intro}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="flex flex-wrap gap-2">
+                      {app.tags?.slice(0, 2).map((tag) => (
+                        <Badge 
+                          key={`${app.appid}-${tag}`} 
+                          variant="secondary" 
+                          className="text-xs"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {new Date(app.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'zh-CN')}
+                    </div>
                   </div>
                 </Link>
               ))}

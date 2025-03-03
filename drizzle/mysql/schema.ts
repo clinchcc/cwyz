@@ -141,7 +141,7 @@ export const appTags = mysqlTable("app_tags",
 
 export const appsen = mysqlTable("appsen", 
   {
-    appid: int().primaryKey().autoincrement(),
+    appid: int().primaryKey(),
     title: varchar({ length: 255 }).notNull(),
     intro: varchar({ length: 255 }),
     content: text().notNull(),

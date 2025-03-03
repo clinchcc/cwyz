@@ -156,7 +156,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
   const response = await fetch(url, {
     next: {
-      revalidate: 43200, // 缓存12小时
+      revalidate: 120, // 缓存12小时
       tags: [
         `category-${slug}`, // 基本分类标签
         `category-${slug}-page-${currentPage}` // 带分页的标签

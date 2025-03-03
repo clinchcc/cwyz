@@ -34,7 +34,7 @@ export const getApp = cache(async (id: number, locale = 'zh'): Promise<App | nul
 });
 
 export const getApps = cache(async (
-  locale = 'zh',
+  locale = 'en',
   page?: number,
   pageSize = 20
 ): Promise<{ data: App[], total: number }> => {
