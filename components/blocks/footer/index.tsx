@@ -72,12 +72,12 @@ export default function Footer({ footer }: { footer: FooterType }) {
                 {footer.copyright}
                 {process.env.NEXT_PUBLIC_SHOW_POWERED_BY === "false" ? null : (
                   <a
-                    href="https://www.lvruan.com"
+                    href="https://pwdj.com"
                     target="_blank"
                     rel="noreferrer"
                     className="px-2 text-primary"
                   >
-                    LvRuan.com
+                    PWDJ.com
                   </a>
                 )}
               </p>

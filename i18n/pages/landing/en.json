@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "LvRuan",
+      "title": "PWDJ",
       "logo": {
         "src": "/logo.png",
-        "alt": "LvRuan"
+        "alt": "PWDJ"
       },
       "url": "/en"
     },
@@ -40,9 +40,9 @@
     "show_locale": true
   },
   "hero": {
-    "title": "Software Download in seconds, not hours",
-    "highlight_text": "Software Download",
-    "description": "LvRuan provides various types of software downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.",
+    "title": "All Android Software Download",
+    "highlight_text": "Free and Safe",
+    "description": "PWDJ means: Public Web Download Jar, we provide all android software download, free and safe.",
     "announcement": {
       "label": "2025",
       "title": "🎉 Happy New Year",
@@ -110,9 +110,9 @@
   },
   "introduce": {
     "name": "introduce",
-    "title": "What is LvRuan",
+    "title": "What is PWDJ",
     "label": "Introduce",
-    "description": "LvRuan is a software download website. Built in a variety of templates and components.",
+    "description": "PWDJ is a APK software download website. Built in a variety of templates and components.",
     "image": {
       "src": "/imgs/features/1.png"
     },
@@ -136,7 +136,7 @@
   },
   "benefit": {
     "name": "benefit",
-    "title": "Why Choose LvRuan",
+    "title": "Why Choose PWDJ",
     "label": "Benefits",
     "description": "Get everything you need to launch your software download website - from ready-to-use templates to technical support.",
     "items": [
@@ -168,7 +168,7 @@
   },
   "usage": {
     "name": "usage",
-    "title": "How to Launch with LvRuan",
+    "title": "How to Launch with PWDJ",
     "description": "Get your software download website running in three simple steps:",
     "image": {
       "src": "/imgs/features/1.png"
@@ -177,15 +177,15 @@
     "text_align": "center",
     "items": [
       {
-        "title": "Get LvRuan",
-        "description": "Buy LvRuan with a one-time payment. Check your email for the code and documentation.",
+        "title": "Get PWDJ",
+        "description": "Buy PWDJ with a one-time payment. Check your email for the code and documentation.",
         "image": {
           "src": "/imgs/features/5.png"
         }
       },
       {
         "title": "Start Your Project",
-        "description": "Read the documentation and clone the code of LvRuan. Start building your software download website.",
+        "description": "Read the documentation and clone the code of PWDJ. Start building your software download website.",
         "image": {
           "src": "/imgs/features/6.png"
         }
@@ -424,7 +424,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "standard",
-        "product_name": "LvRuan Software Download",
+        "product_name": "PWDJ Software Download",
         "credits": 200,
         "valid_months": 3
       },
@@ -456,7 +456,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "premium",
-        "product_name": "LvRuan Software Download",
+        "product_name": "PWDJ Software Download",
         "credits": 300,
         "valid_months": 12
       }
@@ -465,54 +465,54 @@
   "testimonial": {
     "name": "testimonial",
     "label": "Testimonial",
-    "title": "What Users Say About LvRuan",
-    "description": "Hear from developers and founders who launched their AI startups with LvRuan.",
+    "title": "What Users Say About PWDJ",
+    "description": "Hear from developers and founders who launched their AI startups with PWDJ.",
     "icon": "GoThumbsup",
     "items": [
       {
-        "title": "David Chen",
-        "label": "Founder of AIWallpaper.shop",
-        "description": "LvRuan saved us months of development time. We launched our AI wallpaper business in just 2 days and got our first paying customer within a week!",
+        "title": "James Wilson",
+        "label": "Android Enthusiast",
+        "description": "PWDJ is my go-to site! All Android apps are free and frequently updated. The games section is fantastic - you can find modified versions of popular games here. Absolutely love it!",
         "image": {
           "src": "/imgs/users/1.png"
         }
       },
       {
-        "title": "Rachel Kim",
-        "label": "CTO at HeyBeauty",
-        "description": "The pre-built AI infrastructure is a game-changer. We didn't have to worry about architecture - just focused on our AI beauty tech and went live fast.",
+        "title": "Emma Thompson",
+        "label": "Content Creator",
+        "description": "Found so many useful video editing apps on PWDJ, all free versions that saved me tons on subscriptions. Clean interface with no ads and fast downloads - it's my essential Android app source!",
         "image": {
           "src": "/imgs/users/2.png"
         }
       },
       {
-        "title": "Marcus Thompson",
-        "label": "Solo Developer",
-        "description": "As a solo developer, LvRuan gave me everything I needed - auth, payments, AI integration, and beautiful UI. Launched my SaaS in a weekend!",
+        "title": "Michael Brown",
+        "label": "Student",
+        "description": "As a student, PWDJ is a lifesaver! All apps are free, saving me a lot of money. They have everything from educational apps to utility tools, and all versions are safe and reliable.",
         "image": {
           "src": "/imgs/users/3.png"
         }
       },
       {
-        "title": "Sofia Garcia",
-        "label": "CEO of Melodisco",
-        "description": "The templates are production-ready and highly customizable. We built our AI music platform in hours instead of months. Incredible time-to-market!",
+        "title": "Sophia Garcia",
+        "label": "Android Expert",
+        "description": "I've tried many Android app download sites, but PWDJ stands out. Clear categories, timely updates, and most importantly, all apps are free. They're really making a difference!",
         "image": {
           "src": "/imgs/users/4.png"
         }
       },
       {
-        "title": "James Wilson",
-        "label": "Tech Lead at GPTs.works",
-        "description": "LvRuan's infrastructure is rock-solid. We scaled from 0 to 10k users without touching the backend. Best investment for our AI startup.",
+        "title": "Daniel Anderson",
+        "label": "Tech Enthusiast",
+        "description": "PWDJ is my primary source for Android apps! They have everything from system tools to entertainment apps. Love their security commitment - never downloaded a problematic app.",
         "image": {
           "src": "/imgs/users/5.png"
         }
       },
       {
-        "title": "Anna Zhang",
-        "label": "Startup Founder",
-        "description": "From idea to launch in 3 days! LvRuan's templates and deployment tools made it possible to test our AI business concept incredibly fast.",
+        "title": "Olivia Martinez",
+        "label": "Regular User",
+        "description": "A friend recommended PWDJ, and it's amazing! I can find any Android app I need, all for free, no membership required. The interface is user-friendly, perfect for beginners!",
         "image": {
           "src": "/imgs/users/6.png"
         }
@@ -522,65 +522,65 @@
   "faq": {
     "name": "faq",
     "label": "FAQ",
-    "title": "Frequently Asked Questions About Green & Portable Software",
-    "description": "Have questions about green or portable software? Find answers below or contact us.",
+    "title": "Frequently Asked Questions About APK Software",
+    "description": "Have questions about APK software? Find answers below or contact us.",
     "items": [
       {
-        "title": "What is Green Software?",
-        "description": "Green software refers to portable applications that don't require traditional installation. They can run directly after extraction, don't modify system registry, and don't leave residual files after deletion, making them clean and efficient to use."
+        "title": "What is APK Software?",
+        "description": "APK software refers to portable applications that don't require traditional installation. They can run directly after extraction, don't modify system registry, and don't leave residual files after deletion, making them clean and efficient to use."
       },
       {
-        "title": "What's the difference between Green and Portable Software?",
-        "description": "Green software and portable software are essentially the same thing. Both terms refer to applications that can run without installation. The term 'green' emphasizes its environmental friendliness (leaving no system traces), while 'portable' emphasizes its mobility between computers."
+        "title": "What's the difference between APK and Portable Software?",
+        "description": "APK software and portable software are essentially the same thing. Both terms refer to applications that can run without installation. The term 'APK' emphasizes its environmental friendliness (leaving no system traces), while 'portable' emphasizes its mobility between computers."
       },
       {
-        "title": "Do I need to install Green Software?",
-        "description": "No, that's the beauty of green software! Simply download, extract the files, and run the executable (.exe) file directly. No installation process is needed, making it perfect for portable use on any computer."
+        "title": "Do I need to install APK Software?",
+        "description": "No, that's the beauty of APK software! Simply download, extract the files, and run the executable (.exe) file directly. No installation process is needed, making it perfect for portable use on any computer."
       },
       {
-        "title": "Is Green Software safe to use?",
-        "description": "Yes, our green software is safe to use. We carefully verify all software before publishing, scan for viruses, and only provide software from reliable sources. Additionally, green software's portable nature means it won't affect your system files."
+        "title": "Is APK Software safe to use?",
+        "description": "Yes, our APK software is safe to use. We carefully verify all software before publishing, scan for viruses, and only provide software from reliable sources. Additionally, APK software's portable nature means it won't affect your system files."
       },
       {
-        "title": "How do I use Green Software?",
-        "description": "Using green software is simple: 1) Download the zip file 2) Extract it to your preferred location 3) Run the main program file (.exe) directly. You can even carry it on a USB drive and use it on different computers."
+        "title": "How do I use APK Software?",
+        "description": "Using APK software is simple: 1) Download the zip file 2) Extract it to your preferred location 3) Run the main program file (.exe) directly. You can even carry it on a USB drive and use it on different computers."
       },
       {
-        "title": "Can I run portable software from a USB drive?",
-        "description": "Yes! That's one of the main advantages of portable software. You can store it on a USB drive and run it on any compatible computer without installation. This makes it perfect for carrying your favorite tools wherever you go."
+        "title": "Can I run APK Software from a USB drive?",
+        "description": "Yes! That's one of the main advantages of APK software. You can store it on a USB drive and run it on any compatible computer without installation. This makes it perfect for carrying your favorite tools wherever you go."
       },
       {
-        "title": "What are the advantages of Portable Software?",
-        "description": "Portable software offers numerous benefits: runs without installation, works from any storage device (USB, external drive), doesn't modify system files, easy to backup, perfect for work environments with software installation restrictions, and ideal for testing software without commitment."
+        "title": "What are the advantages of APK Software?",
+        "description": "APK software offers numerous benefits: runs without installation, works from any storage device (USB, external drive), doesn't modify system files, easy to backup, perfect for work environments with software installation restrictions, and ideal for testing software without commitment."
       },
       {
-        "title": "Will portable software save my settings?",
-        "description": "Yes, portable software typically saves its settings in its own folder rather than in system locations. This means your preferences and settings travel with the software, making it truly portable between different computers."
+        "title": "Will APK Software save my settings?",
+        "description": "Yes, APK software typically saves its settings in its own folder rather than in system locations. This means your preferences and settings travel with the software, making it truly portable between different computers."
       },
       {
-        "title": "Can I remove Green Software completely?",
-        "description": "Yes! Since green software doesn't install anything into your system, removal is as simple as deleting the folder containing the program. No uninstallation process is needed, and no residual files will be left behind."
+        "title": "Can I remove APK Software completely?",
+        "description": "Yes! Since APK software doesn't install anything into your system, removal is as simple as deleting the folder containing the program. No uninstallation process is needed, and no residual files will be left behind."
       },
       {
-        "title": "Do portable applications work on all Windows versions?",
-        "description": "Most portable applications work across different Windows versions, but it's always good to check the compatibility requirements. We clearly list the supported Windows versions for each software in its description."
+        "title": "Do APK Software work on all Windows versions?",
+        "description": "Most APK software work across different Windows versions, but it's always good to check the compatibility requirements. We clearly list the supported Windows versions for each software in its description."
       }
     ]
   },
   "cta": {
     "name": "cta",
-    "title": "Ship your first green software",
-    "description": "Start from here, ship with LvRuan.com.",
+    "title": "Ship your first APK software",
+    "description": "Start from here, ship with PWDJ.com.",
     "buttons": [
       {
-        "title": "Get LvRuan.com",
-        "url": "https://www.lvruan.com",
+        "title": "Get PWDJ.com",
+        "url": "https://pwdj.com",
         "target": "_blank",
         "icon": "GoArrowUpRight"
       },
       {
         "title": "Read Document",
-        "url": "https://www.lvruan.com",
+        "url": "https://pwdj.com",
         "target": "_blank",
         "variant": "outline"
       }
@@ -589,15 +589,15 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "LvRuan.com",
-      "description": "LvRuan.com is a website for Protable software.",
+      "title": "PWDJ.com",
+      "description": "PWDJ.com is a website for APK software.",
       "logo": {
         "src": "/logo.png",
-        "alt": "LvRuan.com"
+        "alt": "PWDJ.com"
       },
       "url": "/"
     },
-    "copyright": "© 2025 • LvRuan.com All rights reserved.",
+    "copyright": "© 2025 • PWDJ.com All rights reserved.",
     "nav": {
       "items": [
         {
@@ -685,7 +685,7 @@
         {
           "title": "Email",
           "icon": "RiMailLine",
-          "url": "mailto:support@lvruan.com",
+          "url": "mailto:support@pwdj.com",
           "target": "_self"
         }
       ]

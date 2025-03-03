@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "绿软下载 | 绿色软件联盟",
-    "description": "绿软下载是一个专注于提供绿色软件下载的网站，提供各种绿色软件下载，帮助您快速启动。",
-    "keywords": "绿软下载, 绿色软件, 软件下载, 绿色软件联盟,绿盟"
+    "title": "陪玩电竞 | 免费安卓软件下载",
+    "description": "陪玩电竞是一个专注于提供免费安卓软件下载的网站，提供各种安卓软件下载，帮助您快速启动。",
+    "keywords": "陪玩电竞, 免费安卓软件, 软件下载, 安卓软件, apk下载"
   },
   "user": {
     "sign_in": "登录",
@@ -32,7 +32,7 @@
   },
   "my_orders": {
     "title": "我的订单",
-    "description": "在 LvRuan 上购买的订单。",
+    "description": "在 PWDJ 上购买的订单。",
     "no_orders": "未找到订单",
     "tip": "",
     "activate_order": "激活订单",

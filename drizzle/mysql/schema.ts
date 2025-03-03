@@ -111,10 +111,15 @@ export const terms = mysqlTable("wp_terms", {
 export const apps = mysqlTable("apps", {
   appid: int().primaryKey().autoincrement(),
   title: varchar({ length: 255 }).notNull(),
+  intro: varchar({ length: 255 }),
   content: text().notNull(),
   date: datetime().notNull().default(sql`CURRENT_TIMESTAMP`),
+  author: varchar({ length: 255 }),
+  website: varchar({ length: 255 }),
+  logo: varchar({ length: 255 }),
+  screenshot: varchar({ length: 255 }),
   download_url: varchar({ length: 255 }),
-  category: int().notNull().default(1),
+  category: int().notNull().default(18),
 });
 
 export const tags = mysqlTable("tags", {
@@ -138,10 +143,15 @@ export const appsen = mysqlTable("appsen",
   {
     appid: int().primaryKey().autoincrement(),
     title: varchar({ length: 255 }).notNull(),
+    intro: varchar({ length: 255 }),
     content: text().notNull(),
     date: datetime().notNull().default(sql`CURRENT_TIMESTAMP`),
+    author: varchar({ length: 255 }),
+    website: varchar({ length: 255 }),
+    logo: varchar({ length: 255 }),
+    screenshot: varchar({ length: 255 }),
     download_url: varchar({ length: 255 }),
-    category: int().notNull().default(1),
+    category: int().notNull().default(18),
   },
   (table) => ({
     strict: false  // Tell Drizzle not to manage this table

@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 interface App {
   appid: string;
@@ -12,6 +13,7 @@ interface App {
   date: string;
   download_url: string | null;
   category: number;
+  logo?: string;
 }
 
 interface SearchResults {
@@ -23,6 +25,23 @@ interface SearchResults {
 
 // 设置页面级别的 ISR 缓存为半天
 export const revalidate = 43200; // 12 hours in seconds (12 * 60 * 60)
+
+// 定义随机标签颜色
+const TAG_COLORS = [
+  'bg-blue-100 text-blue-800',
+  'bg-green-100 text-green-800',
+  'bg-purple-100 text-purple-800',
+  'bg-pink-100 text-pink-800',
+  'bg-yellow-100 text-yellow-800',
+  'bg-indigo-100 text-indigo-800',
+  'bg-red-100 text-red-800',
+  'bg-orange-100 text-orange-800',
+] as const;
+
+// 获取随机颜色的函数
+const getRandomTagColor = () => {
+  return TAG_COLORS[Math.floor(Math.random() * TAG_COLORS.length)];
+};
 
 // 动态生成元数据
 export async function generateMetadata({
@@ -145,80 +164,99 @@ export default async function SearchPage({
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* 页面标题 */}
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-gray-900 mb-3">
+          {locale === 'en' ? 'Search Software' : '搜索软件'}
+        </h1>
+        <p className="text-xl text-gray-600 mb-8">
+          {locale === 'en' ? 'Find your next favorite app!' : '发现你的下一个最爱应用！'}
+        </p>
+      </div>
+
       {/* 搜索框 */}
-      <div className="mb-8">
+      <div className="relative max-w-md mx-auto mb-12">
         <form 
           action={locale === 'zh' ? "/search" : `/${locale}/search`}
           method="GET"
-          className="flex gap-2 max-w-xl mx-auto"
+          className="relative"
         >
+          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+            <Search className="h-5 w-5 text-gray-400" />
+          </div>
           <Input 
             name="keyword" 
             placeholder={locale === 'en' ? "Search apps..." : "搜索应用..."}
-            className="flex-1"
+            className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             defaultValue={keyword}
             required
           />
-          <Button type="submit">
-            <Search className="h-4 w-4 mr-2" />
-            {locale === 'en' ? 'Search' : '搜索'}
-          </Button>
         </form>
       </div>
 
       {/* 搜索结果 */}
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {error ? (
           <div className="text-center text-red-500 py-8">{error}</div>
         ) : results ? (
           <>
-            <div className="mb-6">
-              <h1 className="text-2xl font-semibold">
-                {locale === 'en' 
-                  ? `Search results for "${keyword}" (${results.total} found)` 
-                  : `"${keyword}" 的搜索结果 (共 ${results.total} 个)`}
-              </h1>
-            </div>
-
             {results.apps.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
                 {locale === 'en' ? 'No results found' : '没有找到相关结果'}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {results.apps.map((app) => (
-                  <div key={app.appid} className="border rounded-lg p-4 shadow hover:shadow-md transition-shadow">
-                    <Link href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}>
-                      <h2 className="text-xl font-semibold mb-2">{app.title}</h2>
-                      <div className="text-gray-600 mb-4">
-                        {(() => {
-                          // 处理可能的 HTML 内容
-                          const plainText = app.content
-                            .replace(/<\/?[^>]+(>|$)/g, ' ') // 替换所有HTML标签为空格
-                            .replace(/\s+/g, ' ')           // 合并多个空格
-                            .trim();                        // 移除首尾空白
-                          
-                          // 确保有足够的文字
-                          if (plainText.length > 10) {
-                            // 截取适当长度，避免在中文字符中间截断
-                            let excerpt = plainText.substring(0, 100);
-                            if (/[\u4e00-\u9fa5]$/.test(excerpt)) {
-                              excerpt = excerpt.replace(/[\u4e00-\u9fa5]$/, '');
-                            }
-                            return `${excerpt}...`;
-                          }
-                          
-                          // 如果提取失败，显示默认文本
-                          return locale === 'en' ? 'Click to view details...' : '点击查看详情...';
-                        })()}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {new Date(app.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'zh-CN')}
+              <>
+                <div className="mb-6">
+                  <h2 className="text-xl text-gray-600">
+                    {locale === 'en' 
+                      ? `Found ${results.total} results for "${keyword}"` 
+                      : `找到 ${results.total} 个与"${keyword}"相关的结果`}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {results.apps.map((app) => (
+                    <Link
+                      key={app.appid}
+                      href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
+                      className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
+                    >
+                      <div className="p-6">
+                        {/* App Icon and Title */}
+                        <div className="flex items-start space-x-4 mb-4">
+                          <div className="flex-shrink-0">
+                            <Image
+                              src={app.logo || "/placeholder.svg"}
+                              alt={app.title}
+                              width={56}
+                              height={56}
+                              className="rounded-xl"
+                              style={{
+                                width: '56px',
+                                height: '56px',
+                                objectFit: 'cover'
+                              }}
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-base font-semibold text-gray-900 truncate">
+                              {app.title}
+                            </h3>
+                            <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                              {app.content.replace(/<[^>]+>/g, '')}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Date */}
+                        <div className="text-sm text-gray-500 mt-2">
+                          {new Date(app.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'zh-CN')}
+                        </div>
                       </div>
                     </Link>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             )}
 
             {/* 分页 */}

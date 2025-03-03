@@ -1,5 +1,5 @@
 import { getDb } from "@/drizzle/db";
-import { apps, appsen } from "@/drizzle/schema";
+import { apps, appsen, appTags, tags } from "@/drizzle/schema";
 import { desc, eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -14,34 +14,46 @@ interface CacheItem<T> {
 
 // 中文分类映射
 const ZH_CATEGORY_MAP = {
-  1: { term_id: 1, name: "默认", slug: "uncategorized" },
-  2: { term_id: 2, name: "装机", slug: "software" },
-  3: { term_id: 3, name: "网络软件", slug: "net" },
-  4: { term_id: 4, name: "媒体", slug: "video" },
-  5: { term_id: 5, name: "编程软件", slug: "code" },
-  6: { term_id: 6, name: "图像", slug: "pic" },
-  7: { term_id: 7, name: "系统软件", slug: "sys" },
-  8: { term_id: 8, name: "应用软件", slug: "tools" },
-  9: { term_id: 9, name: "手机软件", slug: "mobile" },
-  13: { term_id: 13, name: "资讯", slug: "info" },
-  31: { term_id: 31, name: "游戏", slug: "game" },
-  52: { term_id: 52, name: "AI", slug: "ai" }
+  1:  { term_id: 1,  name: "连接",    slug: "connectivity" },
+  2:  { term_id: 2,  name: "开发",    slug: "development" },
+  3:  { term_id: 3,  name: "游戏",    slug: "games" },
+  4:  { term_id: 4,  name: "图形",    slug: "graphics" },
+  5:  { term_id: 5,  name: "网络",    slug: "internet" },
+  6:  { term_id: 6,  name: "理财",    slug: "money" },
+  7:  { term_id: 7,  name: "多媒体",   slug: "multimedia" },
+  8:  { term_id: 8,  name: "导航",    slug: "navigation" },
+  9:  { term_id: 9,  name: "电话短信", slug: "phone-sms" },
+  10: { term_id: 10, name: "阅读",    slug: "reading" },
+  11: { term_id: 11, name: "科学教育", slug: "science-education" },
+  12: { term_id: 12, name: "安全",    slug: "security" },
+  13: { term_id: 13, name: "运动健康", slug: "sports-health" },
+  14: { term_id: 14, name: "系统",    slug: "system" },
+  15: { term_id: 15, name: "主题",    slug: "theming" },
+  16: { term_id: 16, name: "时间",    slug: "time" },
+  17: { term_id: 17, name: "写作",    slug: "writing" },
+  18: { term_id: 18, name: "默认",    slug: "default" },
 } as const;
 
 // 英文分类映射
 const EN_CATEGORY_MAP = {
-  1: { term_id: 1, name: "Uncategorized", slug: "uncategorized" },
-  2: { term_id: 2, name: "Essential Software", slug: "software" },
-  3: { term_id: 3, name: "Network Tools", slug: "net" },
-  4: { term_id: 4, name: "Media", slug: "video" },
-  5: { term_id: 5, name: "Programming", slug: "code" },
-  6: { term_id: 6, name: "Graphics", slug: "pic" },
-  7: { term_id: 7, name: "System Tools", slug: "sys" },
-  8: { term_id: 8, name: "Applications", slug: "tools" },
-  9: { term_id: 9, name: "Mobile Apps", slug: "mobile" },
-  13: { term_id: 13, name: "News", slug: "info" },
-  31: { term_id: 31, name: "Games", slug: "game" },
-  52: { term_id: 52, name: "AI", slug: "ai" }
+  1:  { term_id: 1,  name: "Connectivity",       slug: "connectivity" },
+  2:  { term_id: 2,  name: "Development",        slug: "development" },
+  3:  { term_id: 3,  name: "Games",              slug: "games" },
+  4:  { term_id: 4,  name: "Graphics",           slug: "graphics" },
+  5:  { term_id: 5,  name: "Internet",           slug: "internet" },
+  6:  { term_id: 6,  name: "Money",              slug: "money" },
+  7:  { term_id: 7,  name: "Multimedia",         slug: "multimedia" },
+  8:  { term_id: 8,  name: "Navigation",         slug: "navigation" },
+  9:  { term_id: 9,  name: "Phone & SMS",        slug: "phone-sms" },
+  10: { term_id: 10, name: "Reading",            slug: "reading" },
+  11: { term_id: 11, name: "Science & Education",slug: "science-education" },
+  12: { term_id: 12, name: "Security",           slug: "security" },
+  13: { term_id: 13, name: "Sports & Health",    slug: "sports-health" },
+  14: { term_id: 14, name: "System",             slug: "system" },
+  15: { term_id: 15, name: "Theming",            slug: "theming" },
+  16: { term_id: 16, name: "Time",               slug: "time" },
+  17: { term_id: 17, name: "Writing",            slug: "writing" },
+  18: { term_id: 18, name: "Default",            slug: "default" },
 } as const;
 
 // 修改 appsCache 的 key 生成方式,加入 locale 参数
@@ -59,6 +71,9 @@ interface FormattedApp {
   content: string;
   date: string;
   download_url: string | null;
+  logo: string | null;
+  intro: string | null;
+  tags: string[];
   category: number;
 }
 
@@ -68,6 +83,19 @@ interface AppsData {
   total: number;
   totalPages: number;
   currentPage: number;
+}
+
+// 添加查询结果的接口定义
+interface AppQueryResult {
+  appid: number;
+  title: string;
+  content: string;
+  date: Date;
+  download_url: string | null;
+  logo: string | null;
+  intro: string | null;
+  category: number;
+  tags: string[];
 }
 
 export async function GET(
@@ -104,30 +132,45 @@ export async function GET(
       const [countResult] = await db.select({
         count: sql<number>`count(*)`.mapWith(Number)
       })
-      .from(targetTable);  // 使用目标表
+      .from(targetTable);
 
       const total = countResult.count;
 
-      const appsList = await db.select({
-        appid: targetTable.appid,
-        title: targetTable.title,
-        content: targetTable.content,
-        date: targetTable.date,
-        download_url: targetTable.download_url,
-        category: targetTable.category,
-      })
-      .from(targetTable)  // 使用目标表
-      .orderBy(desc(targetTable.date))
-      .limit(PAGE_SIZE)
-      .offset((page - 1) * PAGE_SIZE);
+      const appsList = await db
+        .select({
+          appid: targetTable.appid,
+          title: targetTable.title,
+          content: targetTable.content,
+          intro: targetTable.intro,
+          logo: targetTable.logo,
+          date: targetTable.date,
+          download_url: targetTable.download_url,
+          category: targetTable.category,
+          tags: sql<string[]>`
+            COALESCE(
+              GROUP_CONCAT(${tags.name}),
+              ''
+            )
+          `.mapWith((value) => value ? value.split(',') : [])
+        })
+        .from(targetTable)
+        .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
+        .leftJoin(tags, eq(tags.id, appTags.tag_id))
+        .groupBy(targetTable.appid)
+        .orderBy(desc(targetTable.date))
+        .limit(PAGE_SIZE)
+        .offset((page - 1) * PAGE_SIZE);
 
-      const formattedApps = appsList.map(app => ({
+      const formattedApps: FormattedApp[] = (appsList as AppQueryResult[]).map((app) => ({
         appid: app.appid.toString(),
         title: app.title,
         content: app.content,
         date: app.date.toISOString(),
         download_url: app.download_url,
+        logo: app.logo,
+        intro: app.intro,
         category: app.category,
+        tags: app.tags || [],
       }));
 
       const responseData = {
@@ -156,26 +199,40 @@ export async function GET(
 
       const total = countResult.count;
 
-      const appsList = await db.select({
-        appid: targetTable.appid,
-        title: targetTable.title,
-        content: targetTable.content,
-        date: targetTable.date,
-        download_url: targetTable.download_url,
-        category: targetTable.category,
-      })
-      .from(targetTable)  // 使用目标表
-      .orderBy(desc(targetTable.date))
-      .limit(PAGE_SIZE)
-      .offset((page - 1) * PAGE_SIZE);
+      const appsList = await db
+        .select({
+          appid: targetTable.appid,
+          title: targetTable.title,
+          content: targetTable.content,
+          date: targetTable.date,
+          download_url: targetTable.download_url,
+          category: targetTable.category,
+          tags: sql<string[]>`
+            COALESCE(
+              GROUP_CONCAT(${tags.name}),
+              ''
+            )
+          `.mapWith((value) => value ? value.split(',') : [])
+        })
+        .from(targetTable)
+        .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
+        .leftJoin(tags, eq(tags.id, appTags.tag_id))
+        .where(eq(targetTable.category, term.term_id))
+        .groupBy(targetTable.appid)
+        .orderBy(desc(targetTable.date))
+        .limit(PAGE_SIZE)
+        .offset((page - 1) * PAGE_SIZE);
 
-      const formattedApps = appsList.map(app => ({
+      const formattedApps: FormattedApp[] = (appsList as AppQueryResult[]).map((app) => ({
         appid: app.appid.toString(),
         title: app.title,
         content: app.content,
         date: app.date.toISOString(),
         download_url: app.download_url,
+        logo: app.logo,
+        intro: app.intro,
         category: app.category,
+        tags: app.tags || [], // 确保即使没有标签也返回空数组
       }));
 
       const responseData = {
@@ -196,35 +253,57 @@ export async function GET(
     }
 
     // 获取应用列表
-    const appsCacheKey = `${term.term_id.toString()}-${page}-${locale || 'default'}`;  // 修改缓存key
+    const appsCacheKey = `${term?.term_id.toString() || 'all'}-${page}-${locale || 'default'}`;
     const cachedApps = appsCache.get(appsCacheKey);
 
     let appsData: AppsData;
     if (cachedApps && Date.now() - cachedApps.timestamp < CACHE_DURATION) {
       appsData = cachedApps.data;
     } else {
-      const [countResult] = await db.select({
-        count: sql<number>`count(*)`.mapWith(Number)
-      })
-      .from(targetTable)  // 使用目标表
-      .where(eq(targetTable.category, term.term_id));
+      const [countResult] = await db
+        .select({
+          count: sql<number>`count(*)`.mapWith(Number)
+        })
+        .from(targetTable);
 
       const total = countResult.count;
 
-      const appsList = await db.select()
-        .from(targetTable)  // 使用目标表
-        .where(eq(targetTable.category, term.term_id))
+      const appsList = await db
+        .select({
+          appid: targetTable.appid,
+          title: targetTable.title,
+          content: targetTable.content,
+          intro: targetTable.intro,
+          logo: targetTable.logo,
+          date: targetTable.date,
+          download_url: targetTable.download_url,
+          category: targetTable.category,
+          tags: sql<string[]>`
+            COALESCE(
+              GROUP_CONCAT(${tags.name}),
+              ''
+            )
+          `.mapWith((value) => value ? value.split(',') : [])
+        })
+        .from(targetTable)
+        .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
+        .leftJoin(tags, eq(tags.id, appTags.tag_id))
+        .where(term ? eq(targetTable.category, term.term_id) : undefined)
+        .groupBy(targetTable.appid)
         .orderBy(desc(targetTable.date))
         .limit(PAGE_SIZE)
         .offset((page - 1) * PAGE_SIZE);
 
-      const formattedApps: FormattedApp[] = appsList.map((app) => ({
+      const formattedApps: FormattedApp[] = (appsList as AppQueryResult[]).map((app) => ({
         appid: app.appid.toString(),
         title: app.title,
         content: app.content,
         date: app.date.toISOString(),
         download_url: app.download_url,
+        logo: app.logo,
+        intro: app.intro,
         category: app.category,
+        tags: app.tags || [],
       }));
 
       appsData = {

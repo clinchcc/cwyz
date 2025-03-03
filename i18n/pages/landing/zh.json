@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "绿软",
+      "title": "陪玩电竞",
       "logo": {
         "src": "/logo.png",
-        "alt": "LvRuan"
+        "alt": "PWDJ"
       },
       "url": "/"
     },
@@ -43,14 +43,14 @@
     "show_locale": true
   },
   "hero": {
-    "title": "绿盟一直都在",
-    "description": "绿色安全可用！",
+    "title": "开源安卓软件下载",
+    "description": "免费+安全+可用+最新！",
     "announcement": {
       "label": "2025",
       "title": "🎉 重新出发",
       "url": "/category"
     },
-    "tip": "🎁 绿色软件下载",
+    "tip": "🎁 免费安卓软件下载",
     "buttons": [
       {
         "title": "立即开始",
@@ -64,7 +64,7 @@
     "show_badge": false
   },
   "branding": {
-    "title": "曾经是最大绿色软件下载站",
+    "title": "安卓软件下载",
     "items": [
       {
         "title": "Next.js",
@@ -460,54 +460,54 @@
   "testimonial": {
     "name": "testimonial",
     "label": "用户评价",
-    "title": "用户如何评价 LvRuan.com",
-    "description": "听听使用 LvRuan.com 启动绿色软件的开发者和创始人怎么说。",
+    "title": "用户如何评价 PWDJ.com",
+    "description": "听听使用 PWDJ.com 启动绿色软件的开发者和创始人怎么说。",
     "icon": "GoThumbsup",
     "items": [
       {
-        "title": "陈大卫",
-        "label": "AIWallpaper.shop 创始人",
-        "description": "LvRuan.com 为我们节省了数月的开发时间。我们仅用 2 天就启动了 AI 壁纸业务，一周内就获得了第一个付费客户！",
+        "title": "陈小明",
+        "label": "安卓玩家",
+        "description": "PWDJ 是我的必备网站！所有安卓软件都是免费的，而且更新特别快。最喜欢的是游戏专区，很多热门游戏的修改版都能在这找到，太赞了！",
         "image": {
           "src": "/imgs/users/1.png"
         }
       },
       {
-        "title": "金瑞秋",
-        "label": "HeyBeauty.ai 技术总监",
-        "description": "预构建的 AI 基础设施是一个游戏规则改变者。我们无需担心架构 - 只需专注于 AI 美容技术并快速上线。",
+        "title": "林小雨",
+        "label": "短视频创作者",
+        "description": "在 PWDJ 找到了很多实用的视频编辑软件，全是免费版，省了不少订阅费。界面简洁没广告，下载速度也很快，是我离不开的安卓软件站。",
         "image": {
           "src": "/imgs/users/2.png"
         }
       },
       {
-        "title": "马库斯",
-        "label": "独立开发者",
-        "description": "作为独立开发者，LvRuan.com 给了我所需的一切 - 身份验证、支付、AI 集成和漂亮的 UI。一个周末就启动了我的 SaaS！",
+        "title": "张大伟",
+        "label": "学生党",
+        "description": "作为学生党，特别感谢 PWDJ！这里的软件都免费，省下了很多钱。学习类软件、工具类应用应有尽有，而且都是安全可靠的版本。",
         "image": {
           "src": "/imgs/users/3.png"
         }
       },
       {
-        "title": "索菲亚",
-        "label": "Melodisco CEO",
-        "description": "这些模板可直接用于生产且高度可定制。我们用几小时而不是几个月就建立了 AI 音乐平台。上市时间令人难以置信！",
+        "title": "赵雪",
+        "label": "安卓达人",
+        "description": "用过很多安卓软件下载站，还是觉得 PWDJ 最靠谱。分类清晰，更新及时，最重要的是所有软件都免费提供，真的帮了很多人！",
         "image": {
           "src": "/imgs/users/4.png"
         }
       },
       {
-        "title": "詹姆斯",
-        "label": "GPTs.works 技术主管",
-        "description": "ShipAny 的基础设施非常稳固。我们从 0 扩展到 1 万用户都没碰后端。这是我们 AI 创业最好的投资。",
+        "title": "王小帅",
+        "label": "手机发烧友",
+        "description": "PWDJ 是我的软件源头站！各类安卓软件应有尽有，从系统工具到娱乐软件，一应俱全。特别喜欢他们的安全承诺，从没下到过有问题的软件。",
         "image": {
           "src": "/imgs/users/5.png"
         }
       },
       {
-        "title": "张安娜",
-        "label": "创业者",
-        "description": "从想法到上线只用了 3 天！ShipAny 的模板和部署工具让我们能够以令人难以置信的速度测试 AI 业务概念。",
+        "title": "李晓华",
+        "label": "普通用户",
+        "description": "朋友推荐了 PWDJ，真是太好用了！想要的安卓软件都能找到，全是免费的，也不用注册会员。界面简单好用，对新手特别友好！",
         "image": {
           "src": "/imgs/users/6.png"
         }
@@ -517,19 +517,19 @@
   "faq": {
     "name": "faq",
     "label": "常见问题",
-    "title": "关于绿软的常见问题",
+    "title": "关于安卓软件的常见问题",
     "description": "还有其他问题？通过 QQ 群或电子邮件联系我们。",
     "items": [
       {
-        "title": "绿软是什么样的网站？",
-        "description": "绿软是一个专注于提供绿色软件下载的网站。我们精心筛选每一款软件，确保它们无广告、无捆绑、无病毒，让用户可以安全放心地下载使用。"
+        "title": "PWDJ是什么样的网站？",
+        "description": "PWDJ是一个专注于提供安卓软件下载的网站。我们精心筛选每一款软件，确保它们无广告、无捆绑、无病毒，让用户可以安全放心地下载使用。"
       },
       {
-        "title": "什么是绿色软件？",
-        "description": "绿色软件是指无需安装，解压即可使用的软件。它不会在系统中留下注册表等痕迹，不会影响系统运行，使用完可以直接删除，非常清爽干净。"
+        "title": "什么是安卓软件？",
+        "description": "安卓软件是指可以在安卓手机上运行的软件。它不会在系统中留下注册表等痕迹，不会影响系统运行，使用完可以直接删除，非常清爽干净。"
       },
       {
-        "title": "绿软上的软件安全吗？",
+        "title": "PWDJ上的软件安全吗？",
         "description": "安全性是我们的首要考虑。所有软件在上架前都经过严格的安全检测，确保无病毒、无木马、无恶意代码。我们还会定期更新软件版本，修复安全漏洞。"
       },
       {
@@ -548,18 +548,18 @@
   },
   "cta": {
     "name": "cta",
-    "title": "启动您的第一个绿色软件",
-    "description": "从这里开始，使用 LvRuan.com 启动。",
+    "title": "启动您的第一个安卓软件",
+    "description": "从这里开始，使用 PWDJ.com 启动。",
     "buttons": [
       {
-        "title": "获取 LvRuan.com",
-        "url": "https://www.lvruan.com",
+        "title": "获取 PWDJ.com",
+        "url": "https://pwdj.com",
         "target": "_blank",
         "icon": "GoArrowUpRight"
       },
       {
         "title": "阅读文档",
-        "url": "https://www.lvruan.com",
+        "url": "https://pwdj.com",
         "target": "_blank",
         "variant": "outline"
       }
@@ -568,15 +568,15 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "LvRuan.com",
-      "description": "LvRuan.com 专注于绿色软件的下载站。",
+      "title": "PWDJ.com",
+      "description": "PWDJ.com 专注于安卓软件的下载站。",
       "logo": {
         "src": "/logo.png",
-        "alt": "LvRuan.com"
+        "alt": "PWDJ.com"
       },
       "url": "/en"
     },
-    "copyright": "© 2025 • LvRuan.com 保留所有权利。",
+    "copyright": "© 2025 • PWDJ.com 保留所有权利。",
     "nav": {
       "items": [
         {
@@ -664,7 +664,7 @@
         {
           "title": "邮箱",
           "icon": "RiMailLine",
-          "url": "mailto:support@lvruan.com",
+          "url": "mailto:support@pwdj.com",
           "target": "_self"
         }
       ]

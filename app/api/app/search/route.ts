@@ -10,6 +10,8 @@ interface App {
   title: string;
   content: string;
   date: Date;
+  logo: string | null;
+  intro: string | null;
   download_url: string | null;
   category: number;
 }
@@ -19,6 +21,8 @@ interface FormattedApp {
   title: string;
   content: string;
   date: string;
+  logo: string | null;
+  intro: string | null;
   download_url: string | null;
   category: number;
 }
@@ -99,6 +103,8 @@ export async function GET(request: Request) {
       appid: app.appid.toString(),
       title: app.title,
       content: app.content,
+      logo: app.logo,
+      intro: app.intro,
       date: app.date.toISOString(),
       download_url: app.download_url,
       category: app.category,

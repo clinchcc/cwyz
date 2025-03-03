@@ -3,46 +3,101 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import {
+  Settings,
+  Code,
+  Coffee,
+  Image as ImageIcon,
+  Globe,
+  DollarSign,
+  Music,
+  Compass,
+  Phone,
+  BookOpen,
+  GraduationCap,
+  Shield,
+  Heart,
+  Cpu,
+  Palette,
+  Clock,
+  PenTool,
+  Home
+} from "lucide-react"
+import Image from 'next/image';
 
-// Add interface definition at the top of the file after imports
+// Add interface definition
 interface App {
   appid: string;
   title: string;
   content: string;
   date: string;
+  logo?: string;
+  intro?: string;
+  tags?: string[];
 }
 
 // 中文分类映射
 const ZH_CATEGORY_MAP = {
-  1: { name: "默认", slug: "uncategorized" },
-  2: { name: "装机", slug: "software" },
-  3: { name: "网络软件", slug: "net" },
-  4: { name: "媒体", slug: "video" },
-  5: { name: "编程软件", slug: "code" },
-  6: { name: "图像", slug: "pic" },
-  7: { name: "系统软件", slug: "sys" },
-  8: { name: "应用软件", slug: "tools" },
-  9: { name: "手机软件", slug: "mobile" },
-  13: { name: "资讯", slug: "info" },
-  31: { name: "游戏", slug: "game" },
-  52: { name: "AI", slug: "ai" }
+  0:  { name: "全部",    slug: "", icon: <Home className="w-5 h-5" /> },
+  1:  { name: "连接",    slug: "connectivity", icon: <Settings className="w-5 h-5" /> },
+  2:  { name: "开发",    slug: "development", icon: <Code className="w-5 h-5" /> },
+  3:  { name: "游戏",    slug: "games", icon: <Coffee className="w-5 h-5" /> },
+  4:  { name: "图形",    slug: "graphics", icon: <ImageIcon className="w-5 h-5" /> },
+  5:  { name: "网络",    slug: "internet", icon: <Globe className="w-5 h-5" /> },
+  6:  { name: "理财",    slug: "money", icon: <DollarSign className="w-5 h-5" /> },
+  7:  { name: "多媒体",   slug: "multimedia", icon: <Music className="w-5 h-5" /> },
+  8:  { name: "导航",    slug: "navigation", icon: <Compass className="w-5 h-5" /> },
+  9:  { name: "电话短信", slug: "phone-sms", icon: <Phone className="w-5 h-5" /> },
+  10: { name: "阅读",    slug: "reading", icon: <BookOpen className="w-5 h-5" /> },
+  11: { name: "科学教育", slug: "science-education", icon: <GraduationCap className="w-5 h-5" /> },
+  12: { name: "安全",    slug: "security", icon: <Shield className="w-5 h-5" /> },
+  13: { name: "运动健康", slug: "sports-health", icon: <Heart className="w-5 h-5" /> },
+  14: { name: "系统",    slug: "system", icon: <Cpu className="w-5 h-5" /> },
+  15: { name: "主题",    slug: "theming", icon: <Palette className="w-5 h-5" /> },
+  16: { name: "时间",    slug: "time", icon: <Clock className="w-5 h-5" /> },
+  17: { name: "写作",    slug: "writing", icon: <PenTool className="w-5 h-5" /> },
+  18: { name: "默认",    slug: "default", icon: <Home className="w-5 h-5" /> },
 } as const;
 
 // 英文分类映射
 const EN_CATEGORY_MAP = {
-  1: { name: "Uncategorized", slug: "uncategorized" },
-  2: { name: "Essential Software", slug: "software" },
-  3: { name: "Network Tools", slug: "net" },
-  4: { name: "Media", slug: "video" },
-  5: { name: "Programming", slug: "code" },
-  6: { name: "Graphics", slug: "pic" },
-  7: { name: "System Tools", slug: "sys" },
-  8: { name: "Applications", slug: "tools" },
-  9: { name: "Mobile Apps", slug: "mobile" },
-  13: { name: "News", slug: "info" },
-  31: { name: "Games", slug: "game" },
-  52: { name: "AI", slug: "ai" }
+  0:  { name: "All",               slug: "", icon: <Home className="w-5 h-5" /> },
+  1:  { name: "Connectivity",      slug: "connectivity", icon: <Settings className="w-5 h-5" /> },
+  2:  { name: "Development",         slug: "development", icon: <Code className="w-5 h-5" /> },
+  3:  { name: "Games",               slug: "games", icon: <Coffee className="w-5 h-5" /> },
+  4:  { name: "Graphics",            slug: "graphics", icon: <ImageIcon className="w-5 h-5" /> },
+  5:  { name: "Internet",            slug: "internet", icon: <Globe className="w-5 h-5" /> },
+  6:  { name: "Money",               slug: "money", icon: <DollarSign className="w-5 h-5" /> },
+  7:  { name: "Multimedia",          slug: "multimedia", icon: <Music className="w-5 h-5" /> },
+  8:  { name: "Navigation",          slug: "navigation", icon: <Compass className="w-5 h-5" /> },
+  9:  { name: "Phone & SMS",         slug: "phone-sms", icon: <Phone className="w-5 h-5" /> },
+  10: { name: "Reading",             slug: "reading", icon: <BookOpen className="w-5 h-5" /> },
+  11: { name: "Science & Education", slug: "science-education", icon: <GraduationCap className="w-5 h-5" /> },
+  12: { name: "Security",            slug: "security", icon: <Shield className="w-5 h-5" /> },
+  13: { name: "Sports & Health",     slug: "sports-health", icon: <Heart className="w-5 h-5" /> },
+  14: { name: "System",              slug: "system", icon: <Cpu className="w-5 h-5" /> },
+  15: { name: "Theming",             slug: "theming", icon: <Palette className="w-5 h-5" /> },
+  16: { name: "Time",                slug: "time", icon: <Clock className="w-5 h-5" /> },
+  17: { name: "Writing",             slug: "writing", icon: <PenTool className="w-5 h-5" /> },
+  18: { name: "Default",             slug: "default", icon: <Home className="w-5 h-5" /> },
 } as const;
+
+// 定义随机标签颜色
+const TAG_COLORS = [
+  'bg-blue-100 text-blue-800',
+  'bg-green-100 text-green-800',
+  'bg-purple-100 text-purple-800',
+  'bg-pink-100 text-pink-800',
+  'bg-yellow-100 text-yellow-800',
+  'bg-indigo-100 text-indigo-800',
+  'bg-red-100 text-red-800',
+  'bg-orange-100 text-orange-800',
+] as const;
+
+// 获取随机颜色的函数
+const getRandomTagColor = () => {
+  return TAG_COLORS[Math.floor(Math.random() * TAG_COLORS.length)];
+};
 
 export function generateMetadata({ params }: { params: { locale: string } }) {
   const { locale } = params;
@@ -54,14 +109,12 @@ export function generateMetadata({ params }: { params: { locale: string } }) {
 
   const metadata = {
     zh: {
-      title: '绿软软件分类',
-      description: '绿盟提供各种类型软件下载，包括系统工具、办公软件、图像处理、音视频工具、编程开发等多个分类的优质软件',
-      siteName: '软件下载'
+      title: '陪玩电竞软件分类',
+      description: '陪玩电竞提供各种类型软件下载，包括系统工具、办公软件、图像处理、音视频工具、编程开发等多个分类的优质软件',
     },
     en: {
-      title: 'Software Categories',
-      description: 'Download various types of software including system tools, office software, image processing, audio/video tools, programming development, and more.',
-      siteName: 'Software Download'
+      title: 'PWDJ Software Categories',
+      description: 'PWDJ provides various types of software downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.',
     }
   };
 
@@ -72,21 +125,7 @@ export function generateMetadata({ params }: { params: { locale: string } }) {
     description: content.description,
     alternates: {
       canonical: canonicalUrl,
-    },
-    openGraph: {
-      title: content.title,
-      description: content.description,
-      url: canonicalUrl,
-      siteName: process.env.NEXT_PUBLIC_SITE_NAME || content.siteName,
-      type: 'website',
-    },
-    robots: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+    }
   };
 }
 
@@ -94,13 +133,8 @@ export default async function CategoryPage({
   params,
   searchParams 
 }: { 
-  params: { 
-    locale: string;
-  };
-  searchParams: { 
-    page?: string;
-    category?: string;
-  } 
+  params: { locale: string };
+  searchParams: { page?: string; }
 }) {
   const { locale } = params;
   const currentPage = Number(searchParams.page) || 1;
@@ -108,7 +142,6 @@ export default async function CategoryPage({
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
 
-  // 构建 API URL，添加 locale 参数
   const url = new URL(`${protocol}://${host}/api/app/category/all`);
   url.searchParams.set('page', currentPage.toString());
   if (locale === 'en') {
@@ -117,7 +150,7 @@ export default async function CategoryPage({
 
   const response = await fetch(url, {
     next: {
-      revalidate: 43200 // 缓存 半天
+      revalidate: 43200 // Cache for 12 hours
     }
   });
 
@@ -125,155 +158,151 @@ export default async function CategoryPage({
     throw new Error('Failed to fetch apps');
   }
 
-  const { apps, total, totalPages }: { 
-    apps: App[];
-    total: number;
-    totalPages: number;
-  } = await response.json();
-
-  // 添加分页按钮生成函数
-  const getPageNumbers = (current: number, total: number) => {
-    const delta = 2; // 当前页前后显示的页数
-    const pages: (number | string)[] = [];
-
-    for (let i = 1; i <= total; i++) {
-      if (
-        i === 1 || // 第一页
-        i === total || // 最后一页
-        (i >= current - delta && i <= current + delta) // 当前页前后的页数
-      ) {
-        pages.push(i);
-      } else if (pages[pages.length - 1] !== '...') {
-        pages.push('...');
-      }
-    }
-
-    return pages;
-  };
+  const { apps, total, totalPages }: { apps: App[]; total: number; totalPages: number } = await response.json();
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* 搜索框 */}
-      <div className="mb-8">
-        <form 
-          action={locale === 'zh' ? "/search" : `/${locale}/search`}
-          method="GET"
-          className="flex gap-2 max-w-xl mx-auto"
-        >
-          <Input 
-            name="keyword" 
-            placeholder={locale === 'en' ? "Search apps..." : "搜索应用..."}
-            className="flex-1"
-            required
-          />
-          <Button type="submit">
-            <Search className="h-4 w-4 mr-2" />
-            {locale === 'en' ? 'Search' : '搜索'}
-          </Button>
-        </form>
-      </div>
-      
-      {/* 分类导航 */}
-      <div className="mb-8 overflow-x-auto scrollbar-hide md:overflow-x-visible">
-        <div className="flex gap-3 min-w-max md:min-w-0 md:flex-wrap md:justify-center bg-card p-4 rounded-lg shadow-sm">
-          <Link
-            href={locale === 'zh' ? "/category" : `/${locale}/category`}
-            className={`px-4 py-2 rounded-full transition-colors
-              ${!searchParams.category 
-                ? 'bg-primary text-primary-foreground' 
-                : 'bg-muted hover:bg-muted/80'}`}
-          >
-            {locale === 'en' ? 'All' : '全部'}
-          </Link>
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
+      {/* Mobile Category Menu */}
+      <div className="md:hidden sticky top-0 z-10 bg-white border-b border-gray-200 overflow-x-auto">
+        <div className="flex p-2 space-x-2">
           {Object.entries(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).map(([id, category]) => (
             <Link
               key={id}
-              href={locale === 'zh'
+              href={locale === 'zh' 
                 ? `/category/${category.slug}`
                 : `/${locale}/category/${category.slug}`}
-              className={`px-4 py-2 rounded-full transition-colors
-                ${searchParams.category === category.slug 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-muted/80'}`}
+              className={`flex items-center px-3 py-2 rounded-full whitespace-nowrap ${
+                category.slug === '' ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
+              }`}
             >
-              {category.name}
+              <span className="mr-2">{category.icon}</span>
+              <span>{category.name}</span>
             </Link>
           ))}
         </div>
       </div>
 
-      <h1 className="text-3xl font-bold mb-8 text-center">
-        {locale === 'en' ? 'All Software' : '全部软件'}
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {apps.map((app) => (
-          <div key={app.appid} className="border rounded-lg p-4 shadow hover:shadow-md transition-shadow">
-            <Link href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}>
-              <h3 className="text-xl font-semibold mb-2">{app.title}</h3>
-              <div className="text-gray-600 mb-4">
-                {(() => {
-                  // Process HTML content
-                  const plainText = app.content
-                    .replace(/<\/?[^>]+(>|$)/g, ' ') // Replace HTML tags with spaces
-                    .replace(/\s+/g, ' ')           // Merge multiple spaces
-                    .trim();                        // Remove leading/trailing whitespace
-                  
-                  // Ensure there's enough text to display
-                  if (plainText.length > 10) {
-                    // Truncate to appropriate length, avoid cutting Chinese characters
-                    let excerpt = plainText.substring(0, 100);
-                    if (/[\u4e00-\u9fa5]$/.test(excerpt)) {
-                      excerpt = excerpt.replace(/[\u4e00-\u9fa5]$/, '');
-                    }
-                    return `${excerpt}...`;
-                  }
-                  
-                  // Fallback text if extraction fails
-                  return locale === 'en' ? 'Click to view details...' : '点击查看详情...';
-                })()}
-              </div>
-            </Link>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500">
-                {new Date(app.date).toLocaleDateString()}
-              </span>
-              <Link
-                href={`/app/${app.appid}`}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                {locale === 'en' ? 'Download' : '下载'}
-              </Link>
-            </div>
-          </div>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block w-64 bg-white border-r border-gray-200">
+        {Object.entries(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).map(([id, category]) => (
+          <Link
+            key={id}
+            href={locale === 'zh' 
+              ? `/category/${category.slug}`
+              : `/${locale}/category/${category.slug}`}
+            className={`flex items-center w-full px-4 py-3 text-left ${
+              category.slug === '' ? 'bg-blue-100' : 'hover:bg-gray-100'
+            }`}
+          >
+            <span className="mr-3 text-gray-600">{category.icon}</span>
+            <span className="text-gray-800">{category.name}</span>
+          </Link>
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <nav className="flex justify-center space-x-2 mt-4">
-          {getPageNumbers(currentPage, totalPages).map((page) => {
-            // 构建分页链接
-            const pageLink = locale === 'zh'
-              ? `/category?page=${page}`
-              : `/${locale}/category?page=${page}`;
+      {/* Main Content */}
+      <div className="flex-1 p-6 overflow-y-auto">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-bold text-gray-900 mb-3">
+              {locale === 'en' ? 'Unleash Your Phone\'s Potential' : '释放手机潜能'}
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              {locale === 'en' ? 'Your next favorite app is just a click away!' : '你的下一个最爱应用，触手可及！'}
+            </p>
+          </div>
 
-            return page === '...' ? (
-              <span key={`ellipsis-${currentPage}-${page}-${Math.random()}`} className="px-4 py-2">
-                {page}
-              </span>
-            ) : (
+          {/* Search */}
+          <div className="relative max-w-md mx-auto mb-12">
+            <form 
+              action={locale === 'zh' ? '/search' : `/${locale}/search`}
+              method="GET" 
+              className="relative"
+            >
+              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-gray-400" />
+              </div>
+              <Input 
+                name="keyword" 
+                placeholder={locale === 'en' ? 'Search apps...' : '搜索应用...'}
+                className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </form>
+          </div>
+
+          {/* App Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {apps.map((app: App) => (
               <Link
-                key={`page-${page}`}
-                href={pageLink}
-                className={`px-4 py-2 border rounded hover:bg-gray-100 ${
-                  currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                }`}
+                key={app.appid}
+                href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
+                className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
               >
-                {page}
+                <div className="p-6">
+                  {/* App Icon */}
+                  <div className="flex items-start space-x-4 mb-4">
+                    <div className="flex-shrink-0">
+                      <Image
+                        src={app.logo || "/placeholder.svg"}
+                        alt={app.title}
+                        width={56}
+                        height={56}
+                        style={{
+                          width: '56px',
+                          height: '56px',
+                          objectFit: 'cover'
+                        }}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base font-semibold text-gray-900 truncate">
+                        {app.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                        {app.intro || app.content.replace(/<[^>]+>/g, '')}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  {app.tags && app.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {app.tags.map((tag, index) => (
+                        <span
+                          key={tag}
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRandomTagColor()}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </Link>
-            )
-          })}
-        </nav>
-      )}
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <nav className="flex justify-center space-x-2 mt-8">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <Link
+                  key={page}
+                  href={locale === 'zh' ? `/category?page=${page}` : `/${locale}/category?page=${page}`}
+                  className={`px-4 py-2 border rounded hover:bg-gray-100 ${
+                    currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                  }`}
+                >
+                  {page}
+                </Link>
+              ))}
+            </nav>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

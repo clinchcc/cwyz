@@ -52,7 +52,7 @@ export default async function () {
         {
           title: t("my_orders.read_docs"),
           icon: "RiBookLine",
-          url: "https://www.lvruan.com",
+          url: "https://pwdj.com",
           target: "_blank",
           variant: "outline",
         },
