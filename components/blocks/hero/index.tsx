@@ -15,6 +15,9 @@ interface App {
   title: string;
   content: string;
   date: string;
+  logo: string;
+  intro: string;
+  tags: string[];
   download_url?: string;
   category: number;
 }
@@ -37,7 +40,7 @@ export default async function Hero({
   const host = headersList.get('host');
 
   try {
-    const url = new URL(`${protocol}://${host}/api/app/category/0`);
+    const url = new URL(`${protocol}://${host}/api/app/category/all`);
     if (locale === 'en') {
       url.searchParams.set('locale', 'en');
     }
