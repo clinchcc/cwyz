@@ -202,8 +202,12 @@ export default async function AppPage({ params, searchParams }: {
       // 构建当前页面的路径用于重新验证
       const path = `/${params.locale === 'en' ? 'en/' : ''}app/${params.id}`;
       
-      // 调用 revalidate API
-      await fetch(`${protocol}://${host}/api/revalidate?path=${encodeURIComponent(path)}&secret=${process.env.REVALIDATE_SECRET}`);
+      // 使用新的强制刷新 API
+      const secretKey = process.env.REVALIDATE_SECRET || "temporary-secret-key-for-testing";
+      await fetch(`${protocol}://${host}/api/force-revalidate?path=${encodeURIComponent(path)}&secret=${secretKey}`);
+      
+      // 同时也尝试刷新不带语言前缀的路径
+      await fetch(`${protocol}://${host}/api/force-revalidate?path=/app/${params.id}&secret=${secretKey}`);
     } catch (error) {
       console.error("Failed to revalidate:", error);
     }
