@@ -372,12 +372,12 @@ export default async function AppPage({ params }: {
                     {screenshots.map((screenshot) => (
                       <div
                         key={screenshot}
-                        className="relative group flex-none w-[300px] h-[200px]"
+                        className="relative group flex-none w-[300px]"
                       >
                         <img
                           src={screenshot}
                           alt={`${app.title} screenshot`}
-                          className="rounded-lg shadow-lg w-full h-full object-cover hover:opacity-95 transition-opacity"
+                          className="rounded-lg shadow-lg w-full h-auto hover:opacity-95 transition-opacity"
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
