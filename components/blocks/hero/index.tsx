@@ -43,7 +43,7 @@ export default async function Hero({
     }
 
     const response = await fetch(url, {
-      next: { revalidate: 9600 },
+      next: { revalidate: 43200 }, // 缓存12小时
     });
 
     if (!response.ok) {
