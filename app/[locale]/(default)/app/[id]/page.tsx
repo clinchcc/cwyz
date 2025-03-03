@@ -24,7 +24,7 @@ function processContent(html: string) {
 }
 
 // 使用 React 的 cache 函数来缓存数据获取
-const getApp = cache(async (id: string, locale: string, refresh?: boolean) => {
+const getApp = cache(async (id: string, locale: string) => {
   try {
     const headersList = headers();
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
@@ -36,19 +36,7 @@ const getApp = cache(async (id: string, locale: string, refresh?: boolean) => {
       url.searchParams.set('locale', 'en');
     }
     
-    // 如果需要刷新，添加刷新参数
-    if (refresh) {
-      url.searchParams.set('refresh', 'true');
-    }
-    
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // 使用 revalidate API 而不是直接修改缓存策略
-      next: { revalidate: refresh ? 0 : 2592000 }
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       console.error(`HTTP error! status: ${response.status}`);
@@ -103,7 +91,7 @@ const getCategory = cache(async (categoryId: number, locale: string) => {
 });
 
 // 修改 getAppTags 函数的返回类型
-const getAppTags = cache(async (appId: string, locale: string, refresh?: boolean): Promise<Tag[] | null> => {
+const getAppTags = cache(async (appId: string, locale: string): Promise<Tag[] | null> => {
   try {
     const headersList = headers();
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
@@ -112,15 +100,7 @@ const getAppTags = cache(async (appId: string, locale: string, refresh?: boolean
     const url = new URL(`${protocol}://${host}/api/app/tag/show`);
     url.searchParams.set('appid', appId);
     
-    // 如果需要刷新，添加刷新参数
-    if (refresh) {
-      url.searchParams.set('refresh', 'true');
-    }
-    
-    const response = await fetch(url, {
-      // 使用 revalidate API 而不是直接修改缓存策略
-      next: { revalidate: refresh ? 0 : 2592000 }
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       return null;
@@ -179,48 +159,22 @@ export async function generateMetadata({
   };
 }
 
-export default async function AppPage({ params, searchParams }: { 
-  params: { id: string; locale: string },
-  searchParams: { refresh?: string }
+export default async function AppPage({ params }: { 
+  params: { id: string; locale: string }
 }) {
-  // 检查是否有刷新参数
-  const shouldRefresh = searchParams.refresh === 'true';
-  
-  // 如果需要刷新，设置缓存控制头
-  if (shouldRefresh) {
-    // 设置响应头，告诉 Cloudflare 不要缓存
-    headers().set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    headers().set('Pragma', 'no-cache');
-    headers().set('Expires', '0');
-    headers().set('Surrogate-Control', 'no-store');
-    
-    try {
-      const headersList = headers();
-      const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-      const host = headersList.get('host');
-      
-      // 构建当前页面的路径用于重新验证
-      const path = `/${params.locale === 'en' ? 'en/' : ''}app/${params.id}`;
-      
-      // 使用新的强制刷新 API
-      const secretKey = process.env.REVALIDATE_SECRET || "temporary-secret-key-for-testing";
-      await fetch(`${protocol}://${host}/api/force-revalidate?path=${encodeURIComponent(path)}&secret=${secretKey}`);
-      
-      // 同时也尝试刷新不带语言前缀的路径
-      await fetch(`${protocol}://${host}/api/force-revalidate?path=/app/${params.id}&secret=${secretKey}`);
-    } catch (error) {
-      console.error("Failed to revalidate:", error);
-    }
-  }
-  
-  const app = await getApp(params.id, params.locale, shouldRefresh);
+  // 直接获取数据，不再处理刷新参数
+  const app = await getApp(params.id, params.locale);
   const category = app?.category ? await getCategory(app.category, params.locale) : null;
-  const tags: Tag[] | null = await getAppTags(params.id, params.locale, shouldRefresh);
+  const tags: Tag[] | null = await getAppTags(params.id, params.locale);
 
   if (!app) {
     notFound();
   }
 
+  // 构建元数据
+  const title = app.title;
+  const description = app.content.slice(0, 150);
+  
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* 搜索框 */}
