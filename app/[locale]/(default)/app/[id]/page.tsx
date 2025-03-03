@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 import { headers } from 'next/headers';
 import Link from "next/link";
 import { Input } from '@/components/ui/input';
@@ -23,8 +22,8 @@ function processContent(html: string) {
   return withProcessedImages;
 }
 
-// 使用 React 的 cache 函数来缓存数据获取
-const getApp = cache(async (id: string, locale: string) => {
+// 直接定义函数，不使用 cache 包装
+async function getApp(id: string, locale: string) {
   try {
     const headersList = headers();
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
@@ -49,7 +48,7 @@ const getApp = cache(async (id: string, locale: string) => {
     console.error("Failed to fetch app:", error);
     return null;
   }
-});
+}
 
 // 中文分类映射
 const ZH_CATEGORY_MAP = {
