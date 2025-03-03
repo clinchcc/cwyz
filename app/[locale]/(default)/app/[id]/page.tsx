@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import { cache } from 'react';
 
 
 
@@ -82,11 +83,11 @@ const EN_CATEGORY_MAP = {
   52: { name: "AI Software", slug: "ai" }
 } as const;
 
-// 修改获取分类信息的函数
+// 保留 cache 包装的 getCategory 函数
 const getCategory = cache(async (categoryId: number, locale: string) => {
   // 根据语言选择对应的映射表
   const CATEGORY_MAP = locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP;
-  return CATEGORY_MAP[categoryId as keyof typeof CATEGORY_MAP] || null;
+  return CATEGORY_MAP[categoryId] || null;
 });
 
 // 修改 getAppTags 函数的返回类型
