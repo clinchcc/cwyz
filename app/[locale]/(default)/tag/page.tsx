@@ -12,12 +12,7 @@ interface TagItem {
 
 interface TagListResponse {
   data: TagItem[];
-  pagination: {
-    page: number;
-    pageSize: number;
-    total: number;
-    totalPages: number;
-  };
+  total: number;
 }
 
 // 生成元数据
@@ -53,7 +48,7 @@ async function getTagList(locale: string, page: number) {
     const url = new URL(`${protocol}://${host}/api/app/tag/list`);
     url.searchParams.set('page', page.toString());
     
-    const response = await fetch(url);  // 移除 revalidate 配置
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error('Failed to fetch tags');
@@ -102,7 +97,8 @@ export default async function TagPage({
     );
   }
 
-  const pageNumbers = getPageNumbers(currentPage, tagData.pagination.totalPages);
+  const ITEMS_PER_PAGE = 20; // 添加每页项目数常量
+  const pageCount = Math.ceil(tagData.total / ITEMS_PER_PAGE);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -125,9 +121,9 @@ export default async function TagPage({
       </div>
 
       {/* 更新分页显示部分 */}
-      {tagData.pagination.totalPages > 1 && (
+      {pageCount > 1 && (
         <nav className="flex justify-center space-x-2 mt-8">
-          {getPageNumbers(currentPage, tagData.pagination.totalPages).map((page, index) => (
+          {getPageNumbers(currentPage, pageCount).map((page, index) => (
             typeof page === 'string' ? (
               <span key={`ellipsis-${index}`} className="px-4 py-2">
                 ...

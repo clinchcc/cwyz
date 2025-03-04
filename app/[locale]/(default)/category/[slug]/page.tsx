@@ -168,12 +168,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     throw new Error('Failed to fetch category apps')
   }
 
-  const { apps, total, term } = await response.json() as { 
+  const { apps, total, totalPages, term } = await response.json() as { 
     apps: apps[], 
-    total: number, 
+    total: number,
+    totalPages: number,
     term: { name: string, slug: string } 
   };
-  const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
 
   // 生成分页按钮数组，带省略号
   const getPageNumbers = (current: number, total: number) => {

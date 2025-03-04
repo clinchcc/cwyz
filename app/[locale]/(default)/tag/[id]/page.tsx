@@ -13,6 +13,15 @@ interface AppData {
   download_url?: string;
 }
 
+interface TagAppsResponse {
+  data: AppData[];
+  total: number;
+  tag: {
+    name: string;
+    enname: string;
+  };
+}
+
 // 设置页面级别的 ISR 缓存为一周
 export const revalidate = 604800; // 7 days in seconds (7 * 24 * 60 * 60)
 
@@ -29,14 +38,13 @@ const getTagApps = cache(async (id: string, locale: string, page = 1) => {
     }
     url.searchParams.set('page', page.toString());
     
-    const response = await fetch(url); // 移除 revalidate 配置
+    const response = await fetch(url);
 
     if (!response.ok) {
       return null;
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json() as TagAppsResponse;
   } catch (error) {
     console.error("Failed to fetch tag apps:", error);
     return null;
@@ -92,7 +100,8 @@ export default async function TagPage({
     notFound();
   }
 
-  const pageNumbers = getPageNumbers(data.pagination.page, data.pagination.totalPages);
+  const ITEMS_PER_PAGE = 20; // 添加每页项目数常量
+  const pageCount = Math.ceil(data.total / ITEMS_PER_PAGE);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -109,8 +118,8 @@ export default async function TagPage({
         </h1>
         <p className="text-center text-muted-foreground">
           {params.locale === 'zh' 
-            ? `${data.pagination.total} 个应用`
-            : `Found ${data.pagination.total} apps`}
+            ? `${data.total} 个应用`
+            : `Found ${data.total} apps`}
         </p>
       </div>
 
@@ -156,9 +165,9 @@ export default async function TagPage({
         ))}
       </div>
 
-      {data.pagination.totalPages > 1 && (
+      {pageCount > 1 && (
         <div className="mt-8 flex justify-center gap-2">
-          {getPageNumbers(data.pagination.page, data.pagination.totalPages).map((pageNum, index) => (
+          {getPageNumbers(currentPage, pageCount).map((pageNum, index) => (
             typeof pageNum === 'string' ? (
               <span key={`ellipsis-${index}`} className="px-4 py-2">
                 ...
@@ -168,7 +177,7 @@ export default async function TagPage({
                 key={pageNum}
                 href={`${params.locale === 'zh' ? '/zh' : ''}/tag/${params.id}${pageNum === 1 ? '' : `?page=${pageNum}`}`}
                 className={`px-4 py-2 rounded ${
-                  pageNum === data.pagination.page
+                  pageNum === currentPage
                     ? 'bg-primary text-primary-foreground'
                     : 'hover:bg-muted'
                 }`}

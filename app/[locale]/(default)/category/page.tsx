@@ -25,6 +25,9 @@ import {
 } from "lucide-react"
 import Image from 'next/image';
 
+// Add this constant at the top of the file
+const ITEMS_PER_PAGE = 20; // 每页显示20条数据
+
 // Add interface definition
 interface App {
   appid: string;
@@ -175,7 +178,9 @@ export default async function CategoryPage({
     throw new Error('Failed to fetch apps');
   }
 
-  const { apps, total, totalPages }: { apps: App[]; total: number; totalPages: number } = await response.json();
+  const { apps, total }: { apps: App[]; total: number } = await response.json();
+  
+  const pageCount = Math.ceil(total / ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
@@ -303,9 +308,9 @@ export default async function CategoryPage({
           </div>
 
           {/* Pagination */}
-          {totalPages > 1 && (
+          {pageCount > 1 && (
             <nav className="flex justify-center space-x-2 mt-8">
-              {getPageNumbers(currentPage, totalPages).map((page, index) => (
+              {getPageNumbers(currentPage, pageCount).map((page, index) => (
                 typeof page === 'string' ? (
                   <span key={`ellipsis-${index}`} className="px-4 py-2">
                     ...

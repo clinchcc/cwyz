@@ -6,6 +6,9 @@ import { Search } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
+
+const ITEMS_PER_PAGE = 20;
+
 interface App {
   appid: string;
   title: string;
@@ -19,7 +22,6 @@ interface App {
 interface SearchResults {
   apps: App[];
   total: number;
-  totalPages: number;
   currentPage: number;
 }
 
@@ -136,6 +138,8 @@ export default async function SearchPage({
       }
       
       results = await response.json();
+      
+      // 将分页相关的JSX移到return语句中
     } catch (err) {
       console.error('Search error:', err);
       error = locale === 'en' ? 'An error occurred while searching' : '搜索时发生错误';
@@ -253,62 +257,63 @@ export default async function SearchPage({
                     </Link>
                   ))}
                 </div>
-              </>
-            )}
 
-            {/* 更新分页部分 */}
-            {results.totalPages > 1 && (
-              <div className="flex justify-center mt-10">
-                <nav className="flex items-center space-x-2" aria-label={locale === 'en' ? 'Pagination' : '分页'}>
-                  <Link
-                    href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage - 1}`}
-                    className={`px-4 py-2 border rounded ${
-                      results.currentPage === 1
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
-                        : 'bg-white text-blue-600 hover:bg-blue-50'
-                    }`}
-                    aria-disabled={results.currentPage === 1}
-                  >
-                    {locale === 'en' ? 'Previous' : '上一页'}
-                  </Link>
-                  
-                  {getPageNumbers(results.currentPage, results.totalPages).map((pageNum, index) => (
-                    typeof pageNum === 'string' ? (
-                      <span 
-                        key={`ellipsis-${index}`} 
-                        className="px-4 py-2 text-gray-500"
-                      >
-                        ...
-                      </span>
-                    ) : (
+                {/* Pagination */}
+                {results.total > 0 && Math.ceil(results.total / ITEMS_PER_PAGE) > 1 && (
+                  <div className="flex justify-center mt-10">
+                    <nav className="flex items-center space-x-2" aria-label={locale === 'en' ? 'Pagination' : '分页'}>
+                      {/* Previous button */}
                       <Link
-                        key={`page-${pageNum}`}
-                        href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${pageNum}`}
+                        href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage - 1}`}
                         className={`px-4 py-2 border rounded ${
-                          pageNum === results.currentPage
-                            ? 'bg-blue-600 text-white'
+                          results.currentPage === 1
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
                             : 'bg-white text-blue-600 hover:bg-blue-50'
                         }`}
-                        aria-current={pageNum === results.currentPage ? 'page' : undefined}
+                        aria-disabled={results.currentPage === 1}
                       >
-                        {pageNum}
+                        {locale === 'en' ? 'Previous' : '上一页'}
                       </Link>
-                    )
-                  ))}
-                  
-                  <Link
-                    href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage + 1}`}
-                    className={`px-4 py-2 border rounded ${
-                      results.currentPage === results.totalPages
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
-                        : 'bg-white text-blue-600 hover:bg-blue-50'
-                    }`}
-                    aria-disabled={results.currentPage === results.totalPages}
-                  >
-                    {locale === 'en' ? 'Next' : '下一页'}
-                  </Link>
-                </nav>
-              </div>
+                      
+                      {getPageNumbers(results.currentPage, Math.ceil(results.total / ITEMS_PER_PAGE)).map((pageNum, index) => (
+                        typeof pageNum === 'string' ? (
+                          <span 
+                            key={`ellipsis-${index}`} 
+                            className="px-4 py-2 text-gray-500"
+                          >
+                            ...
+                          </span>
+                        ) : (
+                          <Link
+                            key={`page-${pageNum}`}
+                            href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${pageNum}`}
+                            className={`px-4 py-2 border rounded ${
+                              pageNum === results.currentPage
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-white text-blue-600 hover:bg-blue-50'
+                            }`}
+                            aria-current={pageNum === results.currentPage ? 'page' : undefined}
+                          >
+                            {pageNum}
+                          </Link>
+                        )
+                      ))}
+                      
+                      <Link
+                        href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage + 1}`}
+                        className={`px-4 py-2 border rounded ${
+                          results.currentPage === Math.ceil(results.total / ITEMS_PER_PAGE)
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
+                            : 'bg-white text-blue-600 hover:bg-blue-50'
+                        }`}
+                        aria-disabled={results.currentPage === Math.ceil(results.total / ITEMS_PER_PAGE)}
+                      >
+                        {locale === 'en' ? 'Next' : '下一页'}
+                      </Link>
+                    </nav>
+                  </div>
+                )}
+              </>
             )}
           </>
         ) : (
