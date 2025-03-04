@@ -148,7 +148,7 @@ export async function GET(
           category: targetTable.category,
           tags: sql<string[]>`
             COALESCE(
-              GROUP_CONCAT(${tags.name}),
+              GROUP_CONCAT(${locale === 'zh' ? tags.name : tags.enname}),
               ''
             )
           `.mapWith((value) => value ? value.split(',') : [])
@@ -209,7 +209,7 @@ export async function GET(
           category: targetTable.category,
           tags: sql<string[]>`
             COALESCE(
-              GROUP_CONCAT(${tags.name}),
+              GROUP_CONCAT(${locale === 'zh' ? tags.name : tags.enname}),
               ''
             )
           `.mapWith((value) => value ? value.split(',') : [])
@@ -280,7 +280,7 @@ export async function GET(
           category: targetTable.category,
           tags: sql<string[]>`
             COALESCE(
-              GROUP_CONCAT(${tags.name}),
+              GROUP_CONCAT(${locale === 'zh' ? tags.name : tags.enname}),
               ''
             )
           `.mapWith((value) => value ? value.split(',') : [])
