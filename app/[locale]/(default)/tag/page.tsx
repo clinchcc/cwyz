@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     : '浏览所有软件标签和分类';
 
   let canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}/tag`;
-  if (params.locale !== "zh") {
+  if (params.locale !== "en") {
     canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}/${params.locale}/tag`;
   }
 
@@ -117,11 +117,11 @@ export default async function TagPage({
         {tagData.data.map((tag) => (
           <Link
             key={tag.id}
-            href={`${locale === 'en' ? '/en' : ''}/tag/${tag.id}`}
+            href={`${locale === 'zh' ? '/zh' : ''}/tag/${tag.id}`}
             className="block p-4 bg-card text-card-foreground rounded-lg border shadow-sm hover:shadow-md transition-shadow text-center"
           >
             <span className="text-lg font-medium">
-              {locale === 'en' ? tag.enname : tag.name}
+              {locale === 'zh' ? tag.name : tag.enname}
             </span>
           </Link>
         ))}

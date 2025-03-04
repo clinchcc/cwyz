@@ -108,11 +108,11 @@ export async function GET(
     const locale = searchParams.get("locale");
     const db = await getDb();
     
-    const targetTable = locale === 'en' ? appsen : apps;
-    const CATEGORY_MAP = locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP;
+    const targetTable = locale === 'zh' ? appsen : apps;
+    const CATEGORY_MAP = locale === 'zh' ? ZH_CATEGORY_MAP : EN_CATEGORY_MAP;
 
     // 修改缓存 key,加入 locale 参数
-    const cacheKey = `apps-${params.slug}-${page}-${locale || 'zh'}`;
+    const cacheKey = `apps-${params.slug}-${page}-${locale || 'en'}`;
     
     // 检查缓存
     const cachedData = appsCache.get(cacheKey);
@@ -178,7 +178,7 @@ export async function GET(
         total,
         totalPages: Math.ceil(total / PAGE_SIZE),
         currentPage: page,
-        term: { name: locale === 'en' ? "All Software" : "全部软件", slug: "all" }
+        term: { name: locale === 'zh' ? "全部软件" : "All Software", slug: "all" }
       };
 
       // 更新缓存
@@ -240,7 +240,7 @@ export async function GET(
         total,
         totalPages: Math.ceil(total / PAGE_SIZE),
         currentPage: page,
-        term: { name: locale === 'en' ? "Latest Software" : "最新软件", slug: "0" }
+        term: { name: locale === 'zh' ? "最新软件" : "Latest Software", slug: "0" }
       };
 
       // 更新缓存
@@ -326,7 +326,7 @@ export async function GET(
       currentPage: appsData.currentPage,
       term: term || {
         term_id: 0,
-        name: locale === 'en' ? 'All Software' : '全部软件',
+        name: locale === 'zh' ? '全部软件' : 'All Software',
         slug: 'all'
       }
     };

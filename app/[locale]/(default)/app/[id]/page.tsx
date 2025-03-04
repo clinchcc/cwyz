@@ -37,8 +37,8 @@ async function getApp(id: string, locale: string) {
     
     // 构建 URL，如果是英文则添加 locale 参数
     const url = new URL(`${protocol}://${host}/api/app/${id}`);
-    if (locale === 'en') {
-      url.searchParams.set('locale', 'en');
+    if (locale === 'zh') {
+      url.searchParams.set('locale', 'zh');
     }
     
     const response = await fetch(url);
@@ -176,7 +176,7 @@ export async function generateMetadata({
   const headersList = headers();
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
-  const canonicalUrl = `${protocol}://${host}${params.locale === 'en' ? '/en' : ''}/app/${params.id}`;
+  const canonicalUrl = `${protocol}://${host}${params.locale === 'zh' ? '/zh' : ''}/app/${params.id}`;
 
   return {
     title: app.title,
@@ -212,7 +212,7 @@ export default async function AppPage({ params }: {
       {/* Search Bar */}
       <div className="mb-8">
         <form 
-          action={params.locale === 'zh' ? "/search" : `/${params.locale}/search`}
+          action={params.locale === 'en' ? "/search" : `/${params.locale}/search`}
           method="GET"
           className="flex gap-2 max-w-xl mx-auto"
         >
@@ -266,7 +266,7 @@ export default async function AppPage({ params }: {
               {/* Category */}
               {category && (
                 <Link 
-                  href={`${params.locale === 'en' ? '/en' : ''}/category/${category.slug}`}
+                  href={`${params.locale === 'zh' ? '/zh' : ''}/category/${category.slug}`}
                   className="flex items-center gap-1 hover:text-primary transition-colors"
                 >
                   <span className="h-1 w-1 rounded-full bg-green-500" />
@@ -301,7 +301,7 @@ export default async function AppPage({ params }: {
                   {tags.map((tag) => (
                     <Link
                       key={`tag-${tag.id}`}
-                      href={params.locale === 'zh' ? `/tag/${tag.id}` : `/${params.locale}/tag/${tag.id}`}
+                      href={params.locale === 'en' ? `/tag/${tag.id}` : `/${params.locale}/tag/${tag.id}`}
                       className="flex items-center gap-1 hover:text-primary transition-colors"
                     >
                       <span className="h-1 w-1 rounded-full bg-orange-500" />

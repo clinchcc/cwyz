@@ -67,7 +67,7 @@ export async function GET(request: Request) {
     }
     
     // Create cache key
-    const cacheKey = `search-${keyword}-${locale || 'zh'}-${page}-${limit}`;
+    const cacheKey = `search-${keyword}-${locale || 'en'}-${page}-${limit}`;
     
     // Check cache
     const cachedData = searchCache.get(cacheKey);
@@ -76,7 +76,7 @@ export async function GET(request: Request) {
     }
     
     const db = await getDb();
-    const targetTable = locale === 'en' ? appsen : apps;
+    const targetTable = locale === 'zh' ? appsen : apps;
     
     // 优化: 先只搜索标题
     let appsList = await searchTitleOnly(db, targetTable, keyword, page, limit);

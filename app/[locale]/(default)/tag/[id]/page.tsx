@@ -24,8 +24,8 @@ const getTagApps = cache(async (id: string, locale: string, page = 1) => {
     const host = headersList.get('host');
     
     const url = new URL(`${protocol}://${host}/api/app/tag/${id}`);
-    if (locale === 'en') {
-      url.searchParams.set('locale', 'en');
+    if (locale === 'zh') {
+      url.searchParams.set('locale', 'zh');
     }
     url.searchParams.set('page', page.toString());
     
@@ -102,18 +102,18 @@ export default async function TagPage({
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-center mb-2">
           <Link 
-            href={`${params.locale === 'en' ? '/en' : ''}/tag`}
+            href={`${params.locale === 'zh' ? '/zh' : ''}/tag`}
             className="hover:text-primary"
           >
-            {params.locale === 'en' ? 'Tags' : '标签'}
+            {params.locale === 'zh' ? '标签' : 'Tags'}
           </Link>
           <span className="mx-2">›</span>
-          <span>{params.locale === 'en' ? data.tag.enname : data.tag.name}</span>
+          <span>{params.locale === 'zh' ? data.tag.name : data.tag.enname}</span>
         </h1>
         <p className="text-center text-muted-foreground">
-          {params.locale === 'en' 
-            ? `${data.pagination.total} apps found`
-            : `找到 ${data.pagination.total} 个应用`}
+          {params.locale === 'zh' 
+            ? `${data.pagination.total} 个应用`
+            : `Found ${data.pagination.total} apps`}
         </p>
       </div>
 
@@ -121,7 +121,7 @@ export default async function TagPage({
         {data.data.map((app: AppData) => (
           <Link
             key={app.appid}
-            href={`${params.locale === 'en' ? '/en' : ''}/app/${app.appid}`}
+            href={`${params.locale === 'zh' ? '/zh' : ''}/app/${app.appid}`}
             className="block p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow"
           >
             <h2 className="text-xl font-semibold mb-2 line-clamp-1">{app.title}</h2>
@@ -167,7 +167,7 @@ export default async function TagPage({
             ) : (
               <Link
                 key={pageNum}
-                href={`${params.locale === 'en' ? '/en' : ''}/tag/${params.id}${pageNum === 1 ? '' : `?page=${pageNum}`}`}
+                href={`${params.locale === 'zh' ? '/zh' : ''}/tag/${params.id}${pageNum === 1 ? '' : `?page=${pageNum}`}`}
                 className={`px-4 py-2 rounded ${
                   pageNum === data.pagination.page
                     ? 'bg-primary text-primary-foreground'

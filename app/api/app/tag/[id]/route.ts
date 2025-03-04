@@ -48,7 +48,7 @@ export async function GET(
     const skip = (page - 1) * pageSize;
 
     // Create cache key
-    const cacheKey = `tag-${params.id}-${locale || 'zh'}-${page}-${pageSize}`;
+    const cacheKey = `tag-${params.id}-${locale || 'en'}-${page}-${pageSize}`;
 
     // Check cache
     const cachedData = tagCache.get(cacheKey);
@@ -57,7 +57,7 @@ export async function GET(
     }
 
     const db = await getDb();
-    const targetTable = locale === 'en' ? appsen : apps;
+    const targetTable = locale === 'zh' ? appsen : apps;
 
     // 1. 获取标签信息
     const tagInfo = await db

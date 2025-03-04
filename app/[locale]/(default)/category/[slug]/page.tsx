@@ -119,7 +119,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const host = headersList.get('host');
   
-  const canonicalUrl = `${protocol}://${host}${locale === 'en' ? '/en' : ''}/category/${slug}`
+  const canonicalUrl = `${protocol}://${host}${locale === 'zh' ? '/zh' : ''}/category/${slug}`
 
   // 从映射表中找到对应的分类名称
   const category = Object.values(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).find(cat => cat.slug === slug);
@@ -150,8 +150,8 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   url.searchParams.set('page', currentPage.toString());
   url.searchParams.set('limit', ITEMS_PER_PAGE.toString());
   // 关键是这里：确保在英文版时添加 locale 参数
-  if (locale === 'en') {
-    url.searchParams.set('locale', 'en');
+  if (locale === 'zh') {
+    url.searchParams.set('locale', 'zh');
   }
 
   const response = await fetch(url, {
@@ -203,7 +203,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           {Object.entries(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).map(([id, category]) => (
             <Link
               key={id}
-              href={locale === 'zh' 
+              href={locale === 'en' 
                 ? `/category/${category.slug}`
                 : `/${locale}/category/${category.slug}`}
               className={`flex items-center px-3 py-2 rounded-full whitespace-nowrap ${
@@ -222,7 +222,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         {Object.entries(locale === 'en' ? EN_CATEGORY_MAP : ZH_CATEGORY_MAP).map(([id, category]) => (
           <Link
             key={id}
-            href={locale === 'zh' 
+            href={locale === 'en' 
               ? `/category/${category.slug}`
               : `/${locale}/category/${category.slug}`}
             className={`flex items-center w-full px-4 py-3 text-left ${
@@ -272,7 +272,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             {apps.map((app) => (
               <Link
                 key={app.appid}
-                href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
+                href={locale === 'en' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
                 className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
               >
                 <div className="p-6">
@@ -326,7 +326,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                 <Link
                   key={page}
-                  href={locale === 'zh' ? `/category/${slug}?page=${page}` : `/${locale}/category/${slug}?page=${page}`}
+                  href={locale === 'en' ? `/category/${slug}?page=${page}` : `/${locale}/category/${slug}?page=${page}`}
                   className={`px-4 py-2 border rounded hover:bg-gray-100 ${
                     currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
                   }`}

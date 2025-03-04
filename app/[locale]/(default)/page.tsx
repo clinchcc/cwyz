@@ -19,7 +19,7 @@ export async function generateMetadata({
 }) {
   let canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}`;
 
-  if (locale !== "zh") {
+  if (locale !== "en") {
     canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}/${locale}`;
   }
 

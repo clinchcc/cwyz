@@ -24,7 +24,7 @@ export async function GET(
 		const forceRefresh = searchParams.get("refresh") === "true";
 		const locale = searchParams.get("locale");
 
-		const cacheKey = `app-${params.id}-${locale || 'default'}`;
+		const cacheKey = `app-${params.id}-${locale || 'en'}`;
 
 		// 检查缓存
 		if (!forceRefresh) {
@@ -49,7 +49,7 @@ export async function GET(
 		}
 
 		const db = await getDb();
-		const targetTable = locale === 'en' ? appsen : apps;
+		const targetTable = locale === 'zh' ? appsen : apps;
 		const data = await db
 			.select()
 			.from(targetTable)

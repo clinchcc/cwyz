@@ -302,7 +302,7 @@ export default async function SearchPage({
                   ))}
                   
                   <a
-                    href={`/${locale === 'zh' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage + 1}`}
+                    href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage + 1}`}
                     className={`px-3 py-2 rounded-r-md border ${
                       results.currentPage === results.totalPages
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'

@@ -6,6 +6,8 @@ import { NextResponse } from "next/server";
 const PAGE_SIZE = 20; // 默认每页显示数量
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days cache
 
+//返回tag列表 不分中英文
+
 interface TagItem { 
   id: number;
   name: string;

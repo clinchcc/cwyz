@@ -30,7 +30,7 @@ export async function GET(request: Request) {
 		);
 		const skip = (page - 1) * pageSize;
 
-		const targetTable = locale === 'en' ? appsen : apps;
+		const targetTable = locale === 'zh' ? appsen : apps;
 
 		const conditions: SQL[] = [];
 		
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
 		// Validate the data
 		const validatedData = appSchema.parse(parsedData);
 
-		const targetTable = locale === 'en' ? appsen : apps;
+		const targetTable = locale === 'zh' ? appsen : apps;
 
 		const newApp = await db.insert(targetTable).values({
 			title: validatedData.title,
@@ -123,7 +123,7 @@ export async function PUT(request: Request) {
 			...(validatedData.date && { date: new Date(validatedData.date) })
 		};
 
-		const targetTable = locale === 'en' ? appsen : apps;
+		const targetTable = locale === 'zh' ? appsen : apps;
 
 		await db
 			.update(targetTable)
