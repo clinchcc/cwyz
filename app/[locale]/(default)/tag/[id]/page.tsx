@@ -61,24 +61,21 @@ export async function generateMetadata({ params }: { params: { id: string; local
   };
 }
 
-// 生成分页按钮数组
+// 更新分页函数
 const getPageNumbers = (current: number, total: number) => {
-  const pages: (number | string)[] = [];
-  const delta = 2; // 当前页前后显示的页数
-
-  for (let i = 1; i <= total; i++) {
-    if (
-      i === 1 || // 第一页
-      i === total || // 最后一页
-      (i >= current - delta && i <= current + delta) // 当前页前后的页数
-    ) {
-      pages.push(i);
-    } else if (pages[pages.length - 1] !== '...') {
-      pages.push('...');
-    }
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
   }
 
-  return pages;
+  if (current <= 3) {
+    return [1, 2, 3, 4, '...', total];
+  }
+
+  if (current >= total - 2) {
+    return [1, '...', total - 3, total - 2, total - 1, total];
+  }
+
+  return [1, '...', current - 1, current, current + 1, '...', total];
 };
 
 export default async function TagPage({ 
@@ -161,9 +158,11 @@ export default async function TagPage({
 
       {data.pagination.totalPages > 1 && (
         <div className="mt-8 flex justify-center gap-2">
-          {pageNumbers.map((pageNum, index) => (
-            pageNum === '...' ? (
-              <span key="ellipsis" className="px-4 py-2">...</span>
+          {getPageNumbers(data.pagination.page, data.pagination.totalPages).map((pageNum, index) => (
+            typeof pageNum === 'string' ? (
+              <span key={`ellipsis-${index}`} className="px-4 py-2">
+                ...
+              </span>
             ) : (
               <Link
                 key={pageNum}

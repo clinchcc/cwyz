@@ -99,6 +99,23 @@ const getRandomTagColor = () => {
   return TAG_COLORS[Math.floor(Math.random() * TAG_COLORS.length)];
 };
 
+// Add pagination helper function
+function getPageNumbers(current: number, total: number) {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  if (current <= 3) {
+    return [1, 2, 3, 4, '...', total];
+  }
+
+  if (current >= total - 2) {
+    return [1, '...', total - 3, total - 2, total - 1, total];
+  }
+
+  return [1, '...', current - 1, current, current + 1, '...', total];
+}
+
 export function generateMetadata({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const headersList = headers();
@@ -288,16 +305,22 @@ export default async function CategoryPage({
           {/* Pagination */}
           {totalPages > 1 && (
             <nav className="flex justify-center space-x-2 mt-8">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <Link
-                  key={page}
-                  href={locale === 'en' ? `/category?page=${page}` : `/${locale}/category?page=${page}`}
-                  className={`px-4 py-2 border rounded hover:bg-gray-100 ${
-                    currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                  }`}
-                >
-                  {page}
-                </Link>
+              {getPageNumbers(currentPage, totalPages).map((page, index) => (
+                typeof page === 'string' ? (
+                  <span key={`ellipsis-${index}`} className="px-4 py-2">
+                    ...
+                  </span>
+                ) : (
+                  <Link
+                    key={page}
+                    href={locale === 'en' ? `/category?page=${page}` : `/${locale}/category?page=${page}`}
+                    className={`px-4 py-2 border rounded hover:bg-gray-100 ${
+                      currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    }`}
+                  >
+                    {page}
+                  </Link>
+                )
               ))}
             </nav>
           )}

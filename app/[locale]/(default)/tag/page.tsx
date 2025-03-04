@@ -66,24 +66,21 @@ async function getTagList(locale: string, page: number) {
   }
 }
 
-// 生成分页按钮
+// 更新分页函数
 function getPageNumbers(current: number, total: number) {
-  const delta = 2;
-  const pages: (number | string)[] = [];
-
-  for (let i = 1; i <= total; i++) {
-    if (
-      i === 1 ||
-      i === total ||
-      (i >= current - delta && i <= current + delta)
-    ) {
-      pages.push(i);
-    } else if (pages[pages.length - 1] !== '...') {
-      pages.push('...');
-    }
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
   }
 
-  return pages;
+  if (current <= 3) {
+    return [1, 2, 3, 4, '...', total];
+  }
+
+  if (current >= total - 2) {
+    return [1, '...', total - 3, total - 2, total - 1, total];
+  }
+
+  return [1, '...', current - 1, current, current + 1, '...', total];
 }
 
 export default async function TagPage({ 
@@ -127,14 +124,27 @@ export default async function TagPage({
         ))}
       </div>
 
-      {/* 使用客户端分页组件 */}
+      {/* 更新分页显示部分 */}
       {tagData.pagination.totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={tagData.pagination.totalPages}
-          locale={locale}
-          pageNumbers={pageNumbers}
-        />
+        <nav className="flex justify-center space-x-2 mt-8">
+          {getPageNumbers(currentPage, tagData.pagination.totalPages).map((page, index) => (
+            typeof page === 'string' ? (
+              <span key={`ellipsis-${index}`} className="px-4 py-2">
+                ...
+              </span>
+            ) : (
+              <Link
+                key={page}
+                href={locale === 'en' ? `/tag?page=${page}` : `/${locale}/tag?page=${page}`}
+                className={`px-4 py-2 border rounded hover:bg-gray-100 ${
+                  currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                }`}
+              >
+                {page}
+              </Link>
+            )
+          ))}
+        </nav>
       )}
     </div>
   );

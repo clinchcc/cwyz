@@ -125,7 +125,7 @@ export default async function SearchPage({
       const searchUrl = new URL(`${protocol}://${host}/api/app/search`);
       searchUrl.searchParams.set('keyword', keyword);
       searchUrl.searchParams.set('page', page.toString());
-      if (locale !== 'zh') {
+      if (locale !== 'en') {
         searchUrl.searchParams.set('locale', locale);
       }
       
@@ -142,24 +142,21 @@ export default async function SearchPage({
     }
   }
 
-  // 生成分页按钮
+  // 更新分页函数
   const getPageNumbers = (current: number, total: number) => {
-    const delta = 2; // 当前页前后显示的页数
-    const pages: (number | string)[] = [];
-
-    for (let i = 1; i <= total; i++) {
-      if (
-        i === 1 || // 第一页
-        i === total || // 最后一页
-        (i >= current - delta && i <= current + delta) // 当前页前后的页数
-      ) {
-        pages.push(i);
-      } else if (pages[pages.length - 1] !== '...') {
-        pages.push('...');
-      }
+    if (total <= 7) {
+      return Array.from({ length: total }, (_, i) => i + 1);
     }
 
-    return pages;
+    if (current <= 3) {
+      return [1, 2, 3, 4, '...', total];
+    }
+
+    if (current >= total - 2) {
+      return [1, '...', total - 3, total - 2, total - 1, total];
+    }
+
+    return [1, '...', current - 1, current, current + 1, '...', total];
   };
 
   return (
@@ -177,7 +174,7 @@ export default async function SearchPage({
       {/* 搜索框 */}
       <div className="relative max-w-md mx-auto mb-12">
         <form 
-          action={locale === 'zh' ? "/search" : `/${locale}/search`}
+          action={locale === 'en' ? "/search" : `/${locale}/search`}
           method="GET"
           className="relative"
         >
@@ -218,7 +215,7 @@ export default async function SearchPage({
                   {results.apps.map((app) => (
                     <Link
                       key={app.appid}
-                      href={locale === 'zh' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
+                      href={locale === 'en' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
                       className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
                     >
                       <div className="p-6">
@@ -259,60 +256,57 @@ export default async function SearchPage({
               </>
             )}
 
-            {/* 分页 */}
+            {/* 更新分页部分 */}
             {results.totalPages > 1 && (
               <div className="flex justify-center mt-10">
-                <nav className="inline-flex rounded-md shadow" aria-label={locale === 'en' ? 'Pagination' : '分页'}>
-                  <a
-                    href={`/${locale === 'zh' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage - 1}`}
-                    className={`px-3 py-2 rounded-l-md border ${
+                <nav className="flex items-center space-x-2" aria-label={locale === 'en' ? 'Pagination' : '分页'}>
+                  <Link
+                    href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage - 1}`}
+                    className={`px-4 py-2 border rounded ${
                       results.currentPage === 1
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
                         : 'bg-white text-blue-600 hover:bg-blue-50'
                     }`}
-                    aria-label={locale === 'en' ? 'Previous page' : '上一页'}
                     aria-disabled={results.currentPage === 1}
                   >
                     {locale === 'en' ? 'Previous' : '上一页'}
-                  </a>
+                  </Link>
                   
                   {getPageNumbers(results.currentPage, results.totalPages).map((pageNum, index) => (
-                    pageNum === '...' ? (
+                    typeof pageNum === 'string' ? (
                       <span 
-                        key={`ellipsis-${results.currentPage}-${index}`} 
-                        className="px-3 py-2 border-t border-b bg-white text-gray-500"
+                        key={`ellipsis-${index}`} 
+                        className="px-4 py-2 text-gray-500"
                       >
                         ...
                       </span>
                     ) : (
-                      <a
+                      <Link
                         key={`page-${pageNum}`}
-                        href={`/${locale === 'zh' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${pageNum}`}
-                        className={`px-3 py-2 border-t border-b ${
+                        href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${pageNum}`}
+                        className={`px-4 py-2 border rounded ${
                           pageNum === results.currentPage
                             ? 'bg-blue-600 text-white'
                             : 'bg-white text-blue-600 hover:bg-blue-50'
                         }`}
-                        aria-label={locale === 'en' ? `Page ${pageNum}` : `第 ${pageNum} 页`}
                         aria-current={pageNum === results.currentPage ? 'page' : undefined}
                       >
                         {pageNum}
-                      </a>
+                      </Link>
                     )
                   ))}
                   
-                  <a
+                  <Link
                     href={`/${locale === 'en' ? '' : `${locale}/`}search?keyword=${encodeURIComponent(keyword)}&page=${results.currentPage + 1}`}
-                    className={`px-3 py-2 rounded-r-md border ${
+                    className={`px-4 py-2 border rounded ${
                       results.currentPage === results.totalPages
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none'
                         : 'bg-white text-blue-600 hover:bg-blue-50'
                     }`}
-                    aria-label={locale === 'en' ? 'Next page' : '下一页'}
                     aria-disabled={results.currentPage === results.totalPages}
                   >
                     {locale === 'en' ? 'Next' : '下一页'}
-                  </a>
+                  </Link>
                 </nav>
               </div>
             )}

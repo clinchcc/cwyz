@@ -251,7 +251,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           {/* Search */}
           <div className="relative max-w-md mx-auto mb-12">
             <form 
-              action={locale === 'zh' ? '/search' : `/${locale}/search`}
+              action={locale === 'en' ? '/search' : `/${locale}/search`}
               method="GET" 
               className="relative"
             >
@@ -323,16 +323,22 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           {/* Pagination */}
           {totalPages > 1 && (
             <nav className="flex justify-center space-x-2 mt-8">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <Link
-                  key={page}
-                  href={locale === 'en' ? `/category/${slug}?page=${page}` : `/${locale}/category/${slug}?page=${page}`}
-                  className={`px-4 py-2 border rounded hover:bg-gray-100 ${
-                    currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                  }`}
-                >
-                  {page}
-                </Link>
+              {getPageNumbers(currentPage, totalPages).map((page, index) => (
+                page === '...' ? (
+                  <span key={`ellipsis-${index}`} className="px-4 py-2">
+                    ...
+                  </span>
+                ) : (
+                  <Link
+                    key={page}
+                    href={locale === 'en' ? `/category/${slug}?page=${page}` : `/${locale}/category/${slug}?page=${page}`}
+                    className={`px-4 py-2 border rounded hover:bg-gray-100 ${
+                      currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    }`}
+                  >
+                    {page}
+                  </Link>
+                )
               ))}
             </nav>
           )}
