@@ -252,78 +252,59 @@ export async function GET(
       return NextResponse.json(responseData);
     }
 
-    // 获取应用列表
-    const appsCacheKey = `${term?.term_id.toString() || 'all'}-${page}-${locale || 'default'}`;
-    const cachedApps = appsCache.get(appsCacheKey);
+    // 对于特定分类，修改计数逻辑
+    const [countResult] = await db
+      .select({
+        count: sql<number>`count(*)`.mapWith(Number)
+      })
+      .from(targetTable)
+      .where(term ? eq(targetTable.category, term.term_id) : undefined);
 
-    let appsData: AppsData;
-    if (cachedApps && Date.now() - cachedApps.timestamp < CACHE_DURATION) {
-      appsData = cachedApps.data;
-    } else {
-      const [countResult] = await db
-        .select({
-          count: sql<number>`count(*)`.mapWith(Number)
-        })
-        .from(targetTable);
+    const total = countResult.count;
 
-      const total = countResult.count;
+    const appsList = await db
+      .select({
+        appid: targetTable.appid,
+        title: targetTable.title,
+        content: targetTable.content,
+        intro: targetTable.intro,
+        logo: targetTable.logo,
+        date: targetTable.date,
+        download_url: targetTable.download_url,
+        category: targetTable.category,
+        tags: sql<string[]>`
+          COALESCE(
+            GROUP_CONCAT(${locale === 'zh' ? tags.name : tags.enname}),
+            ''
+          )
+        `.mapWith((value) => value ? value.split(',') : [])
+      })
+      .from(targetTable)
+      .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
+      .leftJoin(tags, eq(tags.id, appTags.tag_id))
+      .where(term ? eq(targetTable.category, term.term_id) : undefined)
+      .groupBy(targetTable.appid)
+      .orderBy(desc(targetTable.date))
+      .limit(PAGE_SIZE)
+      .offset((page - 1) * PAGE_SIZE);
 
-      const appsList = await db
-        .select({
-          appid: targetTable.appid,
-          title: targetTable.title,
-          content: targetTable.content,
-          intro: targetTable.intro,
-          logo: targetTable.logo,
-          date: targetTable.date,
-          download_url: targetTable.download_url,
-          category: targetTable.category,
-          tags: sql<string[]>`
-            COALESCE(
-              GROUP_CONCAT(${locale === 'zh' ? tags.name : tags.enname}),
-              ''
-            )
-          `.mapWith((value) => value ? value.split(',') : [])
-        })
-        .from(targetTable)
-        .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
-        .leftJoin(tags, eq(tags.id, appTags.tag_id))
-        .where(term ? eq(targetTable.category, term.term_id) : undefined)
-        .groupBy(targetTable.appid)
-        .orderBy(desc(targetTable.date))
-        .limit(PAGE_SIZE)
-        .offset((page - 1) * PAGE_SIZE);
-
-      const formattedApps: FormattedApp[] = (appsList as AppQueryResult[]).map((app) => ({
-        appid: app.appid.toString(),
-        title: app.title,
-        content: app.content,
-        date: app.date.toISOString(),
-        download_url: app.download_url,
-        logo: app.logo,
-        intro: app.intro,
-        category: app.category,
-        tags: app.tags || [],
-      }));
-
-      appsData = {
-        apps: formattedApps,
-        total,
-        totalPages: Math.ceil(total / PAGE_SIZE),
-        currentPage: page,
-      };
-
-      appsCache.set(appsCacheKey, {
-        data: appsData,
-        timestamp: Date.now(),
-      });
-    }
+    const formattedApps: FormattedApp[] = (appsList as AppQueryResult[]).map((app) => ({
+      appid: app.appid.toString(),
+      title: app.title,
+      content: app.content,
+      date: app.date.toISOString(),
+      download_url: app.download_url,
+      logo: app.logo,
+      intro: app.intro,
+      category: app.category,
+      tags: app.tags || [],
+    }));
 
     const responseData = {
-      apps: appsData.apps,
-      total: appsData.total,
-      totalPages: appsData.totalPages,
-      currentPage: appsData.currentPage,
+      apps: formattedApps,
+      total,
+      totalPages: Math.ceil(total / PAGE_SIZE),
+      currentPage: page,
       term: term || {
         term_id: 0,
         name: locale === 'zh' ? '全部软件' : 'All Software',
