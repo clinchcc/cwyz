@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 //GET /api/app/tag/show?appid=2774
 export const dynamic = 'force-dynamic';
 // Cache configuration
-const CACHE_DURATION = 70 * 24 * 60 * 60 * 1000; // 70 days
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 interface TagInfo {
   id: number;
@@ -24,6 +24,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const appId = searchParams.get("appid");
+    const refresh = searchParams.get("refresh") === "true";
 
     if (!appId) {
       return NextResponse.json(
@@ -35,7 +36,7 @@ export async function GET(request: Request) {
     // Check cache
     const cacheKey = `app-tags-${appId}`;
     const cachedData = tagsCache.get(cacheKey);
-    if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
+    if (!refresh && cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
       return NextResponse.json(cachedData.data);
     }
 
