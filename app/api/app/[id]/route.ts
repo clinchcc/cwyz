@@ -10,6 +10,8 @@ interface CachedApp {
 	category: number;
 	date: string;
 	logo: string;
+	author: string | null;
+	website: string | null;
 	intro: string | null;
 	screenshot: string | null;
 }
@@ -59,6 +61,8 @@ export async function GET(
 				content: targetTable.content,
 				date: targetTable.date,
 				category: targetTable.category,
+				author: targetTable.author,
+				website: targetTable.website,
 				logo: targetTable.logo,
 				intro: targetTable.intro,
 				screenshot: targetTable.screenshot,
