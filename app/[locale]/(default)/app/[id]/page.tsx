@@ -45,14 +45,14 @@ async function getApp(id: string, locale: string) {
     const response = await fetch(url);
 
     if (!response.ok) {
-      console.error(`HTTP error! status: ${response.status}`);
+      // console.error(`HTTP error! status: ${response.status}`);
       return null;
     }
 
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Failed to fetch app:", error);
+    // console.error("Failed to fetch app:", error);
     return null;
   }
 }
@@ -133,7 +133,7 @@ const getAppTags = cache(async (appId: string, locale: string): Promise<Tag[] | 
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Failed to fetch app tags:", error);
+    // console.error("Failed to fetch app tags:", error);
     return null;
   }
 });
@@ -148,7 +148,7 @@ interface App {
   website?: string;
   logo?: string;
   screenshot?: string;
-  download_url?: string;
+  // download_url?: string;
   category: number;
 }
 
@@ -314,10 +314,10 @@ export default async function AppPage({ params }: {
             </div>
 
             {/* Download Button */}
-            {app.download_url && (
+            {app.appid && (
               <div className="mt-6">
                 <DownloadButton 
-                  downloadUrl={app.download_url} 
+                  appId={params.id} 
                   locale={params.locale} 
                 />
               </div>

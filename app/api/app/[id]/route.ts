@@ -8,7 +8,7 @@ type CachedApp = {
 	title: string;
 	content: string;
 	date: string;
-	download_url: string | null;
+	// download_url: string | null;
 	category: number;
 };
 
@@ -51,7 +51,16 @@ export async function GET(
 		const db = await getDb();
 		const targetTable = locale === 'zh' ? appsen : apps;
 		const data = await db
-			.select()
+			.select({
+				appid: targetTable.appid,
+				title: targetTable.title,
+				content: targetTable.content,
+				date: targetTable.date,
+				category: targetTable.category,
+				logo: targetTable.logo,
+				intro: targetTable.intro,
+				// 不选择 download_url
+			})
 			.from(targetTable)
 			.where(eq(targetTable.appid, Number.parseInt(params.id)))
 			.limit(1);

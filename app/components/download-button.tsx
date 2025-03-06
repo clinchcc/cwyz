@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 interface DownloadButtonProps {
-  downloadUrl: string;
+  appId: string;
   locale: string;
 }
 
@@ -13,11 +13,11 @@ interface ApiResponse {
   code: number;
   message: string;
   data?: {
-    download_url: string;
+    download_token: string;
   };
 }
 
-export default function DownloadButton({ downloadUrl, locale }: DownloadButtonProps) {
+export default function DownloadButton({ appId, locale }: DownloadButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -25,42 +25,48 @@ export default function DownloadButton({ downloadUrl, locale }: DownloadButtonPr
     try {
       setIsLoading(true);
       
+      // console.log('Download button clicked with appId:', appId);
+      
       const response = await fetch('/api/app/down', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ download_url: downloadUrl }),
+        body: JSON.stringify({ app_id: appId }),
       });
 
-      const result: ApiResponse = await response.json();
+      // console.log('Response status:', response.status);
       
-      // 检查返回的 code，0 表示成功，非 0 表示错误
+      const result: ApiResponse = await response.json();
+      // console.log('Response result:', result);
+      
       if (result.code !== 0) {
         if (result.message === 'no auth') {
           toast.error(locale === 'en' ? 'Please sign in first' : '请先登录');
-        //   router.push(`/${locale === 'en' ? '' : locale}/auth/signin`);
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          // router.push('/sign-in');
           return;
         }
         
         if (result.message === 'not enough credits') {
-          toast.error(locale === 'en' ? 'Not enough credits, please recharge' : '积分不足，请充值');
-          // 延迟 3 秒后跳转
+          toast.error(locale === 'en' ? 'Not enough credits' : '积分不足');
           await new Promise(resolve => setTimeout(resolve, 3000));
-          window.location.href = '/#pricing';
+          router.push('/#pricing');
           return;
         }
 
-        toast.error(result.message || (locale === 'en' ? 'Download failed' : '下载失败'));
+        toast.error(result.message);
         return;
       }
 
-      // 只有在 code === 0 时才进行下载
-      window.location.href = result.data?.download_url || downloadUrl;
+      // 使用临时token进行下载
+      if (result.data?.download_token) {
+        window.location.href = `/api/app/download/${result.data.download_token}`;
+      }
       
     } catch (error) {
-      console.error('Download error:', error);
-      toast.error(locale === 'en' ? 'Download failed' : '下载失败');
+      // console.error('Download error:', error);
+      toast.error('Download failed');
     } finally {
       setIsLoading(false);
     }
