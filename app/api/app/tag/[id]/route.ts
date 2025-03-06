@@ -106,9 +106,11 @@ export async function GET(
 
     const responseData = {
       data: formattedApps,
+      total: total,
       tag: {
         id: tagInfo[0].id,
-        name: locale === 'en' ? tagInfo[0].enname : tagInfo[0].name,
+        name: tagInfo[0].name,
+        enname: tagInfo[0].enname
       },
       pagination: {
         page,

@@ -10,7 +10,7 @@ interface AppData {
   title: string;
   content: string;
   date: string;
-  download_url?: string;
+  // download_url?: string;
 }
 
 interface TagAppsResponse {
@@ -155,7 +155,7 @@ export default async function TagPage({
               <time className="text-muted-foreground">
                 {new Date(app.date).toLocaleDateString()}
               </time>
-              {app.download_url && (
+              {app.appid && (
                 <span className="text-primary">
                   {params.locale === 'en' ? 'Download' : '下载'}
                 </span>
