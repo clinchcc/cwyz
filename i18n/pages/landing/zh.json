@@ -369,13 +369,13 @@
           "点评软件"
         ],
         "interval": "one-time",
-        "amount": 9900,
+        "amount": 3000,
         "currency": "USD",
         "price": "$30",
-        "original_price": "$199",
+        "original_price": "$99",
         "unit": "USD",
         "is_featured": false,
-        "tip": "一次付费，无限项目！",
+        "tip": "一次付费，畅快下载！",
         "button": {
           "title": "获取 会员",
           "url": "/#pricing",
@@ -397,13 +397,13 @@
           "首次发布技术支持"
         ],
         "interval": "one-time",
-        "amount": 19900,
+        "amount": 9900,
         "currency": "USD",
-        "price": "$199",
-        "original_price": "$299",
+        "price": "$99",
+        "original_price": "$199",
         "unit": "USD",
         "is_featured": true,
-        "tip": "一次付费，无限下载！",
+        "tip": "一次付费，5年服务！",
         "button": {
           "title": "成为标准会员",
           "url": "/#pricing",
@@ -431,7 +431,7 @@
         "original_price": "$399",
         "unit": "USD",
         "is_featured": false,
-        "tip": "一次付费，无限下载！",
+        "tip": "一次付费，10年服务！",
         "button": {
           "title": "获取 会员",
           "url": "/#pricing",
