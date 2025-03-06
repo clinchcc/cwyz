@@ -12,7 +12,12 @@ interface TagItem {
 
 interface TagListResponse {
   data: TagItem[];
-  total: number;
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
 }
 
 // 生成元数据
@@ -97,11 +102,9 @@ export default async function TagPage({
     );
   }
 
-  const ITEMS_PER_PAGE = 20;
-  const pageCount = Math.ceil(tagData.total / ITEMS_PER_PAGE);
-  
-  // 使用之前定义的 getPageNumbers 函数计算页码数组
-  const pageNumbers = getPageNumbers(currentPage, pageCount);
+  // 使用 API 返回的分页信息
+  const { totalPages } = tagData.pagination;
+  const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -123,15 +126,13 @@ export default async function TagPage({
         ))}
       </div>
 
-      {pageCount > 1 && (
-        <div className="flex justify-center mt-8">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={pageCount}
-            locale={locale}
-            pageNumbers={pageNumbers}
-          />
-        </div>
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          locale={locale}
+          pageNumbers={pageNumbers}
+        />
       )}
     </div>
   );
