@@ -97,8 +97,11 @@ export default async function TagPage({
     );
   }
 
-  const ITEMS_PER_PAGE = 20; // 添加每页项目数常量
+  const ITEMS_PER_PAGE = 20;
   const pageCount = Math.ceil(tagData.total / ITEMS_PER_PAGE);
+  
+  // 使用之前定义的 getPageNumbers 函数计算页码数组
+  const pageNumbers = getPageNumbers(currentPage, pageCount);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -120,27 +123,15 @@ export default async function TagPage({
         ))}
       </div>
 
-      {/* 更新分页显示部分 */}
       {pageCount > 1 && (
-        <nav className="flex justify-center space-x-2 mt-8">
-          {getPageNumbers(currentPage, pageCount).map((page, index) => (
-            typeof page === 'string' ? (
-              <span key={`ellipsis-${index}`} className="px-4 py-2">
-                ...
-              </span>
-            ) : (
-              <Link
-                key={page}
-                href={locale === 'en' ? `/tag?page=${page}` : `/${locale}/tag?page=${page}`}
-                className={`px-4 py-2 border rounded hover:bg-gray-100 ${
-                  currentPage === page ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                }`}
-              >
-                {page}
-              </Link>
-            )
-          ))}
-        </nav>
+        <div className="flex justify-center mt-8">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pageCount}
+            locale={locale}
+            pageNumbers={pageNumbers}
+          />
+        </div>
       )}
     </div>
   );
