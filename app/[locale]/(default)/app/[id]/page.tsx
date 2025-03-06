@@ -180,8 +180,8 @@ export async function generateMetadata({
   const canonicalUrl = `${protocol}://${host}${params.locale === 'zh' ? '/zh' : ''}/app/${params.id}`;
 
   return {
-    title: app.title,
-    description: app.content.slice(0, 200),
+    title: app.intro ? `${app.title} - ${app.intro}` : app.title,
+    description: `${app.title} : ${app.intro} ; ${app.content.slice(0, 200)}`,
     alternates: {
       canonical: canonicalUrl,
     },
