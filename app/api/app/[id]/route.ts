@@ -3,14 +3,16 @@ import { apps, appsen } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-type CachedApp = {
+interface CachedApp {
 	appid: string;
 	title: string;
 	content: string;
-	date: string;
-	// download_url: string | null;
 	category: number;
-};
+	date: string;
+	logo: string;
+	intro: string | null;
+	screenshot: string | null;
+}
 
 const cache = new Map<string, { data: CachedApp; timestamp: number }>();
 const CACHE_DURATION = 24 * 60 * 60 * 1000 * 365; // 365天的缓存时间
@@ -59,7 +61,7 @@ export async function GET(
 				category: targetTable.category,
 				logo: targetTable.logo,
 				intro: targetTable.intro,
-				// 不选择 download_url
+				screenshot: targetTable.screenshot,
 			})
 			.from(targetTable)
 			.where(eq(targetTable.appid, Number.parseInt(params.id)))
@@ -77,6 +79,9 @@ export async function GET(
 			...app,
 			appid: app.appid.toString(),
 			date: app.date.toISOString(),
+			logo: app.logo || '',
+			intro: app.intro || null,
+			screenshot: app.screenshot || null,
 		};
 
 		// 更新缓存
