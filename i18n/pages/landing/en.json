@@ -359,59 +359,50 @@
     "name": "pricing",
     "label": "Pricing",
     "title": "Pricing",
-    "description": "Get all features of ShipAny, Ship your AI SaaS startups fast.",
+    "description": "Download, Collect and Publish Software.",
     "groups": [],
     "items": [
       {
         "title": "Starter",
-        "description": "Get started with your first SaaS startup.",
+        "description": "Get started with your first Software Download.",
         "features_title": "Includes",
         "features": [
-          "100 credits, valid for 1 month",
-          "NextJS boilerplate",
-          "SEO-friendly structure",
-          "Payment with Stripe",
-          "Data storage with Supabase",
-          "Google Oauth & One-Tap Login",
-          "i18n support"
+          "1000 credits, valid for 24 months",
+          "Download",
+          "Collect",
+          "Publish",
+          "Comment"
         ],
         "interval": "one-time",
         "amount": 9900,
-        "cn_amount": 69900,
         "currency": "USD",
         "price": "$99",
         "original_price": "$199",
         "unit": "USD",
         "is_featured": false,
-        "tip": "Pay once. Build unlimited projects!",
+        "tip": "Pay once. Build unlimited Download!",
         "button": {
-          "title": "Get ShipAny",
+          "title": "Get Member",
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
         "product_id": "starter",
-        "product_name": "ShipAny Boilerplate Starter",
-        "credits": 100,
-        "valid_months": 1
+        "product_name": "PWDJ Software Download",
+        "credits": 1000,
+        "valid_months": 24
       },
       {
         "title": "Standard",
-        "description": "Ship Fast with your SaaS Startups.",
+        "description": "Enjoy the Premium Service.",
         "label": "Popular",
         "features_title": "Everything in Starter, plus",
         "features": [
-          "200 credits, valid for 3 month",
-          "Deploy with Vercel or Cloudflare",
-          "Generation of Privacy & Terms",
-          "Google Analytics Integration",
-          "Google Search Console Integration",
+          "20000 credits, valid for 50 months",
           "Discord community",
-          "Technical support for your first ship",
-          "Lifetime updates"
+          "First release technical support"
         ],
         "interval": "one-time",
         "amount": 19900,
-        "cn_amount": 139900,
         "currency": "USD",
         "price": "$199",
         "original_price": "$299",
@@ -419,46 +410,42 @@
         "is_featured": true,
         "tip": "Pay once. Build unlimited projects!",
         "button": {
-          "title": "Get ShipAny",
+          "title": "Get Standard",
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
         "product_id": "standard",
         "product_name": "PWDJ Software Download",
-        "credits": 200,
-        "valid_months": 3
+        "credits": 20000,
+        "valid_months": 50
       },
       {
         "title": "Premium",
-        "description": "Software Download.",
+        "description": "Premium Member.",
         "features_title": "Everything in Standard, plus",
         "features": [
-          "300 credits, valid for 1 year",
-          "Business Functions with AI",
-          "User Center",
-          "Credits System",
-          "API Sales for your SaaS",
-          "Admin System",
-          "Priority Technical Support"
+          "50000 credits, valid for 10 years",
+          "Customer Service",
+          "Honor Member",
+          "New Features Priority Experience"
         ],
         "interval": "one-time",
         "amount": 29900,
-        "cn_amount": 199900,
         "currency": "USD",
         "price": "$299",
         "original_price": "$399",
         "unit": "USD",
         "is_featured": false,
-        "tip": "Pay once. Build unlimited projects!",
+        "tip": "Pay once. Build unlimited Service!",
         "button": {
-          "title": "Get ShipAny",
+          "title": "Get Premium",
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
         "product_id": "premium",
-        "product_name": "PWDJ Software Download",
-        "credits": 300,
-        "valid_months": 12
+        "product_name": "PWDJ Premium Member",
+        "credits": 50000,
+        "valid_months": 120
       }
     ]
   },

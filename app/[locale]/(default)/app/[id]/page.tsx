@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { cache } from 'react';
+import DownloadButton from '@/app/components/download-button';
 
 
 
@@ -315,30 +316,10 @@ export default async function AppPage({ params }: {
             {/* Download Button */}
             {app.download_url && (
               <div className="mt-6">
-                <a
-                  href={app.download_url}
-                  className="relative group inline-flex items-center gap-3 px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl shadow-lg transition-all duration-200"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg 
-                    className="w-6 h-6" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                  <span className="text-lg font-medium">
-                    {params.locale === 'en' ? 'Download Software' : '下载软件'}
-                  </span>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
-                </a>
+                <DownloadButton 
+                  downloadUrl={app.download_url} 
+                  locale={params.locale} 
+                />
               </div>
             )}
           </div>

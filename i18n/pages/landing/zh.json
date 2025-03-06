@@ -354,106 +354,93 @@
     "name": "pricing",
     "label": "定价",
     "title": "定价",
-    "description": "获取 ShipAny 的所有功能，快速启动您的 AI SaaS 创业项目。",
+    "description": "可以下载，收藏和发布软件。",
     "groups": [],
     "items": [
       {
         "title": "入门版",
-        "description": "开始您的第一个 SaaS 创业项目。",
+        "description": "成为陪玩电竟的初级会员",
         "features_title": "包含",
         "features": [
-          "100 积分，有效期 1 个月",
-          "NextJS 模板",
-          "SEO 友好结构",
-          "Stripe 支付",
-          "Supabase 数据存储",
-          "Google OAuth 和一键登录",
-          "国际化支持"
+          "1000 积分，有效期 24 个月",
+          "積分下载",
+          "发布软件",
+          "收藏软件",
+          "点评软件"
         ],
         "interval": "one-time",
         "amount": 9900,
-        "cn_amount": 69900,
         "currency": "USD",
-        "price": "$99",
+        "price": "$30",
         "original_price": "$199",
         "unit": "USD",
         "is_featured": false,
         "tip": "一次付费，无限项目！",
         "button": {
-          "title": "获取 ShipAny",
+          "title": "获取 会员",
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
         "product_id": "starter",
-        "product_name": "ShipAny 模板入门版",
-        "credits": 100,
-        "valid_months": 1
+        "product_name": "成为初级会员",
+        "credits": 1000,
+        "valid_months": 24
       },
       {
         "title": "标准版",
-        "description": "快速启动您的 SaaS 创业项目。",
+        "description": "成为陪玩电竟的高级会员",
         "label": "热门",
         "features_title": "包含入门版所有功能，另加",
         "features": [
-          "200 积分，有效期 3 个月",
-          "Vercel 或 Cloudflare 部署",
-          "隐私和条款生成",
-          "Google Analytics 集成",
-          "Google Search Console 集成",
+          "20000 积分，有效期 50 个月",
           "Discord 社区",
-          "首次发布技术支持",
-          "终身更新"
+          "首次发布技术支持"
         ],
         "interval": "one-time",
         "amount": 19900,
-        "cn_amount": 139900,
         "currency": "USD",
         "price": "$199",
         "original_price": "$299",
         "unit": "USD",
         "is_featured": true,
-        "tip": "一次付费，无限项目！",
+        "tip": "一次付费，无限下载！",
         "button": {
-          "title": "获取 ShipAny",
+          "title": "成为标准会员",
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
         "product_id": "standard",
-        "product_name": "ShipAny 模板标准版",
-        "credits": 200,
-        "valid_months": 3
+        "product_name": "陪玩电竟 高级会员",
+        "credits": 20000,
+        "valid_months": 50
       },
       {
-        "title": "高级版",
-        "description": "构建任何 AI SaaS 创业项目。",
-        "features_title": "包含标准版所有功能，另加",
+        "title": "白金版",
+        "description": "成为白金会员",
+        "features_title": "包含高级版所有功能，另加",
         "features": [
-          "300 积分，有效期 1 年",
-          "AI 业务功能",
-          "用户中心",
-          "积分系统",
-          "SaaS API 销售",
-          "管理系统",
-          "优先技术支持"
+          "50000 积分，有效期 10 年",
+          "客户服务",
+          "榮譽会员",
+          "新功能优先体验"
         ],
         "interval": "one-time",
         "amount": 29900,
-        "cn_amount": 199900,
         "currency": "USD",
         "price": "$299",
         "original_price": "$399",
         "unit": "USD",
         "is_featured": false,
-        "tip": "一次付费，无限项目！",
+        "tip": "一次付费，无限下载！",
         "button": {
-          "title": "获取 ShipAny",
+          "title": "获取 会员",
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
         "product_id": "premium",
-        "product_name": "ShipAny 模板高级版",
-        "credits": 300,
-        "valid_months": 12
+        "product_name": "陪玩电竟 白金会员",
+        "credits": 50000,
+        "valid_months": 120
       }
     ]
   },

@@ -1,18 +1,11 @@
-import {
-  CreditsAmount,
-  CreditsTransType,
-  decreaseCredits,
-  getUserCredits,
-} from "@/services/credit";
+import { CreditsAmount, CreditsTransType, decreaseCredits, getUserCredits } from "@/services/credit";
 import { respData, respErr } from "@/lib/resp";
-
-import { any } from "zod";
 import { getUserUuid } from "@/services/user";
 
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
-    if (!message) {
+    const { download_url } = await req.json();
+    if (!download_url) {
       return respErr("invalid params");
     }
 
@@ -26,7 +19,7 @@ export async function POST(req: Request) {
       return respErr("not enough credits");
     }
 
-    // decrease credits for ping
+    // Decrease credits for download
     await decreaseCredits({
       user_uuid,
       trans_type: CreditsTransType.Ping,
@@ -34,10 +27,10 @@ export async function POST(req: Request) {
     });
 
     return respData({
-      pong: `received message: ${message}`,
+      download_url: download_url,
     });
   } catch (e: any) {
-    console.log("test failed:", e);
+    console.log("download failed:", e);
     return respErr(e.message);
   }
 }
