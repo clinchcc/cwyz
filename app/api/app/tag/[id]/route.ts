@@ -99,10 +99,14 @@ export async function GET(
     const totalPages = Math.ceil(total / pageSize);
 
     // 4. 格式化返回数据
-    const formattedApps = appsWithTags.map(item => ({
-      ...item.app,
-      tag_name: item.tag_name,
-    }));
+    const formattedApps = appsWithTags.map(item => {
+      // 解构时排除 download_url
+      const { download_url, ...rest } = item.app;
+      return {
+        ...rest,
+        tag_name: item.tag_name,
+      };
+    });
 
     const responseData = {
       data: formattedApps,
