@@ -11,7 +11,7 @@ const appSchema = z.object({
 	title: z.string().min(1),
 	content: z.string(),
 	category: z.number(),
-	download_url: z.string().url(),
+	// download_url: z.string().url(),
 	date: z.date().default(() => new Date()),
 });
 
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
 			title: validatedData.title,
 			content: validatedData.content,
 			category: validatedData.category,
-			download_url: validatedData.download_url,
+			// download_url: validatedData.download_url,
 			date: new Date(),
 		});
 

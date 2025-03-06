@@ -70,7 +70,7 @@ interface FormattedApp {
   title: string;
   content: string;
   date: string;
-  download_url: string | null;
+  // download_url: string | null;
   logo: string | null;
   intro: string | null;
   tags: string[];
@@ -91,7 +91,7 @@ interface AppQueryResult {
   title: string;
   content: string;
   date: Date;
-  download_url: string | null;
+  // download_url: string | null;
   logo: string | null;
   intro: string | null;
   category: number;
@@ -144,7 +144,7 @@ export async function GET(
           intro: targetTable.intro,
           logo: targetTable.logo,
           date: targetTable.date,
-          download_url: targetTable.download_url,
+          // download_url: targetTable.download_url,
           category: targetTable.category,
           tags: sql<string[]>`
             COALESCE(
@@ -166,7 +166,7 @@ export async function GET(
         title: app.title,
         content: app.content,
         date: app.date.toISOString(),
-        download_url: app.download_url,
+        // download_url: app.download_url,
         logo: app.logo,
         intro: app.intro,
         category: app.category,
@@ -205,7 +205,6 @@ export async function GET(
           title: targetTable.title,
           content: targetTable.content,
           date: targetTable.date,
-          download_url: targetTable.download_url,
           category: targetTable.category,
           tags: sql<string[]>`
             COALESCE(
@@ -228,7 +227,7 @@ export async function GET(
         title: app.title,
         content: app.content,
         date: app.date.toISOString(),
-        download_url: app.download_url,
+        // download_url: app.download_url,
         logo: app.logo,
         intro: app.intro,
         category: app.category,
@@ -270,7 +269,6 @@ export async function GET(
         intro: targetTable.intro,
         logo: targetTable.logo,
         date: targetTable.date,
-        download_url: targetTable.download_url,
         category: targetTable.category,
         tags: sql<string[]>`
           COALESCE(
@@ -293,7 +291,6 @@ export async function GET(
       title: app.title,
       content: app.content,
       date: app.date.toISOString(),
-      download_url: app.download_url,
       logo: app.logo,
       intro: app.intro,
       category: app.category,

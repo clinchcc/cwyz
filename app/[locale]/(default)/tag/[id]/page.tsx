@@ -62,9 +62,9 @@ export async function generateMetadata({ params }: { params: { id: string; local
   }
 
   return {
-    title: `${data.tag.name} Tag List`,
+    title: params.locale === 'en' ? `${data.tag.enname} Tag List` : `${data.tag.name} 标签列表`,
     description: params.locale === 'en' 
-      ? `Software list for tag ${data.tag.name}`
+      ? `Software list for tag ${data.tag.enname}`
       : `标签 ${data.tag.name} 的软件列表`
   };
 }

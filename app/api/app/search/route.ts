@@ -12,7 +12,7 @@ interface App {
   date: Date;
   logo: string | null;
   intro: string | null;
-  download_url: string | null;
+  // download_url: string | null;
   category: number;
 }
 
@@ -23,7 +23,7 @@ interface FormattedApp {
   date: string;
   logo: string | null;
   intro: string | null;
-  download_url: string | null;
+  // download_url: string | null;
   category: number;
 }
 
@@ -106,7 +106,7 @@ export async function GET(request: Request) {
       logo: app.logo,
       intro: app.intro,
       date: app.date.toISOString(),
-      download_url: app.download_url,
+      // download_url: app.download_url,
       category: app.category,
     }));
     

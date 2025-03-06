@@ -4,7 +4,7 @@ import { eq, and, sql, desc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 
-  
+// /api/app/tag/123?refresh=true 刷新缓存
 const PAGE_SIZE = 20; // 默认每页显示数量
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days cache
 
@@ -12,7 +12,7 @@ interface TagApp {
   appid: number;
   title: string;
   content: string;
-  download_url: string | null;
+  // download_url: string | null;
   category: number;
   date: Date;
   tag_name: string;
@@ -40,20 +40,20 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Replace request.url with searchParams from Request
     const searchParams = new URLSearchParams(request.url.split('?')[1] || '');
     const page = Number(searchParams.get("page")) || 1;
     const pageSize = Number(searchParams.get("pagesize")) || PAGE_SIZE;
     const locale = searchParams.get("locale");
+    const refresh = searchParams.get("refresh") === "true";
     const skip = (page - 1) * pageSize;
 
-    // Create cache key
     const cacheKey = `tag-${params.id}-${locale || 'en'}-${page}-${pageSize}`;
 
-    // Check cache
-    const cachedData = tagCache.get(cacheKey);
-    if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
-      return NextResponse.json(cachedData.data);
+    if (!refresh) {
+      const cachedData = tagCache.get(cacheKey);
+      if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
+        return NextResponse.json(cachedData.data);
+      }
     }
 
     const db = await getDb();
