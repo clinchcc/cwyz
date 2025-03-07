@@ -631,11 +631,6 @@
           "title": "Friends",
           "children": [
             {
-              "title": "PWDJ",
-              "url": "#",
-              "target": "_self"
-            },
-            {
               "title": "Public",
               "url": "#",
               "target": "_self"
