@@ -241,10 +241,10 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-900 mb-3">
-              {locale === 'en' ? 'Unleash Your Phone\'s Potential' : '释放手机潜能'}
+              {locale === 'en' ? 'Public Web Download Jar' : '海量开源免费安卓应用下载'}
             </h1>
             <p className="text-xl text-gray-600 mb-8">
-              {locale === 'en' ? 'Your next favorite app is just a click away!' : '你的下一个最爱应用，触手可及！'}
+              {locale === 'en' ? 'Unleash Your Android\'s Potential!' : '释放安卓潜能，提高生产力！'}
             </p>
           </div>
 
