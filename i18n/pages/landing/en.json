@@ -367,7 +367,7 @@
         "description": "Get started with your first Software Download.",
         "features_title": "Includes",
         "features": [
-          "1000 credits, valid for 24 months",
+          "2000 credits, valid for 24 months",
           "Download",
           "Collect",
           "Publish",
@@ -388,7 +388,7 @@
         },
         "product_id": "starter",
         "product_name": "PWDJ Software Download",
-        "credits": 1000,
+        "credits": 2000,
         "valid_months": 24
       },
       {

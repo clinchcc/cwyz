@@ -359,10 +359,10 @@
     "items": [
       {
         "title": "入门版",
-        "description": "成为陪玩电竟的初级会员",
+        "description": "成为初级会员",
         "features_title": "包含",
         "features": [
-          "1000 积分，有效期 24 个月",
+          "2000 积分，有效期 24 个月",
           "積分下载",
           "发布软件",
           "收藏软件",
@@ -383,12 +383,12 @@
         },
         "product_id": "starter",
         "product_name": "成为初级会员",
-        "credits": 1000,
+        "credits": 2000,
         "valid_months": 24
       },
       {
         "title": "标准版",
-        "description": "成为陪玩电竟的高级会员",
+        "description": "成为高级会员",
         "label": "热门",
         "features_title": "包含入门版所有功能，另加",
         "features": [

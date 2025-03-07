@@ -103,7 +103,7 @@ export default function DownloadButton({ appId, locale }: DownloadButtonProps) {
       <span className="text-lg font-medium">
         {isLoading 
           ? (locale === 'en' ? 'Processing...' : '处理中...') 
-          : (locale === 'en' ? 'Download Software' : '下载软件')
+          : (locale === 'en' ? 'Download APP' : '下载APP')
         }
       </span>
       <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
