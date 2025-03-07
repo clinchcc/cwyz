@@ -8,28 +8,28 @@
         "src": "/logo.png",
         "alt": "PWDJ"
       },
-      "url": "/en"
+      "url": "/"
     },
     "nav": {
       "items": [
         {
           "title": "Home",
-          "url": "/en",
+          "url": "/",
           "icon": "MdHome"
         },
         {
           "title": "Category",
-          "url": "/en/category",
+          "url": "/category",
           "icon": "RiAppsLine"
         },
         {
           "title": "Blog",
-          "url": "/en/posts",
+          "url": "/posts",
           "icon": "RiArticleLine"
         },
         {
           "title": "Tags",
-          "url": "/en/tag", 
+          "url": "/tag", 
           "icon": "RiTagsLine"
         }
       ]
@@ -44,11 +44,11 @@
     "highlight_text": "Free and Safe",
     "description": "PWDJ means: Public Web Download Jar, we provide all android software download, free and safe.",
     "announcement": {
-      "label": "2025",
-      "title": "🎉 Happy New Year",
+      "label": "Open Source",
+      "title": "🎉 Open Source APK",
       "url": "/#pricing"
     },
-    "tip": "🎁 50% off before 2025",
+    "tip": "🎁 Free Android Software Download",
     "buttons": [
       {
         "title": "Get Started",

@@ -15,23 +15,23 @@
 
         {
           "title": "首页",
-          "url": "/",
+          "url": "/zh/",
           "icon": "MdHome"
         },
   
         {
           "title": "软件分类",
-          "url": "/category",
+          "url": "/zh/category",
           "icon": "RiAppsLine"
         },
         {
           "title": "博客",
-          "url": "/posts",
+          "url": "/zh/posts",
           "icon": "RiArticleLine"
         },
         {
           "title": "标签",
-          "url": "/tag",
+          "url": "/zh/tag",
           "icon": "RiTagsLine"
         }
         
@@ -46,16 +46,16 @@
     "title": "开源安卓软件下载",
     "description": "免费+安全+可用+最新！",
     "announcement": {
-      "label": "2025",
-      "title": "🎉 重新出发",
-      "url": "/category"
+      "label": "开源",
+      "title": "🎉 免费安卓软件下载",
+      "url": "/zh/category"
     },
     "tip": "🎁 免费安卓软件下载",
     "buttons": [
       {
         "title": "立即开始",
         "icon": "RiFlashlightFill",
-        "url": "/category",
+        "url": "/zh/category",
         "target": "_self",
         "variant": "default"
       }
