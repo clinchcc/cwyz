@@ -610,20 +610,16 @@
           "title": "友情链接",
           "children": [
             {
-              "title": "VanHere",
+              "title": "PWDJ",
               "url": "#",
               "target": "_self"
             },
             {
-              "title": "大温本地网",
-              "url": "#",
-              "target": "_self"
-            },
-            {
-              "title": "Max649",
+              "title": "陪玩电竟",
               "url": "#",
               "target": "_self"
             }
+            
           ]
         }
       ]

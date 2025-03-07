@@ -631,17 +631,27 @@
           "title": "Friends",
           "children": [
             {
-              "title": "VanHere",
+              "title": "PWDJ",
               "url": "#",
               "target": "_self"
             },
             {
-              "title": "大温本地网",
+              "title": "Public",
               "url": "#",
               "target": "_self"
             },
             {
-              "title": "Max649",
+              "title": "Web",
+              "url": "#",
+              "target": "_self"
+            },
+            {
+              "title": "Download",
+              "url": "#",
+              "target": "_self"
+            },
+            {
+              "title": "Jar",
               "url": "#",
               "target": "_self"
             }
