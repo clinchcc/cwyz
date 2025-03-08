@@ -137,18 +137,6 @@ export async function GET(
 
       const total = countResult.count;
 
-      if (total === 0) {
-        return NextResponse.json({
-          data: [],
-          pagination: {
-            total: 0,
-            pageSize: PAGE_SIZE,
-            current: page,
-            lastPage: 1,
-          },
-        });
-      }
-
       const appsList = await db
         .select({
           appid: targetTable.appid,
@@ -201,8 +189,6 @@ export async function GET(
         timestamp: Date.now()
       });
 
-      const apps = responseData.apps || [];
-
       return NextResponse.json(responseData);
     }
 
@@ -215,18 +201,6 @@ export async function GET(
       .where(eq(targetTable.status, 1));
 
       const total = countResult.count;
-
-      if (total === 0) {
-        return NextResponse.json({
-          data: [],
-          pagination: {
-            total: 0,
-            pageSize: PAGE_SIZE,
-            current: page,
-            lastPage: 1,
-          },
-        });
-      }
 
       const appsList = await db
         .select({
@@ -277,8 +251,6 @@ export async function GET(
         timestamp: Date.now()
       });
 
-      const apps = responseData.apps || [];
-
       return NextResponse.json(responseData);
     }
 
@@ -296,18 +268,6 @@ export async function GET(
       );
 
     const total = countResult.count;
-
-    if (total === 0) {
-      return NextResponse.json({
-        data: [],
-        pagination: {
-          total: 0,
-          pageSize: PAGE_SIZE,
-          current: page,
-          lastPage: 1,
-        },
-      });
-    }
 
     const appsList = await db
       .select({
@@ -362,8 +322,6 @@ export async function GET(
       data: responseData,
       timestamp: Date.now()
     });
-
-    const apps = responseData.apps || [];
 
     return NextResponse.json(responseData);
 
