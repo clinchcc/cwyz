@@ -1,6 +1,6 @@
 import { getDb } from "@/drizzle/db";
 import { apps, appsen } from "@/drizzle/schema";
-import { desc, or, like, and, sql } from "drizzle-orm";
+import { desc, or, like, and, sql, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import type { MySql2Database } from "drizzle-orm/mysql2";
 
@@ -14,6 +14,7 @@ interface App {
   intro: string | null;
   // download_url: string | null;
   category: number;
+  status: number;
 }
 
 interface FormattedApp {
@@ -147,7 +148,12 @@ async function searchTitleOnly(
   
   return db.select()
     .from(table)
-    .where(like(table.title, `%${keyword}%`))
+    .where(
+      and(
+        like(table.title, `%${keyword}%`),
+        eq(table.status, 1) // Only return approved apps
+      )
+    )
     .orderBy(desc(table.date))
     .limit(limit)
     .offset(offset) as Promise<App[]>;
@@ -163,7 +169,12 @@ async function countTitleOnlyResults(
     count: sql<number>`count(*)`.mapWith(Number)
   })
   .from(table)
-  .where(like(table.title, `%${keyword}%`));
+  .where(
+    and(
+      like(table.title, `%${keyword}%`),
+      eq(table.status, 1) // Only count approved apps
+    )
+  );
   
   return result.count;
 }
@@ -180,7 +191,12 @@ async function searchContent(
   
   return db.select()
     .from(table)
-    .where(like(table.content, `%${keyword}%`))
+    .where(
+      and(
+        like(table.content, `%${keyword}%`),
+        eq(table.status, 1) // Only return approved apps
+      )
+    )
     .orderBy(desc(table.date))
     .limit(limit)
     .offset(offset) as Promise<App[]>;
@@ -196,7 +212,12 @@ async function countContentResults(
     count: sql<number>`count(*)`.mapWith(Number)
   })
   .from(table)
-  .where(like(table.content, `%${keyword}%`));
+  .where(
+    and(
+      like(table.content, `%${keyword}%`),
+      eq(table.status, 1) // Only count approved apps
+    )
+  );
   
   return result.count;
 }
@@ -216,7 +237,12 @@ async function searchTitleWithKeywordParts(
   
   return db.select()
     .from(table)
-    .where(or(...conditions))
+    .where(
+      and(
+        or(...conditions),
+        eq(table.status, 1) // Only return approved apps
+      )
+    )
     .orderBy(desc(table.date))
     .limit(limit)
     .offset(offset) as Promise<App[]>;
@@ -236,7 +262,12 @@ async function countTitleResultsWithParts(
     count: sql<number>`count(*)`.mapWith(Number)
   })
   .from(table)
-  .where(or(...conditions));
+  .where(
+    and(
+      or(...conditions),
+      eq(table.status, 1) // Only count approved apps
+    )
+  );
   
   return result.count;
 }

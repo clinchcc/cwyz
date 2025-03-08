@@ -1,6 +1,6 @@
 import { getDb } from "@/drizzle/db";
 import { apps, appsen, appTags, tags } from "@/drizzle/schema";
-import { desc, eq, sql } from "drizzle-orm";
+import { desc, eq, sql, and } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 // 缓存配置
@@ -132,7 +132,8 @@ export async function GET(
       const [countResult] = await db.select({
         count: sql<number>`count(*)`.mapWith(Number)
       })
-      .from(targetTable);
+      .from(targetTable)
+      .where(eq(targetTable.status, 1));
 
       const total = countResult.count;
 
@@ -156,6 +157,7 @@ export async function GET(
         .from(targetTable)
         .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
         .leftJoin(tags, eq(tags.id, appTags.tag_id))
+        .where(eq(targetTable.status, 1)) // 只返回已审核的应用 (status = 1)
         .groupBy(targetTable.appid)
         .orderBy(desc(targetTable.date))
         .limit(PAGE_SIZE)
@@ -195,7 +197,8 @@ export async function GET(
       const [countResult] = await db.select({
         count: sql<number>`count(*)`.mapWith(Number)
       })
-      .from(targetTable);  // 使用目标表
+      .from(targetTable)
+      .where(eq(targetTable.status, 1));
 
       const total = countResult.count;
 
@@ -216,7 +219,7 @@ export async function GET(
         .from(targetTable)
         .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
         .leftJoin(tags, eq(tags.id, appTags.tag_id))
-        .where(eq(targetTable.category, term.term_id))
+        .where(eq(targetTable.status, 1)) // 只返回已审核的应用 (status = 1)
         .groupBy(targetTable.appid)
         .orderBy(desc(targetTable.date))
         .limit(PAGE_SIZE)
@@ -257,7 +260,12 @@ export async function GET(
         count: sql<number>`count(*)`.mapWith(Number)
       })
       .from(targetTable)
-      .where(term ? eq(targetTable.category, term.term_id) : undefined);
+      .where(
+        and(
+          term ? eq(targetTable.category, term.term_id) : undefined,
+          eq(targetTable.status, 1)
+        )
+      );
 
     const total = countResult.count;
 
@@ -280,7 +288,7 @@ export async function GET(
       .from(targetTable)
       .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
       .leftJoin(tags, eq(tags.id, appTags.tag_id))
-      .where(term ? eq(targetTable.category, term.term_id) : undefined)
+      .where(eq(targetTable.status, 1)) // 只返回已审核的应用 (status = 1)
       .groupBy(targetTable.appid)
       .orderBy(desc(targetTable.date))
       .limit(PAGE_SIZE)

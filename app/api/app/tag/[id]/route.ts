@@ -82,7 +82,12 @@ export async function GET(
       .from(appTags)
       .innerJoin(targetTable, eq(appTags.app_id, targetTable.appid))
       .innerJoin(tags, eq(appTags.tag_id, tags.id))
-      .where(eq(appTags.tag_id, Number.parseInt(params.id)))
+      .where(
+        and(
+          eq(appTags.tag_id, Number.parseInt(params.id)),
+          eq(targetTable.status, 1) // 只返回已审核的应用 (status = 1)
+        )
+      )
       .orderBy(desc(targetTable.appid))
       .limit(pageSize)
       .offset(skip);
@@ -93,7 +98,13 @@ export async function GET(
         count: sql<number>`count(*)`.mapWith(Number),
       })
       .from(appTags)
-      .where(eq(appTags.tag_id, Number.parseInt(params.id)));
+      .innerJoin(targetTable, eq(appTags.app_id, targetTable.appid)) // 添加连接以访问 status 字段
+      .where(
+        and(
+          eq(appTags.tag_id, Number.parseInt(params.id)),
+          eq(targetTable.status, 1) // 只计算已审核的应用 (status = 1)
+        )
+      );
 
     const total = totalCount.count;
     const totalPages = Math.ceil(total / pageSize);

@@ -120,6 +120,7 @@ export const apps = mysqlTable("apps", {
   screenshot: varchar({ length: 255 }),
   download_url: varchar({ length: 255 }),
   category: int().notNull().default(18),
+  status: int().notNull().default(0),
 });
 
 export const tags = mysqlTable("tags", {
@@ -152,6 +153,7 @@ export const appsen = mysqlTable("appsen",
     screenshot: varchar({ length: 255 }),
     download_url: varchar({ length: 255 }),
     category: int().notNull().default(18),
+    status: int().notNull().default(0),
   },
   (table) => ({
     strict: false  // Tell Drizzle not to manage this table
