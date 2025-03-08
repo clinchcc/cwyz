@@ -175,6 +175,9 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     term: { name: string, slug: string } 
   };
 
+  // 防御性检查，确保 response 和 response.data 存在
+  const appsData = response && response.data ? response.data : [];
+
   // 生成分页按钮数组，带省略号
   const getPageNumbers = (current: number, total: number) => {
     const pages: (number | string)[] = []
@@ -268,57 +271,65 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           </div>
 
           {/* App Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {apps.map((app) => (
-              <Link
-                key={app.appid}
-                href={locale === 'en' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
-                className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
-              >
-                <div className="p-6">
-                  {/* App Icon */}
-                  <div className="flex items-start space-x-4 mb-4">
-                    <div className="flex-shrink-0">
-                      <Image
-                        src={app.logo || "/placeholder.svg"}
-                        alt={app.title}
-                        width={56}
-                        style={{
-                          width: '56px',
-                          height: '56px',
-                          objectFit: 'cover'
-                        }}  
-                        height={56}
-                        className="rounded-xl"
-                      />
+          {Array.isArray(appsData) && appsData.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {appsData.map((app) => (
+                <Link
+                  key={app.appid}
+                  href={locale === 'en' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
+                  className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 flex flex-col"
+                >
+                  <div className="p-6">
+                    {/* App Icon */}
+                    <div className="flex items-start space-x-4 mb-4">
+                      <div className="flex-shrink-0">
+                        <Image
+                          src={app.logo || "/placeholder.svg"}
+                          alt={app.title}
+                          width={56}
+                          style={{
+                            width: '56px',
+                            height: '56px',
+                            objectFit: 'cover'
+                          }}  
+                          height={56}
+                          className="rounded-xl"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-semibold text-gray-900 truncate">
+                          {app.title}
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                          {app.intro || app.content.replace(/<[^>]+>/g, '')}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base font-semibold text-gray-900 truncate">
-                        {app.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500 line-clamp-2">
-                        {app.intro || app.content.replace(/<[^>]+>/g, '')}
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Tags */}
-                  {app.tags && app.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {app.tags.map((tag, index) => (
-                        <span
-                          key={tag}
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRandomTagColor()}`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
+                    {/* Tags */}
+                    {app.tags && app.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {app.tags.map((tag, index) => (
+                          <span
+                            key={tag}
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRandomTagColor()}`}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-500">
+                {locale === 'en' ? 'No applications found' : '未找到应用'}
+              </p>
+            </div>
+          )}
 
           {/* Pagination */}
           {totalPages > 1 && (

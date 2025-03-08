@@ -694,5 +694,6 @@
         }
       ]
     }
-  }
+  },
+  "no_apps_found": "No applications found"
 }

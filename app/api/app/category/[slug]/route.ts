@@ -201,6 +201,8 @@ export async function GET(
         timestamp: Date.now()
       });
 
+      const apps = responseData.apps || [];
+
       return NextResponse.json(responseData);
     }
 
@@ -274,6 +276,8 @@ export async function GET(
         data: responseData,
         timestamp: Date.now()
       });
+
+      const apps = responseData.apps || [];
 
       return NextResponse.json(responseData);
     }
@@ -358,6 +362,8 @@ export async function GET(
       data: responseData,
       timestamp: Date.now()
     });
+
+    const apps = responseData.apps || [];
 
     return NextResponse.json(responseData);
 
