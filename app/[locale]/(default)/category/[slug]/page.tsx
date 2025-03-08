@@ -269,7 +269,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
           {/* App Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {apps.map((app) => (
+            {apps && Array.isArray(apps) && apps.map((app) => (
               <Link
                 key={app.appid}
                 href={locale === 'en' ? `/app/${app.appid}` : `/${locale}/app/${app.appid}`}
