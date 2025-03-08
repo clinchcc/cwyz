@@ -261,6 +261,10 @@ export async function GET(
       return NextResponse.json(responseData);
     }
 
+    // 在处理特定分类的情况下添加调试日志
+    console.log(`Processing category: ${params.slug}`);
+    console.log(`Term: ${JSON.stringify(term)}`);
+
     // 对于特定分类，修改计数逻辑
     const [countResult] = await db
       .select({
@@ -275,6 +279,22 @@ export async function GET(
       );
 
     const total = countResult.count;
+
+    if (total === 0) {
+      console.log(`No apps found for category ${params.slug}, returning empty array`);
+      // 确保这里直接返回，不会继续执行
+      return NextResponse.json({
+        data: [],
+        pagination: {
+          total: 0,
+          pageSize: PAGE_SIZE,
+          current: page,
+          lastPage: 1,
+        },
+      });
+    }
+
+    console.log(`Found ${total} apps for category ${params.slug}, fetching details...`);
 
     const appsList = await db
       .select({
