@@ -111,13 +111,20 @@ export async function GET(
     const targetTable = locale === 'zh' ? appsen : apps;
     const CATEGORY_MAP = locale === 'zh' ? ZH_CATEGORY_MAP : EN_CATEGORY_MAP;
 
-    // 修改缓存 key,加入 locale 参数
-    const cacheKey = `apps-${params.slug}-${page}-${locale || 'en'}`;
+    // 更新缓存键以包含 status
+    const cacheKey = `category-${params.slug}-${page}-${locale}-status1`;
     
     // 检查缓存
     const cachedData = appsCache.get(cacheKey);
     if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
       return NextResponse.json(cachedData.data);
+    }
+
+    // 检查是否需要清除缓存
+    const clearCache = searchParams.get('refresh') === 'truh';
+    if (clearCache) {
+      // 清除此分类的缓存
+      appsCache.delete(cacheKey);
     }
 
     // 查找对应的分类
