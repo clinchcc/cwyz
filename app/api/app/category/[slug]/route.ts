@@ -4,7 +4,7 @@ import { desc, eq, sql, and } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 // 缓存配置
-const CACHE_DURATION = 24 * 60 * 60 * 1000 * 3; // 3天
+const CACHE_DURATION = 6 * 60 * 60 * 1000  // 6 hours
 const PAGE_SIZE = 20; // 每页显示的数量
 
 interface CacheItem<T> {
@@ -112,7 +112,7 @@ export async function GET(
     const CATEGORY_MAP = locale === 'zh' ? ZH_CATEGORY_MAP : EN_CATEGORY_MAP;
 
     // 更新缓存键以包含 status
-    const cacheKey = `category-${params.slug}-${page}-${locale}-status1`;
+    const cacheKey = `category-${params.slug}-${page}-${locale}-status`;
     
     // 检查缓存
     const cachedData = appsCache.get(cacheKey);
@@ -121,14 +121,16 @@ export async function GET(
     }
 
     // 检查是否需要清除缓存
-    const clearCache = searchParams.get('refresh') === 'truh';
+    const clearCache = searchParams.get('refresh') === 'true';
     if (clearCache) {
       // 清除此分类的缓存
       appsCache.delete(cacheKey);
     }
 
     // 查找对应的分类
-    const term = Object.values(CATEGORY_MAP).find(term => term.slug === params.slug);
+    const term = Object.values(CATEGORY_MAP).find(
+      (term) => term.slug === params.slug
+    );
 
     if (!term && params.slug !== "all" && params.slug !== "0") {
       return NextResponse.json({ error: "Category not found" }, { status: 404 });
@@ -273,7 +275,7 @@ export async function GET(
       .from(targetTable)
       .where(
         and(
-          term ? eq(targetTable.category, term.term_id) : undefined,
+          eq(targetTable.category, term.term_id),
           eq(targetTable.status, 1)
         )
       );
