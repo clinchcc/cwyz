@@ -7,21 +7,26 @@ import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { cache } from 'react';
 import DownloadButton from '@/app/components/download-button';
+import Markdown from '@/components/markdown';
 
 
 
 // 处理 HTML 内容中的图片和注释
-function processContent(html: string) {
-  // 移除 HTML 注释
-  const withoutComments = html.replace(/<!--[\s\S]*?-->/g, "");
-
-  // 处理图片标签，添加安全属性
-  const withProcessedImages = withoutComments.replace(
-    /<img([^>]*)>/g,
-    '<img$1 loading="lazy" decoding="async" referrerpolicy="no-referrer">'
-  );
-
-  return withProcessedImages;
+function processContent(content: string) {
+  // 检查内容是否包含 HTML 标签
+  const hasHtml = /<[a-z][\s\S]*>/i.test(content);
+  
+  if (hasHtml) {
+    // 如果是 HTML，按原来的方式处理
+    const withoutComments = content.replace(/<!--[\s\S]*?-->/g, "");
+    return withoutComments.replace(
+      /<img([^>]*)>/g,
+      '<img$1 loading="lazy" decoding="async" referrerpolicy="no-referrer">'
+    );
+  }
+  
+  // 如果不是 HTML，返回原始内容供 Markdown 组件处理
+  return content;
 }
 
 // 定义分类映射的接口
@@ -334,11 +339,17 @@ export default async function AppPage({ params }: {
             <h2 className="text-2xl font-bold mb-4">
               {params.locale === 'en' ? 'Description' : '应用介绍'}
             </h2>
-            <div
-              dangerouslySetInnerHTML={{ 
-                __html: processContent(app.content)
-              }}
-            />
+            {/<[a-z][\s\S]*>/i.test(app.content) ? (
+              // HTML 内容使用 dangerouslySetInnerHTML
+              <div
+                dangerouslySetInnerHTML={{ 
+                  __html: processContent(app.content)
+                }}
+              />
+            ) : (
+              // Markdown 内容使用 Markdown 组件
+              <Markdown content={app.content} />
+            )}
           </div>
 
           {/* Screenshots Section */}
