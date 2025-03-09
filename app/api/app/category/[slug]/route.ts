@@ -317,7 +317,12 @@ export async function GET(
       .from(targetTable)
       .leftJoin(appTags, eq(appTags.app_id, targetTable.appid))
       .leftJoin(tags, eq(tags.id, appTags.tag_id))
-      .where(eq(targetTable.status, 1)) // 只返回已审核的应用 (status = 1)
+      .where(
+        and(
+          eq(targetTable.category, term.term_id),
+          eq(targetTable.status, 1)
+        )
+      )
       .groupBy(targetTable.appid)
       .orderBy(desc(targetTable.date))
       .limit(PAGE_SIZE)
