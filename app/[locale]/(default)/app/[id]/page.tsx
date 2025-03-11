@@ -82,7 +82,7 @@ const ZH_CATEGORY_MAP = {
   15: { name: "主题",    slug: "theming" },
   16: { name: "时间",    slug: "time" },
   17: { name: "写作",    slug: "writing" },
-  18: { name: "默认",    slug: "default" },
+  18: { name: "APP",    slug: "app" },
 } as const;
 
 // 英文分类映射
@@ -104,7 +104,7 @@ const EN_CATEGORY_MAP = {
   15: { name: "Theming",            slug: "theming" },
   16: { name: "Time",               slug: "time" },
   17: { name: "Writing",            slug: "writing" },
-  18: { name: "Default",            slug: "default" },
+  18: { name: "App",            slug: "app" },
 } as const;
 
 
