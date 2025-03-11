@@ -82,7 +82,7 @@ const EN_CATEGORY_MAP = {
   15: { name: "Theming",             slug: "theming", icon: <Palette className="w-5 h-5" /> },
   16: { name: "Time",                slug: "time", icon: <Clock className="w-5 h-5" /> },
   17: { name: "Writing",             slug: "writing", icon: <PenTool className="w-5 h-5" /> },
-  18: { name: "Default",             slug: "default", icon: <Home className="w-5 h-5" /> },
+  18: { name: "App",             slug: "app", icon: <Home className="w-5 h-5" /> },
 } as const;
 
 // 定义随机标签颜色

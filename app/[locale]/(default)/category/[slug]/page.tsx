@@ -72,6 +72,7 @@ const ZH_CATEGORY_MAP = {
   15: { name: "主题",    slug: "theming", icon: <Palette className="w-5 h-5" /> },
   16: { name: "时间",    slug: "time", icon: <Clock className="w-5 h-5" /> },
   17: { name: "写作",    slug: "writing", icon: <PenTool className="w-5 h-5" /> },
+  18: { name: "APP",    slug: "app", icon: <Menu className="w-5 h-5" /> },
 } as const;
 
 // 英文分类映射
@@ -94,6 +95,7 @@ const EN_CATEGORY_MAP = {
   15: { name: "Theming",          slug: "theming", icon: <Palette className="w-5 h-5" /> },
   16: { name: "Time",             slug: "time", icon: <Clock className="w-5 h-5" /> },
   17: { name: "Writing",          slug: "writing", icon: <PenTool className="w-5 h-5" /> },
+  18: { name: "APP",              slug: "app", icon: <Menu className="w-5 h-5" /> },
 } as const;
 
 // 定义随机标签颜色
