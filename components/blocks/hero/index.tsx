@@ -164,7 +164,7 @@ export default async function Hero({
               {apps.map((app) => (
                 <Link 
                   key={app.appid}
-                  href={locale === 'en' ? `/en/app/${app.appid}` : `/app/${app.appid}`}
+                  href={locale === 'zh' ? `/zh/app/${app.appid}` : `/app/${app.appid}`}
                   className="group p-4 border rounded-lg hover:border-primary hover:shadow-lg transition-all"
                 >
                   <div className="flex items-center space-x-4">
@@ -206,9 +206,9 @@ export default async function Hero({
 
             {apps.length > 0 && (
               <div className="mt-8">
-                <Link href={locale === 'en' ? '/en/category' : '/category'}>
+                <Link href={locale === 'zh' ? '/zh/category' : '/category'}>
                   <Button variant="outline" size="lg">
-                    {locale === 'en' ? 'View More' : '查看更多'}
+                    {locale === 'zh' ? '查看更多' : 'View More'}
                     <Icon name="RiArrowRightLine" className="ml-2" />
                   </Button>
                 </Link>
