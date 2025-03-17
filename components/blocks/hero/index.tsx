@@ -41,8 +41,8 @@ export default async function Hero({
 
   try {
     const url = new URL(`${protocol}://${host}/api/app/category/all`);
-    if (locale === 'en') {
-      url.searchParams.set('locale', 'en');
+    if (locale === 'zh') {
+      url.searchParams.set('locale', 'zh');
     }
 
     const response = await fetch(url, {
@@ -83,7 +83,7 @@ export default async function Hero({
           {/* 搜索框 */}
           <div className="mt-8 mb-8">
               <form 
-                action={locale === 'zh' ? "/search" : `/${locale}/search`}
+                action={locale === 'en' ? "/search" : `/${locale}/search`}
                 method="GET"
                 className="flex gap-2 max-w-xl mx-auto"
               >
