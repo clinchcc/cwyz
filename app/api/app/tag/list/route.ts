@@ -77,9 +77,8 @@ export async function GET(request: Request) {
           .as('filtered_tags')
       );
 
-    // const total = totalCount.count;
-    //暂时把总数固定为20，回头修改回来
-    const total = 19;
+    const total = totalCount.count;
+  
     const totalPages = Math.ceil(total / pageSize);
 
     const responseData = {

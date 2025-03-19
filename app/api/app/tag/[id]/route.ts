@@ -84,11 +84,10 @@ export async function GET(
       .innerJoin(tags, eq(appTags.tag_id, tags.id))
       .where(
         and(
-          eq(appTags.tag_id, Number.parseInt(params.id)),
-          eq(targetTable.status, 1) // 只返回已审核的应用 (status = 1)
+          eq(appTags.tag_id, Number.parseInt(params.id))
         )
       )
-      .orderBy(desc(targetTable.appid))
+      .orderBy(desc(appTags.app_id))
       .limit(pageSize)
       .offset(skip);
 
@@ -98,11 +97,9 @@ export async function GET(
         count: sql<number>`count(*)`.mapWith(Number),
       })
       .from(appTags)
-      .innerJoin(targetTable, eq(appTags.app_id, targetTable.appid)) // 添加连接以访问 status 字段
       .where(
         and(
-          eq(appTags.tag_id, Number.parseInt(params.id)),
-          eq(targetTable.status, 1) // 只计算已审核的应用 (status = 1)
+          eq(appTags.tag_id, Number.parseInt(params.id))
         )
       );
 
