@@ -350,7 +350,8 @@ export default async function AppPage({ params }: {
               // Markdown 内容使用 Markdown 组件
               <Markdown content={app.content} />
             )}
-          /* ✅ 广告位置 */
+          
+          {/* ✅ Google 广告 */}
           <div className="my-6">
             <ins
               className="adsbygoogle"
@@ -367,6 +368,7 @@ export default async function AppPage({ params }: {
                 `
               }}
             />
+
 
 
           </div>
