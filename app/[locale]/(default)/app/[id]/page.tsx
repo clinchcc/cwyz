@@ -9,7 +9,6 @@ import { cache } from "react";
 import DownloadButton from "@/app/components/download-button";
 import Markdown from "@/components/markdown";
 
-// 处理 HTML 内容中的图片和注释
 function processContent(content: string) {
   const hasHtml = /<[a-z][\s\S]*>/i.test(content);
   if (hasHtml) {
@@ -162,12 +161,103 @@ export default async function AppPage({ params }: { params: { id: string; locale
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* 搜索栏 */}
-      {/* ...你原本的搜索表单区域不变... */}
+      <div className="mb-8">
+        <form
+          action={params.locale === "en" ? "/search" : `/${params.locale}/search`}
+          method="GET"
+          className="flex gap-2 max-w-xl mx-auto"
+        >
+          <Input
+            name="keyword"
+            placeholder={params.locale === "en" ? "Search apps..." : "搜索应用..."}
+            className="flex-1"
+            required
+          />
+          <Button type="submit">
+            <Search className="h-4 w-4 mr-2" />
+            {params.locale === "en" ? "Search" : "搜索"}
+          </Button>
+        </form>
+      </div>
 
       {/* 页面头部 */}
-      {/* ...你原本的 App Header 区域不变... */}
+      <div className="mb-8">
+        <div className="flex gap-6">
+          <div className="flex-none">
+            {app.logo && (
+              <img
+                src={app.logo}
+                alt={app.title}
+                className="w-24 h-24 rounded-lg shadow-md object-cover"
+                loading="lazy"
+              />
+            )}
+          </div>
 
-      {/* 描述区 */}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold tracking-tight mb-3">{app.title}</h1>
+
+            {app.intro && <p className="text-lg text-muted-foreground mb-4">{app.intro}</p>}
+
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <time dateTime={app.date} className="flex items-center gap-1">
+                <span className="h-1 w-1 rounded-full bg-muted-foreground" />
+                {new Date(app.date).toLocaleDateString()}
+              </time>
+
+              {category && (
+                <Link
+                  href={`${params.locale === "zh" ? "/zh" : ""}/category/${category.slug}`}
+                  className="flex items-center gap-1 hover:text-primary transition-colors"
+                >
+                  <span className="h-1 w-1 rounded-full bg-green-500" />
+                  {category.name}
+                </Link>
+              )}
+
+              {app.author && (
+                <span className="flex items-center gap-1">
+                  <span className="h-1 w-1 rounded-full bg-muted-foreground" />
+                  {app.author}
+                </span>
+              )}
+
+              {app.website && (
+                <a
+                  href={app.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:text-primary transition-colors"
+                >
+                  <span className="h-1 w-1 rounded-full bg-blue-500" />
+                  {params.locale === "en" ? "Official Website" : "官方网站"}
+                </a>
+              )}
+
+              {tags &&
+                tags.length > 0 &&
+                tags.map((tag) => (
+                  <Link
+                    key={`tag-${tag.id}`}
+                    href={params.locale === "en" ? `/tag/${tag.id}` : `/${params.locale}/tag/${tag.id}`}
+                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-orange-500" />
+                    {params.locale === "en" ? tag.enname : tag.name}
+                  </Link>
+                ))}
+            </div>
+
+            {app.appid && (
+              <div className="mt-6">
+                <DownloadButton appId={params.id} locale={params.locale} />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* 内容区 */}
       <div className="prose prose-lg dark:prose-invert mx-auto mb-12">
         <div className="rounded-lg border shadow-sm overflow-hidden">
           <div className="p-8">
@@ -200,10 +290,42 @@ export default async function AppPage({ params }: { params: { id: string; locale
             </div>
           </div>
 
-          {/* 截图区域 */}
           {screenshots.length > 0 && (
             <div className="border-t bg-[#F8FAFC]">
-              {/* ...截图渲染逻辑保留原样... */}
+              <h2 className="text-2xl font-bold p-8 pb-4">
+                {params.locale === "en" ? "Screenshots" : "应用截图"}
+              </h2>
+              <div className="relative">
+                <div className="overflow-x-auto pb-4 px-8">
+                  <div className="flex gap-4 min-w-0">
+                    {screenshots.map((screenshot) => (
+                      <div
+                        key={screenshot}
+                        className="relative group flex-none w-[300px]"
+                      >
+                        <img
+                          src={screenshot}
+                          alt={`${app.title} screenshot`}
+                          className="rounded-lg shadow-lg w-full h-auto hover:opacity-95 transition-opacity"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                          <span className="text-white text-sm">
+                            {params.locale === "en" ? "Click to view full size" : "点击查看原图"}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {screenshots.length > 2 && (
+                  <>
+                    <div className="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />
+                    <div className="absolute left-0 top-0 bottom-4 w-12 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+                  </>
+                )}
+              </div>
             </div>
           )}
         </div>
