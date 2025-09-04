@@ -129,12 +129,12 @@ export function generateMetadata({ params }: { params: { locale: string } }) {
 
   const metadata = {
     zh: {
-      title: '陪玩电竞软件分类',
-      description: '陪玩电竞提供各种类型软件下载，包括系统工具、办公软件、图像处理、音视频工具、编程开发等多个分类的优质软件',
+      title: '软件分类',
+      description: '提供各种类型软件下载，包括系统工具、办公软件、图像处理、音视频工具、编程开发等多个分类的优质软件',
     },
     en: {
-      title: 'PWDJ Software Categories',
-      description: 'PWDJ provides various types of software downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.',
+      title: 'Software Categories',
+      description: 'Provides various types of software downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.',
     }
   };
 
@@ -228,10 +228,10 @@ export default async function CategoryPage({
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-900 mb-3">
-              {locale === 'en' ? 'Public Web Download Jar' : '海量开源免费安卓应用下载'}
+              {locale === 'en' ? 'Your Zone, Your Download' : '你的下载，你的地盤'}
             </h1>
             <p className="text-xl text-gray-600 mb-8">
-              {locale === 'en' ? 'Unleash Your Android\'s Potential!' : '释放安卓潜能，提高生产力！'}
+              {locale === 'en' ? 'Free Download, Free Use!' : '免费下载，免费使用！'}
             </p>
           </div>
 

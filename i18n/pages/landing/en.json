@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "PWDJ",
+      "title": "CWYZ",
       "logo": {
         "src": "/logo.png",
-        "alt": "PWDJ"
+        "alt": "CWYZ"
       },
       "url": "/"
     },
@@ -40,15 +40,15 @@
     "show_locale": true
   },
   "hero": {
-    "title": "All Android Software Download",
+    "title": "Your Zone, Your Download",
     "highlight_text": "Free and Safe",
-    "description": "PWDJ means: Public Web Download Jar, we provide all android software download, free and safe.",
+    "description": "CWYZ means: Your Zone, Your Download, we provide all android software download, free and safe.",
     "announcement": {
       "label": "Open Source",
-      "title": "🎉 Open Source APK",
+      "title": "🎉 Open Source Software",
       "url": "/#pricing"
     },
-    "tip": "🎁 Free Android Software Download",
+    "tip": "🎁 Free Software Download",
     "buttons": [
       {
         "title": "Get Started",
@@ -69,7 +69,7 @@
     "show_badge": false
   },
   "branding": {
-    "title": "ShipAny is built on the shoulders of giants",
+    "title": "CWYZ is built on the shoulders of giants",
     "items": [
       {
         "title": "Next.js",
@@ -110,9 +110,9 @@
   },
   "introduce": {
     "name": "introduce",
-    "title": "What is PWDJ",
+    "title": "What is CWYZ",
     "label": "Introduce",
-    "description": "PWDJ is a APK software download website. Built in a variety of templates and components.",
+    "description": "CWYZ is a software download website. Built in a variety of templates and components.",
     "image": {
       "src": "/imgs/features/1.png"
     },
@@ -136,7 +136,7 @@
   },
   "benefit": {
     "name": "benefit",
-    "title": "Why Choose PWDJ",
+    "title": "Why Choose CWYZ",
     "label": "Benefits",
     "description": "Get everything you need to launch your software download website - from ready-to-use templates to technical support.",
     "items": [
@@ -168,7 +168,7 @@
   },
   "usage": {
     "name": "usage",
-    "title": "How to Launch with PWDJ",
+    "title": "How to Launch with CWYZ",
     "description": "Get your software download website running in three simple steps:",
     "image": {
       "src": "/imgs/features/1.png"
@@ -177,8 +177,8 @@
     "text_align": "center",
     "items": [
       {
-        "title": "Get PWDJ",
-        "description": "Buy PWDJ with a one-time payment. Check your email for the code and documentation.",
+        "title": "Get CWYZ",
+        "description": "Buy CWYZ with a one-time payment. Check your email for the code and documentation.",
         "image": {
           "src": "/imgs/features/5.png"
         }
@@ -387,7 +387,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "starter",
-        "product_name": "PWDJ Software Download",
+        "product_name": "CWYZ Software Download",
         "credits": 2000,
         "valid_months": 24
       },
@@ -415,7 +415,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "standard",
-        "product_name": "PWDJ Software Download",
+        "product_name": "CWYZ Software Download",
         "credits": 20000,
         "valid_months": 50
       },
@@ -443,7 +443,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "premium",
-        "product_name": "PWDJ Premium Member",
+        "product_name": "CWYZ Premium Member",
         "credits": 50000,
         "valid_months": 120
       }
@@ -451,55 +451,55 @@
   },
   "testimonial": {
     "name": "testimonial",
-    "label": "Testimonial",
-    "title": "What Users Say About PWDJ",
-    "description": "Hear from developers and founders who launched their AI startups with PWDJ.",
+    "label": "User Reviews",
+    "title": "What Users Say About CWYZ.com",
+    "description": "Hear from developers, professionals, and everyday users who rely on CWYZ for their free software needs.",
     "icon": "GoThumbsup",
     "items": [
       {
-        "title": "James Wilson",
-        "label": "Android Enthusiast",
-        "description": "PWDJ is my go-to site! All Android apps are free and frequently updated. The games section is fantastic - you can find modified versions of popular games here. Absolutely love it!",
+        "title": "Sarah Johnson",
+        "label": "Graphic Designer",
+        "description": "CWYZ has been a game-changer for my design workflow! I've found amazing free alternatives to expensive software that work just as well. The download speeds are incredibly fast, and I love that there's no registration required.",
         "image": {
           "src": "/imgs/users/1.png"
         }
       },
       {
-        "title": "Emma Thompson",
-        "label": "Content Creator",
-        "description": "Found so many useful video editing apps on PWDJ, all free versions that saved me tons on subscriptions. Clean interface with no ads and fast downloads - it's my essential Android app source!",
+        "title": "Mike Chen",
+        "label": "Software Developer",
+        "description": "As a developer, I appreciate CWYZ's commitment to clean, safe downloads. Every tool I've downloaded has been virus-free and exactly as advertised. The variety of programming tools and utilities is impressive!",
         "image": {
           "src": "/imgs/users/2.png"
         }
       },
       {
-        "title": "Michael Brown",
-        "label": "Student",
-        "description": "As a student, PWDJ is a lifesaver! All apps are free, saving me a lot of money. They have everything from educational apps to utility tools, and all versions are safe and reliable.",
+        "title": "Emily Rodriguez",
+        "label": "College Student",
+        "description": "Being on a tight budget, CWYZ has saved me hundreds of dollars on software. From productivity tools to media players, everything I need for my studies is available for free. The site is so easy to navigate too!",
         "image": {
           "src": "/imgs/users/3.png"
         }
       },
       {
-        "title": "Sophia Garcia",
-        "label": "Android Expert",
-        "description": "I've tried many Android app download sites, but PWDJ stands out. Clear categories, timely updates, and most importantly, all apps are free. They're really making a difference!",
+        "title": "David Thompson",
+        "label": "IT Professional",
+        "description": "I've been using CWYZ for over two years now. What sets it apart is the quality control - every software package is thoroughly tested and clean. No bloatware, no hidden malware, just pure, functional software.",
         "image": {
           "src": "/imgs/users/4.png"
         }
       },
       {
-        "title": "Daniel Anderson",
-        "label": "Tech Enthusiast",
-        "description": "PWDJ is my primary source for Android apps! They have everything from system tools to entertainment apps. Love their security commitment - never downloaded a problematic app.",
+        "title": "Lisa Wang",
+        "label": "Small Business Owner",
+        "description": "CWYZ helps keep my business costs down by providing access to professional-grade free software. From accounting tools to design applications, I can equip my team without breaking the bank. Highly recommended!",
         "image": {
           "src": "/imgs/users/5.png"
         }
       },
       {
-        "title": "Olivia Martinez",
-        "label": "Regular User",
-        "description": "A friend recommended PWDJ, and it's amazing! I can find any Android app I need, all for free, no membership required. The interface is user-friendly, perfect for beginners!",
+        "title": "James Wilson",
+        "label": "Tech Enthusiast",
+        "description": "I've tried many download sites, but CWYZ is by far the best. Lightning-fast downloads, latest versions always available, and zero spam or unwanted software. It's become my go-to source for all free software needs.",
         "image": {
           "src": "/imgs/users/6.png"
         }
@@ -509,65 +509,66 @@
   "faq": {
     "name": "faq",
     "label": "FAQ",
-    "title": "Frequently Asked Questions About APK Software",
-    "description": "Have questions about APK software? Find answers below or contact us.",
+    "title": "Frequently Asked Questions About CWYZ Free Software Downloads",
+    "description": "Have questions about downloading software from CWYZ? Find answers below or contact us.",
     "items": [
       {
-        "title": "What is APK Software?",
-        "description": "APK software refers to portable applications that don't require traditional installation. They can run directly after extraction, don't modify system registry, and don't leave residual files after deletion, making them clean and efficient to use."
+        "title": "Is CWYZ safe to use for downloading software?",
+        "description": "Yes, CWYZ is completely safe! We thoroughly scan all software before making it available, verify sources for authenticity, and maintain strict security protocols. Unlike many other download sites, we don't bundle adware or unwanted toolbars with our downloads, ensuring you get clean, original software every time."
       },
       {
-        "title": "What's the difference between APK and Portable Software?",
-        "description": "APK software and portable software are essentially the same thing. Both terms refer to applications that can run without installation. The term 'APK' emphasizes its environmental friendliness (leaving no system traces), while 'portable' emphasizes its mobility between computers."
+        "title": "Do I need to create an account to download software?",
+        "description": "No account creation required! CWYZ allows you to download software immediately without registration. Simply browse our catalog, find what you need, and download instantly. However, creating a free account gives you access to download history, personalized recommendations, and faster access to new releases."
       },
       {
-        "title": "Do I need to install APK Software?",
-        "description": "No, that's the beauty of APK software! Simply download, extract the files, and run the executable (.exe) file directly. No installation process is needed, making it perfect for portable use on any computer."
+        "title": "Are the downloads really free?",
+        "description": "Absolutely! All software available on CWYZ is completely free to download and use. We offer a mix of open-source software, freeware, and free trials of premium applications. There are no hidden costs, subscription traps, or mandatory payments - just genuine free software for everyone."
       },
       {
-        "title": "Is APK Software safe to use?",
-        "description": "Yes, our APK software is safe to use. We carefully verify all software before publishing, scan for viruses, and only provide software from reliable sources. Additionally, APK software's portable nature means it won't affect your system files."
+        "title": "How does CWYZ ensure software quality?",
+        "description": "We have a rigorous quality control process: every piece of software is tested by our team, scanned for malware with multiple antivirus engines, verified for authenticity from original developers, and checked for proper functionality. We only host software from reputable sources and trusted developers."
       },
       {
-        "title": "How do I use APK Software?",
-        "description": "Using APK software is simple: 1) Download the zip file 2) Extract it to your preferred location 3) Run the main program file (.exe) directly. You can even carry it on a USB drive and use it on different computers."
+        "title": "What types of software can I find on CWYZ?",
+        "description": "CWYZ hosts a comprehensive library including productivity tools, multimedia applications, system utilities, developer tools, games, educational software, security applications, and much more. Our catalog spans everything from essential system tools to specialized professional software, all organized in easy-to-browse categories."
       },
       {
-        "title": "Can I run APK Software from a USB drive?",
-        "description": "Yes! That's one of the main advantages of APK software. You can store it on a USB drive and run it on any compatible computer without installation. This makes it perfect for carrying your favorite tools wherever you go."
+        "title": "How fast are the download speeds on CWYZ?",
+        "description": "CWYZ uses a global Content Delivery Network (CDN) to ensure lightning-fast downloads from servers closest to your location. Most users experience download speeds 3-5 times faster than typical download sites, with no artificial speed limits or premium upgrade requirements for faster downloads."
       },
       {
-        "title": "What are the advantages of APK Software?",
-        "description": "APK software offers numerous benefits: runs without installation, works from any storage device (USB, external drive), doesn't modify system files, easy to backup, perfect for work environments with software installation restrictions, and ideal for testing software without commitment."
+        "title": "Can I download software on mobile devices?",
+        "description": "Yes! CWYZ is fully optimized for mobile devices. You can browse and download software directly on your smartphone or tablet. Our responsive design ensures a seamless experience across all devices, and downloads work perfectly on Android, iOS, and other mobile platforms."
       },
       {
-        "title": "Will APK Software save my settings?",
-        "description": "Yes, APK software typically saves its settings in its own folder rather than in system locations. This means your preferences and settings travel with the software, making it truly portable between different computers."
+        "title": "What if I encounter issues with downloaded software?",
+        "description": "Our dedicated support team is here to help! If you experience any problems with software downloaded from CWYZ, contact us through our support page. We provide installation guidance, troubleshooting assistance, and can help you find alternative solutions if needed. Most issues are resolved within 24 hours."
       },
       {
-        "title": "Can I remove APK Software completely?",
-        "description": "Yes! Since APK software doesn't install anything into your system, removal is as simple as deleting the folder containing the program. No uninstallation process is needed, and no residual files will be left behind."
+        "title": "Does CWYZ offer the latest software versions?",
+        "description": "Yes, we pride ourselves on maintaining up-to-date software versions. Our automated systems regularly check for updates from software developers, and we typically have new releases available within hours of their official launch. You'll always find the latest stable versions on CWYZ."
       },
       {
-        "title": "Do APK Software work on all Windows versions?",
-        "description": "Most APK software work across different Windows versions, but it's always good to check the compatibility requirements. We clearly list the supported Windows versions for each software in its description."
+        "title": "How does CWYZ compare to other download sites?",
+        "description": "CWYZ stands out by offering completely clean downloads without bundled adware, faster download speeds through our CDN network, no registration requirements, comprehensive virus scanning, user-friendly interface, and genuine free software without subscription tricks. Users consistently rate us higher than traditional download sites for safety, speed, and reliability."
       }
     ]
   },
+
   "cta": {
     "name": "cta",
-    "title": "Ship your first APK software",
-    "description": "Start from here, ship with PWDJ.com.",
+    "title": "Download your first software",
+    "description": "Start from here, download with CWYZ.com.",
     "buttons": [
       {
-        "title": "Get PWDJ.com",
-        "url": "https://pwdj.com",
+        "title": "Get CWYZ.com",
+        "url": "https://cwyz.com",
         "target": "_blank",
         "icon": "GoArrowUpRight"
       },
       {
         "title": "Read Document",
-        "url": "https://pwdj.com",
+        "url": "https://cwyz.com",
         "target": "_blank",
         "variant": "outline"
       }
@@ -576,15 +577,15 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "PWDJ.com",
-      "description": "PWDJ.com is a website for APK software.",
+      "title": "CWYZ.com",
+      "description": "CWYZ.com is a website for software.",
       "logo": {
         "src": "/logo.png",
-        "alt": "PWDJ.com"
+        "alt": "CWYZ.com"
       },
       "url": "/"
     },
-    "copyright": "© 2025 • PWDJ.com All rights reserved.",
+    "copyright": "© 2025 • CWYZ.com All rights reserved.",
     "nav": {
       "items": [
         {
@@ -628,15 +629,15 @@
           ]
         },
         {
-          "title": "PWDJ",
+          "title": "CWYZ",
           "children": [
             {
-              "title": "Public",
+              "title": "Your Zone",
               "url": "#",
               "target": "_self"
             },
             {
-              "title": "Web",
+              "title": "Your Download",
               "url": "#",
               "target": "_self"
             },
@@ -646,7 +647,7 @@
               "target": "_self"
             },
             {
-              "title": "Jar",
+              "title": "Software",
               "url": "#",
               "target": "_self"
             }
@@ -677,7 +678,7 @@
         {
           "title": "Email",
           "icon": "RiMailLine",
-          "url": "mailto:support@pwdj.com",
+          "url": "mailto:support@cwyz.com",
           "target": "_self"
         }
       ]

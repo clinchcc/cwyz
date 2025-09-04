@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "陪玩电竞",
+      "title": "CWYZ",
       "logo": {
         "src": "/logo.png",
-        "alt": "PWDJ"
+        "alt": "CWYZ"
       },
       "url": "/"
     },
@@ -43,14 +43,14 @@
     "show_locale": true
   },
   "hero": {
-    "title": "开源安卓软件下载",
-    "description": "免费+安全+可用+最新！",
+    "title": "你的下载，你的地盤",
+    "description": "免费下载，免费使用！",
     "announcement": {
       "label": "开源",
-      "title": "🎉 免费安卓软件下载",
+      "title": "🎉 免费软件下载",
       "url": "/zh/category"
     },
-    "tip": "🎁 免费安卓软件下载",
+    "tip": "🎁 免费软件下载",
     "buttons": [
       {
         "title": "立即开始",
@@ -64,7 +64,7 @@
     "show_badge": false
   },
   "branding": {
-    "title": "安卓软件下载",
+    "title": "你的下载，你的地盤",
     "items": [
       {
         "title": "Next.js",
@@ -105,9 +105,9 @@
   },
   "introduce": {
     "name": "introduce",
-    "title": "什么是 ShipAny",
+    "title": "什么是 CWYZ",
     "label": "介绍",
-    "description": "ShipAny 是一个用于构建 AI SaaS 创业项目的 NextJS 模板，内置多种模板和组件。",
+    "description": "CWYZ 是一个用于构建 AI SaaS 创业项目的 NextJS 模板，内置多种模板和组件。",
     "image": {
       "src": "/imgs/features/1.png"
     },
@@ -329,7 +329,7 @@
   "stats": {
     "name": "stats",
     "label": "统计",
-    "title": "用户喜爱 ShipAny",
+    "title": "用户喜爱 CWYZ",
     "description": "因为它易于使用且快速发布。",
     "icon": "FaRegHeart",
     "items": [
@@ -410,7 +410,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "standard",
-        "product_name": "陪玩电竟 高级会员",
+        "product_name": "CWYZ 高级会员",
         "credits": 20000,
         "valid_months": 50
       },
@@ -438,7 +438,7 @@
           "icon": "RiFlashlightFill"
         },
         "product_id": "premium",
-        "product_name": "陪玩电竟 白金会员",
+        "product_name": "CWYZ 白金会员",
         "credits": 50000,
         "valid_months": 120
       }
@@ -446,55 +446,55 @@
   },
   "testimonial": {
     "name": "testimonial",
-    "label": "用户评价",
-    "title": "用户如何评价 PWDJ.com",
-    "description": "听听使用 PWDJ.com 启动绿色软件的开发者和创始人怎么说。",
+    "label": "User Reviews",
+    "title": "What Users Say About CWYZ.com",
+    "description": "Hear from developers, professionals, and everyday users who rely on CWYZ for their free software needs.",
     "icon": "GoThumbsup",
     "items": [
       {
-        "title": "陈小明",
-        "label": "安卓玩家",
-        "description": "PWDJ 是我的必备网站！所有安卓软件都是免费的，而且更新特别快。最喜欢的是游戏专区，很多热门游戏的修改版都能在这找到，太赞了！",
+        "title": "Sarah Johnson",
+        "label": "Graphic Designer",
+        "description": "CWYZ has been a game-changer for my design workflow! I've found amazing free alternatives to expensive software that work just as well. The download speeds are incredibly fast, and I love that there's no registration required.",
         "image": {
           "src": "/imgs/users/1.png"
         }
       },
       {
-        "title": "林小雨",
-        "label": "短视频创作者",
-        "description": "在 PWDJ 找到了很多实用的视频编辑软件，全是免费版，省了不少订阅费。界面简洁没广告，下载速度也很快，是我离不开的安卓软件站。",
+        "title": "Mike Chen",
+        "label": "Software Developer",
+        "description": "As a developer, I appreciate CWYZ's commitment to clean, safe downloads. Every tool I've downloaded has been virus-free and exactly as advertised. The variety of programming tools and utilities is impressive!",
         "image": {
           "src": "/imgs/users/2.png"
         }
       },
       {
-        "title": "张大伟",
-        "label": "学生党",
-        "description": "作为学生党，特别感谢 PWDJ！这里的软件都免费，省下了很多钱。学习类软件、工具类应用应有尽有，而且都是安全可靠的版本。",
+        "title": "Emily Rodriguez",
+        "label": "College Student",
+        "description": "Being on a tight budget, CWYZ has saved me hundreds of dollars on software. From productivity tools to media players, everything I need for my studies is available for free. The site is so easy to navigate too!",
         "image": {
           "src": "/imgs/users/3.png"
         }
       },
       {
-        "title": "赵雪",
-        "label": "安卓达人",
-        "description": "用过很多安卓软件下载站，还是觉得 PWDJ 最靠谱。分类清晰，更新及时，最重要的是所有软件都免费提供，真的帮了很多人！",
+        "title": "David Thompson",
+        "label": "IT Professional",
+        "description": "I've been using CWYZ for over two years now. What sets it apart is the quality control - every software package is thoroughly tested and clean. No bloatware, no hidden malware, just pure, functional software.",
         "image": {
           "src": "/imgs/users/4.png"
         }
       },
       {
-        "title": "王小帅",
-        "label": "手机发烧友",
-        "description": "PWDJ 是我的软件源头站！各类安卓软件应有尽有，从系统工具到娱乐软件，一应俱全。特别喜欢他们的安全承诺，从没下到过有问题的软件。",
+        "title": "Lisa Wang",
+        "label": "Small Business Owner",
+        "description": "CWYZ helps keep my business costs down by providing access to professional-grade free software. From accounting tools to design applications, I can equip my team without breaking the bank. Highly recommended!",
         "image": {
           "src": "/imgs/users/5.png"
         }
       },
       {
-        "title": "李晓华",
-        "label": "普通用户",
-        "description": "朋友推荐了 PWDJ，真是太好用了！想要的安卓软件都能找到，全是免费的，也不用注册会员。界面简单好用，对新手特别友好！",
+        "title": "James Wilson",
+        "label": "Tech Enthusiast",
+        "description": "I've tried many download sites, but CWYZ is by far the best. Lightning-fast downloads, latest versions always available, and zero spam or unwanted software. It's become my go-to source for all free software needs.",
         "image": {
           "src": "/imgs/users/6.png"
         }
@@ -503,50 +503,66 @@
   },
   "faq": {
     "name": "faq",
-    "label": "常见问题",
-    "title": "关于安卓软件的常见问题",
-    "description": "还有其他问题？通过 QQ 群或电子邮件联系我们。",
+    "label": "FAQ",
+    "title": "Frequently Asked Questions About CWYZ Free Software Downloads",
+    "description": "Have questions about downloading software from CWYZ? Find answers below or contact us.",
     "items": [
       {
-        "title": "PWDJ是什么样的网站？",
-        "description": "PWDJ是一个专注于提供安卓软件下载的网站。我们精心筛选每一款软件，确保它们无广告、无捆绑、无病毒，让用户可以安全放心地下载使用。"
+        "title": "Is CWYZ safe to use for downloading software?",
+        "description": "Yes, CWYZ is completely safe! We thoroughly scan all software before making it available, verify sources for authenticity, and maintain strict security protocols. Unlike many other download sites, we don't bundle adware or unwanted toolbars with our downloads, ensuring you get clean, original software every time."
       },
       {
-        "title": "什么是安卓软件？",
-        "description": "安卓软件是指可以在安卓手机上运行的软件。它不会在系统中留下注册表等痕迹，不会影响系统运行，使用完可以直接删除，非常清爽干净。"
+        "title": "Do I need to create an account to download software?",
+        "description": "No account creation required! CWYZ allows you to download software immediately without registration. Simply browse our catalog, find what you need, and download instantly. However, creating a free account gives you access to download history, personalized recommendations, and faster access to new releases."
       },
       {
-        "title": "PWDJ上的软件安全吗？",
-        "description": "安全性是我们的首要考虑。所有软件在上架前都经过严格的安全检测，确保无病毒、无木马、无恶意代码。我们还会定期更新软件版本，修复安全漏洞。"
+        "title": "Are the downloads really free?",
+        "description": "Absolutely! All software available on CWYZ is completely free to download and use. We offer a mix of open-source software, freeware, and free trials of premium applications. There are no hidden costs, subscription traps, or mandatory payments - just genuine free software for everyone."
       },
       {
-        "title": "如何下载软件？",
-        "description": "在网站上找到您需要的软件后，点击下载按钮即可。我们提供多个下载源（包括国内外服务器），确保您能获得最快的下载速度。下载完成后解压即可使用。"
+        "title": "How does CWYZ ensure software quality?",
+        "description": "We have a rigorous quality control process: every piece of software is tested by our team, scanned for malware with multiple antivirus engines, verified for authenticity from original developers, and checked for proper functionality. We only host software from reputable sources and trusted developers."
       },
       {
-        "title": "软件出现问题怎么办？",
-        "description": "如果您在使用过程中遇到任何问题，可以通过网站留言、QQ群或邮件联系我们。我们的技术支持团队会在24小时内回复并协助解决问题。"
+        "title": "What types of software can I find on CWYZ?",
+        "description": "CWYZ hosts a comprehensive library including productivity tools, multimedia applications, system utilities, developer tools, games, educational software, security applications, and much more. Our catalog spans everything from essential system tools to specialized professional software, all organized in easy-to-browse categories."
       },
       {
-        "title": "如何成为网站的合作伙伴？",
-        "description": "我们欢迎软件开发者和其他下载站与我们合作。您可以通过邮件联系我们，详细说明合作意向。我们会认真评估每一个合作请求。"
+        "title": "How fast are the download speeds on CWYZ?",
+        "description": "CWYZ uses a global Content Delivery Network (CDN) to ensure lightning-fast downloads from servers closest to your location. Most users experience download speeds 3-5 times faster than typical download sites, with no artificial speed limits or premium upgrade requirements for faster downloads."
+      },
+      {
+        "title": "Can I download software on mobile devices?",
+        "description": "Yes! CWYZ is fully optimized for mobile devices. You can browse and download software directly on your smartphone or tablet. Our responsive design ensures a seamless experience across all devices, and downloads work perfectly on Android, iOS, and other mobile platforms."
+      },
+      {
+        "title": "What if I encounter issues with downloaded software?",
+        "description": "Our dedicated support team is here to help! If you experience any problems with software downloaded from CWYZ, contact us through our support page. We provide installation guidance, troubleshooting assistance, and can help you find alternative solutions if needed. Most issues are resolved within 24 hours."
+      },
+      {
+        "title": "Does CWYZ offer the latest software versions?",
+        "description": "Yes, we pride ourselves on maintaining up-to-date software versions. Our automated systems regularly check for updates from software developers, and we typically have new releases available within hours of their official launch. You'll always find the latest stable versions on CWYZ."
+      },
+      {
+        "title": "How does CWYZ compare to other download sites?",
+        "description": "CWYZ stands out by offering completely clean downloads without bundled adware, faster download speeds through our CDN network, no registration requirements, comprehensive virus scanning, user-friendly interface, and genuine free software without subscription tricks. Users consistently rate us higher than traditional download sites for safety, speed, and reliability."
       }
     ]
   },
   "cta": {
     "name": "cta",
-    "title": "启动您的第一个安卓软件",
-    "description": "从这里开始，使用 PWDJ.com 启动。",
+    "title": "下载您的第一个软件",
+    "description": "从这里开始，使用 CWYZ.com 下载。",
     "buttons": [
       {
-        "title": "获取 PWDJ.com",
-        "url": "https://pwdj.com",
+        "title": "获取 CWYZ.com",
+        "url": "https://cwyz.com",
         "target": "_blank",
         "icon": "GoArrowUpRight"
       },
       {
         "title": "阅读文档",
-        "url": "https://pwdj.com",
+        "url": "https://cwyz.com",
         "target": "_blank",
         "variant": "outline"
       }
@@ -555,15 +571,15 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "PWDJ.com",
-      "description": "PWDJ.com 专注于安卓软件的下载站。",
+      "title": "CWYZ.com",
+      "description": "CWYZ.com 专注于软件的下载站。",
       "logo": {
         "src": "/logo.png",
-        "alt": "PWDJ.com"
+        "alt": "CWYZ.com"
       },
       "url": "/en"
     },
-    "copyright": "© 2025 • PWDJ.com 保留所有权利。",
+    "copyright": "© 2025 • CWYZ.com 保留所有权利。",
     "nav": {
       "items": [
         {
@@ -610,12 +626,12 @@
           "title": "友情链接",
           "children": [
             {
-              "title": "PWDJ",
+              "title": "CWYZ",
               "url": "#",
               "target": "_self"
             },
             {
-              "title": "陪玩电竟",
+              "title": "CWYZ",
               "url": "#",
               "target": "_self"
             }
@@ -647,7 +663,7 @@
         {
           "title": "邮箱",
           "icon": "RiMailLine",
-          "url": "mailto:support@pwdj.com",
+          "url": "mailto:support@cwyz.com",
           "target": "_self"
         }
       ]
