@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "APP Download | PWDJ",
-    "description": "PWDJ provides various types of APP downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.",
-    "keywords": "PWDJ, APP download, system tools, office software, image processing, audio/video tools, programming development"
+    "title": "APP Download | CWYZ",
+    "description": "CWYZ provides various types of APP downloads, including system tools, office software, image processing, audio/video tools, programming development, and more.",
+    "keywords": "CWYZ, APP download, system tools, office software, image processing, audio/video tools, programming development"
   },
   "user": {
     "sign_in": "Sign In",
@@ -80,7 +80,7 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "News, resources, and updates about PWDJ",
+    "description": "News, resources, and updates about CWYZ",
     "read_more_text": "Read More"
   }
 }
