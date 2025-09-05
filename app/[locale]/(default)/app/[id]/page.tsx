@@ -272,21 +272,7 @@ export default async function AppPage({ params }: { params: { id: string; locale
 
             {/* ✅ Google 广告位 */}
             <div className="my-6">
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block", textAlign: "center" }}
-                data-ad-layout="in-article"
-                data-ad-format="fluid"
-                data-ad-client="ca-pub-8675172969605348"
-                data-ad-slot="6552032065"
-              />
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                  `,
-                }}
-              />
+             
             </div>
           </div>
 
