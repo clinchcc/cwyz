@@ -133,7 +133,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
       : `${categoryName}列表`,
     description: locale === 'en'
       ? `Download ${categoryName} software from CWYZ`
-      : `陪玩电竞提供${categoryName}分类下载`,
+      : `提供${categoryName}分类下载`,
     alternates: {
       canonical: canonicalUrl,
     }
